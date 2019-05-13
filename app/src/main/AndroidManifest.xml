@@ -185,17 +185,17 @@
 		<activity
 			android:name="no.nordicsemi.android.nrftoolbox.rsc.settings.SettingsActivity"
 			android:label="@string/rsc_settings_title" />
-		<activity
-			android:name="no.nordicsemi.android.nrftoolbox.csc.CSCActivity"
-			android:icon="@drawable/ic_csc_feature"
-			android:label="@string/csc_feature_title"
-			android:launchMode="singleTask" >
-			<intent-filter>
-				<action android:name="android.intent.action.MAIN" />
+		<!--<activity-->
+			<!--android:name="no.nordicsemi.android.nrftoolbox.csc.CSCActivity"-->
+			<!--android:icon="@drawable/ic_csc_feature"-->
+			<!--android:label="@string/csc_feature_title"-->
+			<!--android:launchMode="singleTask" >-->
+			<!--<intent-filter>-->
+				<!--<action android:name="android.intent.action.MAIN" />-->
 
-				<category android:name="no.nordicsemi.android.nrftoolbox.LAUNCHER" />
-			</intent-filter>
-		</activity>
+				<!--<category android:name="no.nordicsemi.android.nrftoolbox.LAUNCHER" />-->
+			<!--</intent-filter>-->
+		<!--</activity>-->
 		<activity
 			android:name="no.nordicsemi.android.nrftoolbox.csc.settings.SettingsActivity"
 			android:label="@string/csc_settings_title" />

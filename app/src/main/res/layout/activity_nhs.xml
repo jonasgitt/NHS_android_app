@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:gravity="center"
+        android:text="NHS RPM Base Station"
+        android:textAlignment="center"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:textSize="30sp"
+        android:textStyle="bold"
+        android:typeface="monospace"
+        android:visibility="visible" />
+
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="top"
+        android:orientation="horizontal"
+        android:showDividers="end"
+        android:stretchColumns="*">
+
+
+        <TableRow>
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="@dimen/reading_row_height"
+                android:gravity="center"
+                android:text="Heart Rate"
+                android:textSize="24sp" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="@dimen/reading_row_height"
+                android:gravity="center"
+                android:padding="3dip"
+                android:text="Skin Temperature"
+                android:textSize="24sp" />
+        </TableRow>
+
+        <TableRow>
+
+            <TextView
+                android:id="@+id/value"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/reading_row_height"
+                android:gravity="center"
+                android:text="@string/not_available_value"
+                android:textSize="24sp" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="@dimen/reading_row_height"
+                android:gravity="center"
+                android:padding="3dip"
+                android:text="@string/not_available_value"
+                android:textSize="24sp" />
+        </TableRow>
+
+        <TableRow>
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="@dimen/reading_row_height"
+                android:gravity="center"
+                android:padding="0dip"
+                android:text="Blood Oxygenation"
+                android:textSize="24sp" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="@dimen/reading_row_height"
+                android:gravity="center"
+                android:padding="3dip"
+                android:text="Blood Pressure"
+                android:textSize="24sp" />
+        </TableRow>
+
+
+        <TableRow>
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="@dimen/reading_row_height"
+                android:gravity="center"
+                android:padding="0dip"
+                android:text="@string/not_available_value"
+                android:textSize="24sp" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="@dimen/reading_row_height"
+                android:gravity="center"
+                android:padding="3dip"
+                android:text="@string/not_available_value"
+                android:textSize="24sp" />
+        </TableRow>
+
+        <TableRow>
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="@dimen/reading_row_height"
+                android:gravity="center"
+                android:padding="3dip"
+                android:text="Pedometer"
+                android:textSize="24sp" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="@dimen/reading_row_height"
+                android:gravity="center"
+                android:padding="3dip"
+                android:text="Battery Status"
+                android:textSize="24sp" />
+        </TableRow>
+
+        <TableRow>
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="@dimen/reading_row_height"
+                android:gravity="center"
+                android:padding="3dip"
+                android:text="@string/not_available_value"
+                android:textSize="24sp" />
+
+            <TextView
+                android:layout_width="76dp"
+                android:layout_height="90dp"
+                android:gravity="center"
+                android:padding="3dip"
+                android:text="@string/not_available_value"
+                android:textSize="24sp" />
+        </TableRow>
+
+    </TableLayout>
+
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/action_connect"
+        style="@style/Widget.Connect"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="@dimen/activity_vertical_margin_bottom"
+        android:onClick="onConnectClicked"
+        android:text="@string/action_connect"/>
+
+</LinearLayout>
