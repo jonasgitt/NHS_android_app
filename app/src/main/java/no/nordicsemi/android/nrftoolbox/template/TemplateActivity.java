@@ -48,7 +48,7 @@ public class TemplateActivity extends BleProfileServiceReadyActivity<TemplateSer
 
 	// TODO change view references to match your need
 	private TextView mValueView;
-	private TextView mBatteryLevelView;
+	//private TextView mBatteryLevelView;
 
 	@Override
 	protected void onCreateView(final Bundle savedInstanceState) {
@@ -60,13 +60,13 @@ public class TemplateActivity extends BleProfileServiceReadyActivity<TemplateSer
 	private void setGUI() {
 		// TODO assign your views to fields
 		mValueView = findViewById(R.id.value);
-		mBatteryLevelView = findViewById(R.id.battery);
+		//mBatteryLevelView = findViewById(R.id.battery);
 
-		findViewById(R.id.action_set_name).setOnClickListener(v -> {
-			if (isDeviceConnected()) {
-				getService().performAction("Template");
-			}
-		});
+//		findViewById(R.id.action_set_name).setOnClickListener(v -> {
+//			if (isDeviceConnected()) {
+//				getService().performAction("Template");
+//			}
+//		});
 	}
 
 	@Override
@@ -84,7 +84,7 @@ public class TemplateActivity extends BleProfileServiceReadyActivity<TemplateSer
 	protected void setDefaultUI() {
 		// TODO clear your UI
 		mValueView.setText(R.string.not_available_value);
-		mBatteryLevelView.setText(R.string.not_available);
+		//mBatteryLevelView.setText(R.string.not_available);
 	}
 
 	@Override
@@ -149,7 +149,7 @@ public class TemplateActivity extends BleProfileServiceReadyActivity<TemplateSer
 	@Override
 	public void onDeviceDisconnected(final BluetoothDevice device) {
 		super.onDeviceDisconnected(device);
-		mBatteryLevelView.setText(R.string.not_available);
+		//mBatteryLevelView.setText(R.string.not_available);
 	}
 
 	// Handling updates from the device
@@ -161,7 +161,7 @@ public class TemplateActivity extends BleProfileServiceReadyActivity<TemplateSer
 
 	@SuppressWarnings("unused")
 	public void onBatteryLevelChanged(@NonNull final BluetoothDevice device, final int value) {
-		mBatteryLevelView.setText(getString(R.string.battery, value));
+		//mBatteryLevelView.setText(getString(R.string.battery, value));
 	}
 
 	private final BroadcastReceiver mBroadcastReceiver = new BroadcastReceiver() {

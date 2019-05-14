@@ -4,5 +4,4 @@
     <dimen name="reading_row_height">70dp</dimen>
 
     <string name="readingTitle1">Heart Rate</string>
-    <string name="template_feature_title">Template</string>
 </resources>

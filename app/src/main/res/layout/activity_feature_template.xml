@@ -38,100 +38,100 @@
 
 		<!-- The size of text below must be fixed, therefore dp are used instead of sp -->
 
-		<androidx.appcompat.widget.AppCompatTextView
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:layout_centerVertical="true"
-			android:layout_marginLeft="@dimen/template_feature_title_long_margin"
-			android:rotation="270"
-			android:text="@string/template_feature_title_long"
-			android:textColor="@color/verticalTitleColor"
-			android:textSize="32dp"
-			android:textStyle="bold"/>
+		<!--<androidx.appcompat.widget.AppCompatTextView-->
+			<!--android:layout_width="wrap_content"-->
+			<!--android:layout_height="wrap_content"-->
+			<!--android:layout_centerVertical="true"-->
+			<!--android:layout_marginLeft="@dimen/template_feature_title_long_margin"-->
+			<!--android:rotation="270"-->
+			<!--android:text="@string/template_feature_title_long"-->
+			<!--android:textColor="@color/verticalTitleColor"-->
+			<!--android:textSize="32dp"-->
+			<!--android:textStyle="bold"/>-->
 
-		<TextView
-			android:id="@+id/battery"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:layout_alignParentLeft="true"
-			android:layout_marginLeft="@dimen/feature_horizontal_margin"
-			android:layout_marginTop="@dimen/feature_device_name_margin_top"
-			android:background="@drawable/battery"
-			android:freezesText="true"
-			android:gravity="center"
-			android:text="@string/not_available"
-			android:textColor="#FFFFFF"
-			android:textSize="12sp"/>
+		<!--<TextView-->
+			<!--android:id="@+id/battery"-->
+			<!--android:layout_width="wrap_content"-->
+			<!--android:layout_height="wrap_content"-->
+			<!--android:layout_alignParentLeft="true"-->
+			<!--android:layout_marginLeft="@dimen/feature_horizontal_margin"-->
+			<!--android:layout_marginTop="@dimen/feature_device_name_margin_top"-->
+			<!--android:background="@drawable/battery"-->
+			<!--android:freezesText="true"-->
+			<!--android:gravity="center"-->
+			<!--android:text="@string/not_available"-->
+			<!--android:textColor="#FFFFFF"-->
+			<!--android:textSize="12sp"/>-->
 
-		<androidx.appcompat.widget.AppCompatTextView
-			android:id="@+id/device_name"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:layout_marginLeft="10dp"
-			android:layout_marginTop="@dimen/feature_device_name_margin_top"
-			android:layout_toRightOf="@+id/battery"
-			android:ellipsize="end"
-			android:freezesText="true"
-			android:maxLines="1"
-			android:text="@string/template_default_name"
-			android:textAllCaps="true"
-			android:textAppearance="?android:attr/textAppearanceLarge"/>
+		<!--<androidx.appcompat.widget.AppCompatTextView-->
+			<!--android:id="@+id/device_name"-->
+			<!--android:layout_width="wrap_content"-->
+			<!--android:layout_height="wrap_content"-->
+			<!--android:layout_marginLeft="10dp"-->
+			<!--android:layout_marginTop="@dimen/feature_device_name_margin_top"-->
+			<!--android:layout_toRightOf="@+id/battery"-->
+			<!--android:ellipsize="end"-->
+			<!--android:freezesText="true"-->
+			<!--android:maxLines="1"-->
+			<!--android:text="@string/template_default_name"-->
+			<!--android:textAllCaps="true"-->
+			<!--android:textAppearance="?android:attr/textAppearanceLarge"/>-->
 
 		<!-- Application section -->
 
-		<LinearLayout
-			android:id="@+id/container"
-			style="@style/Widget.List"
-			android:layout_width="match_parent"
-			android:layout_height="wrap_content"
-			android:layout_marginBottom="@dimen/activity_vertical_margin_bottom"
-			android:layout_marginLeft="@dimen/feature_horizontal_margin"
-			android:layout_marginRight="@dimen/feature_horizontal_margin"
-			android:layout_marginTop="@dimen/feature_vertical_margin_top"
-			android:orientation="vertical">
+		<!--<LinearLayout-->
+			<!--android:id="@+id/container"-->
+			<!--style="@style/Widget.List"-->
+			<!--android:layout_width="match_parent"-->
+			<!--android:layout_height="wrap_content"-->
+			<!--android:layout_marginBottom="@dimen/activity_vertical_margin_bottom"-->
+			<!--android:layout_marginLeft="@dimen/feature_horizontal_margin"-->
+			<!--android:layout_marginRight="@dimen/feature_horizontal_margin"-->
+			<!--android:layout_marginTop="@dimen/feature_vertical_margin_top"-->
+			<!--android:orientation="vertical">-->
 
-			<androidx.appcompat.widget.AppCompatTextView
-				style="@style/Widget.ListTitle"
-				android:layout_width="match_parent"
-				android:layout_height="wrap_content"
-				android:text="@string/template_section_header"/>
+			<!--<androidx.appcompat.widget.AppCompatTextView-->
+				<!--style="@style/Widget.ListTitle"-->
+				<!--android:layout_width="match_parent"-->
+				<!--android:layout_height="wrap_content"-->
+				<!--android:text="@string/template_section_header"/>-->
 
-			<TableLayout
-				android:layout_width="match_parent"
-				android:layout_height="wrap_content"
-				android:padding="@dimen/feature_section_padding">
+			<!--<TableLayout-->
+				<!--android:layout_width="match_parent"-->
+				<!--android:layout_height="wrap_content"-->
+				<!--android:padding="@dimen/feature_section_padding">-->
 
-				<TableRow
-					android:layout_width="match_parent"
-					android:layout_height="wrap_content">
+				<!--<TableRow-->
+					<!--android:layout_width="match_parent"-->
+					<!--android:layout_height="wrap_content">-->
 
-					<androidx.appcompat.widget.AppCompatTextView
-						android:layout_width="0dp"
-						android:layout_height="match_parent"
-						android:layout_weight="1"
-						android:gravity="center_vertical"
-						android:text="@string/template_value_title"/>
+					<!--<androidx.appcompat.widget.AppCompatTextView-->
+						<!--android:layout_width="0dp"-->
+						<!--android:layout_height="match_parent"-->
+						<!--android:layout_weight="1"-->
+						<!--android:gravity="center_vertical"-->
+						<!--android:text="@string/template_value_title"/>-->
 
-					<androidx.appcompat.widget.AppCompatTextView
-						android:id="@+id/value"
-						android:layout_width="wrap_content"
-						android:layout_height="match_parent"
-						android:freezesText="true"
-						android:gravity="right"
-						android:text="@string/not_available_value"
-						android:textSize="36sp"/>
+					<!--<androidx.appcompat.widget.AppCompatTextView-->
+						<!--android:id="@+id/value"-->
+						<!--android:layout_width="wrap_content"-->
+						<!--android:layout_height="match_parent"-->
+						<!--android:freezesText="true"-->
+						<!--android:gravity="right"-->
+						<!--android:text="@string/not_available_value"-->
+						<!--android:textSize="36sp"/>-->
 
-					<androidx.appcompat.widget.AppCompatTextView
-						android:id="@+id/value_unit"
-						android:layout_width="45dp"
-						android:layout_height="match_parent"
-						android:freezesText="true"
-						android:gravity="bottom"
-						android:text="@string/template_unit_bpm"/>
-				</TableRow>
+					<!--<androidx.appcompat.widget.AppCompatTextView-->
+						<!--android:id="@+id/value_unit"-->
+						<!--android:layout_width="45dp"-->
+						<!--android:layout_height="match_parent"-->
+						<!--android:freezesText="true"-->
+						<!--android:gravity="bottom"-->
+						<!--android:text="@string/template_unit_bpm"/>-->
+				<!--</TableRow>-->
 
-			</TableLayout>
-		</LinearLayout>
+			<!--</TableLayout>-->
+		<!--</LinearLayout>-->
 
 		<com.google.android.material.button.MaterialButton
 			android:id="@+id/action_set_name"
@@ -141,7 +141,158 @@
 			android:layout_centerHorizontal="true"
 			android:layout_below="@+id/container"
 			app:backgroundTint="@color/nordicLake"
-			android:text="@string/template_action"/>
+			android:text="@string/template_action"
+
+			android:visibility="gone"/>
+
+
+
+
+		<LinearLayout
+			android:orientation="vertical" android:layout_width="match_parent"
+			android:layout_height="match_parent">
+
+			<TextView
+				android:layout_width="match_parent"
+				android:layout_height="100dp"
+				android:gravity="center"
+				android:text="NHS RPM Base Station"
+				android:textAlignment="center"
+				android:textAppearance="@style/TextAppearance.AppCompat.Large"
+				android:textSize="30sp"
+				android:textStyle="bold"
+				android:typeface="monospace"
+				android:visibility="visible" />
+
+			<TableLayout
+				android:layout_width="match_parent"
+				android:layout_height="match_parent"
+				android:gravity="top"
+				android:orientation="horizontal"
+				android:showDividers="end"
+				android:stretchColumns="*">
+
+
+				<TableRow>
+
+					<TextView
+						android:layout_width="0dp"
+						android:layout_height="@dimen/reading_row_height"
+						android:gravity="center"
+						android:text="Heart Rate"
+						android:textSize="24sp" />
+
+					<TextView
+						android:layout_width="0dp"
+						android:layout_height="@dimen/reading_row_height"
+						android:gravity="center"
+						android:padding="3dip"
+						android:text="Skin Temperature"
+						android:textSize="24sp" />
+				</TableRow>
+
+				<TableRow>
+
+					<TextView
+						android:id="@+id/value"
+						android:layout_width="0dp"
+						android:layout_height="@dimen/reading_row_height"
+						android:gravity="center"
+						android:text="@string/not_available_value"
+						android:textSize="24sp" />
+
+					<TextView
+						android:layout_width="0dp"
+						android:layout_height="@dimen/reading_row_height"
+						android:gravity="center"
+						android:padding="3dip"
+						android:text="@string/not_available_value"
+						android:textSize="24sp" />
+				</TableRow>
+
+				<TableRow>
+
+					<TextView
+						android:layout_width="0dp"
+						android:layout_height="@dimen/reading_row_height"
+						android:gravity="center"
+						android:padding="0dip"
+						android:text="Blood Oxygenation"
+						android:textSize="24sp" />
+
+					<TextView
+						android:layout_width="0dp"
+						android:layout_height="@dimen/reading_row_height"
+						android:gravity="center"
+						android:padding="3dip"
+						android:text="Blood Pressure"
+						android:textSize="24sp" />
+				</TableRow>
+
+
+				<TableRow>
+
+					<TextView
+						android:layout_width="0dp"
+						android:layout_height="@dimen/reading_row_height"
+						android:gravity="center"
+						android:padding="0dip"
+						android:text="@string/not_available_value"
+						android:textSize="24sp" />
+
+					<TextView
+						android:layout_width="0dp"
+						android:layout_height="@dimen/reading_row_height"
+						android:gravity="center"
+						android:padding="3dip"
+						android:text="@string/not_available_value"
+						android:textSize="24sp" />
+				</TableRow>
+
+				<TableRow>
+
+					<TextView
+						android:layout_width="0dp"
+						android:layout_height="@dimen/reading_row_height"
+						android:gravity="center"
+						android:padding="3dip"
+						android:text="Pedometer"
+						android:textSize="24sp" />
+
+					<TextView
+						android:id="@+id/battery"
+						android:layout_width="0dp"
+						android:layout_height="@dimen/reading_row_height"
+						android:gravity="center"
+						android:padding="3dip"
+						android:text="Battery Status"
+						android:textSize="24sp" />
+				</TableRow>
+
+				<TableRow>
+
+					<TextView
+						android:id="@+id/value_unit"
+						android:layout_width="0dp"
+						android:layout_height="@dimen/reading_row_height"
+						android:gravity="center"
+						android:padding="3dip"
+						android:text="@string/not_available_value"
+						android:textSize="24sp" />
+
+					<TextView
+						android:id="@+id/device_name"
+						android:layout_width="76dp"
+						android:layout_height="90dp"
+						android:gravity="center"
+						android:padding="3dip"
+						android:text="@string/not_available_value"
+						android:textSize="24sp" />
+				</TableRow>
+
+			</TableLayout>
+		</LinearLayout>
+
 
 		<com.google.android.material.button.MaterialButton
 			android:id="@+id/action_connect"
