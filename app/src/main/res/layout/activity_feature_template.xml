@@ -260,7 +260,6 @@
 						android:textSize="24sp" />
 
 					<TextView
-						android:id="@+id/battery"
 						android:layout_width="0dp"
 						android:layout_height="@dimen/reading_row_height"
 						android:gravity="center"
@@ -272,7 +271,6 @@
 				<TableRow>
 
 					<TextView
-						android:id="@+id/value_unit"
 						android:layout_width="0dp"
 						android:layout_height="@dimen/reading_row_height"
 						android:gravity="center"
@@ -281,7 +279,7 @@
 						android:textSize="24sp" />
 
 					<TextView
-						android:id="@+id/device_name"
+						android:id="@+id/battery"
 						android:layout_width="76dp"
 						android:layout_height="90dp"
 						android:gravity="center"
@@ -291,6 +289,14 @@
 				</TableRow>
 
 			</TableLayout>
+			<TextView
+				android:id="@+id/device_name"
+				android:layout_width="76dp"
+				android:layout_height="90dp"
+				android:gravity="center"
+				android:padding="3dip"
+				android:text="%s is connected"
+				android:textSize="24sp" />
 		</LinearLayout>
 
 
