@@ -46,7 +46,7 @@ import no.nordicsemi.android.nrftoolbox.profile.BleProfileService;
 import no.nordicsemi.android.nrftoolbox.profile.LoggableBleManager;
 
 @SuppressWarnings("FieldCanBeLocal")
-public class HTSService extends BleProfileService implements HTSManagerCallbacks {
+public class HTSService extends BleProfileService implements HTSManagerCallbacks, htsInterface {
 	public static final String BROADCAST_HTS_MEASUREMENT = "no.nordicsemi.android.nrftoolbox.hts.BROADCAST_HTS_MEASUREMENT";
 	public static final String EXTRA_TEMPERATURE = "no.nordicsemi.android.nrftoolbox.hts.EXTRA_TEMPERATURE";
 

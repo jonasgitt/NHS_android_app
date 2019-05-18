@@ -52,6 +52,7 @@ public class HTSManager extends BatteryManager<HTSManagerCallbacks> {
 
 	private BluetoothGattCharacteristic mHTCharacteristic;
 
+	//JF skipped for now
 	HTSManager(final Context context) {
 		super(context);
 	}

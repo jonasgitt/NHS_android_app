@@ -28,6 +28,6 @@ import no.nordicsemi.android.nrftoolbox.battery.BatteryManagerCallbacks;
  * Interface {@link HTSManagerCallbacks} must be implemented by {@link HTSActivity} in order
  * to receive callbacks from {@link HTSManager}.
  */
-interface HTSManagerCallbacks extends BatteryManagerCallbacks, TemperatureMeasurementCallback {
+public interface HTSManagerCallbacks extends BatteryManagerCallbacks, TemperatureMeasurementCallback {
 
 }

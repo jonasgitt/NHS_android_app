@@ -27,16 +27,25 @@ import android.bluetooth.BluetoothGattCharacteristic;
 import android.bluetooth.BluetoothGattService;
 import android.content.Context;
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+
 import android.util.Log;
 
+import java.util.Calendar;
 import java.util.UUID;
 
 import no.nordicsemi.android.ble.BleManager;
+import no.nordicsemi.android.ble.common.callback.ht.TemperatureMeasurementDataCallback;
 import no.nordicsemi.android.ble.data.Data;
 import no.nordicsemi.android.log.LogContract;
 import no.nordicsemi.android.nrftoolbox.battery.BatteryManager;
+import no.nordicsemi.android.nrftoolbox.hts.HTSService;
+import no.nordicsemi.android.nrftoolbox.hts.HTSManager;
+import no.nordicsemi.android.nrftoolbox.hts.htsInterface;
+import no.nordicsemi.android.nrftoolbox.parser.TemperatureMeasurementParser;
 import no.nordicsemi.android.nrftoolbox.parser.TemplateParser;
 import no.nordicsemi.android.nrftoolbox.template.callback.TemplateDataCallback;
+
 
 /**
  * Modify to template manager to match your requirements.
@@ -45,7 +54,9 @@ import no.nordicsemi.android.nrftoolbox.template.callback.TemplateDataCallback;
  * {@link TemplateManagerCallbacks} to extend {@link no.nordicsemi.android.ble.BleManagerCallbacks}
  * and replace BatteryManagerGattCallback to BleManagerGattCallback in this class.
  */
-public class TemplateManager extends BatteryManager<TemplateManagerCallbacks> {
+public class TemplateManager extends BatteryManager<TemplateManagerCallbacks>   {
+
+
 	// TODO Replace the services and characteristics below to match your device.
 	/**
 	 * The service UUID.
@@ -67,6 +78,16 @@ public class TemplateManager extends BatteryManager<TemplateManagerCallbacks> {
 	 * A UUID of a characteristic with write property.
 	 */
 	private static final UUID WRITABLE_CHARACTERISTIC_UUID = UUID.fromString("00002A00-0000-1000-8000-00805f9b34fb"); // Device Name
+
+
+	//JF UUID of HealthThermometerService
+	/** Health Thermometer service UUID */
+	public final static UUID HT_SERVICE_UUID = UUID.fromString("00001809-0000-1000-8000-00805f9b34fb");
+	/** Health Thermometer Measurement characteristic UUID */
+	private static final UUID HT_MEASUREMENT_CHARACTERISTIC_UUID = UUID.fromString("00002A1C-0000-1000-8000-00805f9b34fb");
+
+	private BluetoothGattCharacteristic mHTCharacteristic;
+
 
 	// TODO Add more services and characteristics references.
 	private BluetoothGattCharacteristic mRequiredCharacteristic, mDeviceNameCharacteristic, mOptionalCharacteristic;
@@ -141,6 +162,27 @@ public class TemplateManager extends BatteryManager<TemplateManagerCallbacks> {
 					// Methods called in case of an error, for example when the characteristic does not have Notify property
 					.fail((device, status) -> log(Log.WARN, "Failed to enable notifications"))
 					.enqueue();
+
+
+
+			//JF Health Thermometer
+			setIndicationCallback(mHTCharacteristic)
+					.with(new TemperatureMeasurementDataCallback() {
+						@Override
+						public void onDataReceived(@NonNull final BluetoothDevice device, @NonNull final Data data) {
+							log(LogContract.Log.Level.APPLICATION, "\"" + TemperatureMeasurementParser.parse(data) + "\" received");
+							super.onDataReceived(device, data);
+						}
+
+						@Override
+						public void onTemperatureMeasurementReceived(@NonNull final BluetoothDevice device,
+																	 final float temperature, final int unit,
+																	 @Nullable final Calendar calendar,
+																	 @Nullable final Integer type) {
+							mCallbacks.onTemperatureMeasurementReceived(device, temperature, unit, calendar, type);
+						}
+					});
+			enableIndications(mHTCharacteristic).enqueue();
 		}
 
 		@Override
@@ -155,7 +197,16 @@ public class TemplateManager extends BatteryManager<TemplateManagerCallbacks> {
 			if (otherService != null) {
 				mDeviceNameCharacteristic = otherService.getCharacteristic(WRITABLE_CHARACTERISTIC_UUID);
 			}
-			return mRequiredCharacteristic != null && mDeviceNameCharacteristic != null;
+
+
+
+			//JF
+			final BluetoothGattService HTservice = gatt.getService(HT_SERVICE_UUID);
+			if (HTservice != null) {
+				mHTCharacteristic = HTservice.getCharacteristic(HT_MEASUREMENT_CHARACTERISTIC_UUID);
+			}
+
+			return mRequiredCharacteristic != null && mDeviceNameCharacteristic != null && mHTCharacteristic != null;
 		}
 
 		@Override
@@ -180,6 +231,7 @@ public class TemplateManager extends BatteryManager<TemplateManagerCallbacks> {
 			mRequiredCharacteristic = null;
 			mDeviceNameCharacteristic = null;
 			mOptionalCharacteristic = null;
+			mHTCharacteristic = null; //JF
 		}
 
 		@Override

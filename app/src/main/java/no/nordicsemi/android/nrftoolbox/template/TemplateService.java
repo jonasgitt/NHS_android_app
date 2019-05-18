@@ -31,9 +31,13 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.core.app.NotificationCompat;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
+import java.util.Calendar;
+
+import no.nordicsemi.android.ble.common.profile.ht.TemperatureMeasurementCallback;
 import no.nordicsemi.android.log.Logger;
 import no.nordicsemi.android.nrftoolbox.FeaturesActivity;
 import no.nordicsemi.android.nrftoolbox.R;
@@ -54,6 +58,13 @@ public class TemplateService extends BleProfileService implements TemplateManage
 	private final static int OPEN_ACTIVITY_REQ = 0;
 	private final static int DISCONNECT_REQ = 1;
 
+	//JF
+	public static final String BROADCAST_HTS_MEASUREMENT = "no.nordicsemi.android.nrftoolbox.hts.BROADCAST_HTS_MEASUREMENT";
+	public static final String EXTRA_TEMPERATURE = "no.nordicsemi.android.nrftoolbox.hts.EXTRA_TEMPERATURE";
+	/** The last received temperature value in Celsius degrees. */
+	private Float mTemp;
+
+
 	private TemplateManager mManager;
 
 	private final LocalBinder mBinder = new TemplateBinder();
@@ -72,7 +83,18 @@ public class TemplateService extends BleProfileService implements TemplateManage
 		public void performAction(final String parameter) {
 			mManager.performAction(parameter);
 		}
+
+		//JF
+		/**
+		 * Returns the last received temperature value.
+		 *
+		 * @return Temperature value in Celsius.
+		 */
+		Float getTemperature() {
+			return mTemp;
+		}
 	}
+
 
 	@Override
 	protected LocalBinder getBinder() {
@@ -133,6 +155,26 @@ public class TemplateService extends BleProfileService implements TemplateManage
 		broadcast.putExtra(EXTRA_DEVICE, getBluetoothDevice());
 		broadcast.putExtra(EXTRA_BATTERY_LEVEL, batteryLevel);
 		LocalBroadcastManager.getInstance(this).sendBroadcast(broadcast);
+	}
+
+	//JF
+	@Override
+	public void onTemperatureMeasurementReceived(@NonNull final BluetoothDevice device,
+												 final float temperature, final int unit,
+												 @Nullable final Calendar calendar,
+												 @Nullable final Integer type) {
+		mTemp = TemperatureMeasurementCallback.toCelsius(temperature, unit);
+
+		final Intent broadcast = new Intent(BROADCAST_HTS_MEASUREMENT);
+		broadcast.putExtra(EXTRA_DEVICE, getBluetoothDevice());
+		broadcast.putExtra(EXTRA_TEMPERATURE, mTemp);
+		// ignore the rest
+		LocalBroadcastManager.getInstance(this).sendBroadcast(broadcast);
+
+		if (!mBound) {
+			// Here we may update the notification to display the current temperature.
+			// TODO modify the notification here
+		}
 	}
 
 	/**

@@ -26,15 +26,20 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
+
+import android.preference.PreferenceManager;
 import android.view.Menu;
 import android.widget.TextView;
 
 import java.util.UUID;
 
 import no.nordicsemi.android.nrftoolbox.R;
+import no.nordicsemi.android.nrftoolbox.hts.HTSService;
+import no.nordicsemi.android.nrftoolbox.hts.settings.SettingsFragment;
 import no.nordicsemi.android.nrftoolbox.profile.BleProfileService;
 import no.nordicsemi.android.nrftoolbox.profile.BleProfileServiceReadyActivity;
 import no.nordicsemi.android.nrftoolbox.template.settings.SettingsActivity;
@@ -44,11 +49,14 @@ import no.nordicsemi.android.nrftoolbox.template.settings.SettingsActivity;
  */
 public class TemplateActivity extends BleProfileServiceReadyActivity<TemplateService.TemplateBinder> {
 	@SuppressWarnings("unused")
-	private final String TAG = "TemplateActivity";
+	private final String TAG = "TemplateActivity"; //used to filter logcat output
 
 	// TODO change view references to match your need
 	private TextView mValueView;
 	private TextView mBatteryLevelView;
+	//JF
+	private TextView mTempValueView;
+	private TextView mUnit;
 
 	@Override
 	protected void onCreateView(final Bundle savedInstanceState) {
@@ -61,7 +69,8 @@ public class TemplateActivity extends BleProfileServiceReadyActivity<TemplateSer
 		// TODO assign your views to fields
 		mValueView = findViewById(R.id.value);
 		mBatteryLevelView = findViewById(R.id.battery);
-
+		//JF
+		mTempValueView = findViewById(R.id.text_hts_value); //TODO allow changing of units
 //		findViewById(R.id.action_set_name).setOnClickListener(v -> {
 //			if (isDeviceConnected()) {
 //				getService().performAction("Template");
@@ -85,6 +94,8 @@ public class TemplateActivity extends BleProfileServiceReadyActivity<TemplateSer
 		// TODO clear your UI
 		mValueView.setText(R.string.not_available_value);
 		mBatteryLevelView.setText(R.string.not_available);
+		//JF
+		mTempValueView.setText(R.string.not_available_value);
 	}
 
 	@Override
@@ -134,6 +145,7 @@ public class TemplateActivity extends BleProfileServiceReadyActivity<TemplateSer
 	@Override
 	protected void onServiceBound(final TemplateService.TemplateBinder binder) {
 		// not used
+		onTemperatureMeasurementReceived(binder.getTemperature());
 	}
 
 	@Override
@@ -164,6 +176,28 @@ public class TemplateActivity extends BleProfileServiceReadyActivity<TemplateSer
 		mBatteryLevelView.setText(getString(R.string.battery, value));
 	}
 
+	//JF
+	private void onTemperatureMeasurementReceived(Float value) {
+		if (value != null) {
+////			final SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+////			final int unit = Integer.parseInt(preferences.getString(SettingsFragment.SETTINGS_UNIT,
+//					String.valueOf(SettingsFragment.SETTINGS_UNIT_DEFAULT)));
+//
+////			switch (unit) {
+////				case SettingsFragment.SETTINGS_UNIT_F:
+////					value = value * 1.8f + 32f;
+////					break;
+////				case SettingsFragment.SETTINGS_UNIT_K:
+////					value += 273.15f;
+////					break;
+////				case SettingsFragment.SETTINGS_UNIT_C:
+////					break;
+////			}
+			mTempValueView.setText(getString(R.string.hts_value, value));
+		} else {
+			mTempValueView.setText(R.string.not_available_value);
+		}
+	}
 	private final BroadcastReceiver mBroadcastReceiver = new BroadcastReceiver() {
 		@Override
 		public void onReceive(final Context context, final Intent intent) {
@@ -179,6 +213,13 @@ public class TemplateActivity extends BleProfileServiceReadyActivity<TemplateSer
 				// Update GUI
 				onBatteryLevelChanged(device, batteryLevel);
 			}
+
+			//JF
+			else if (TemplateService.BROADCAST_HTS_MEASUREMENT.equals(action)) {
+				final float value = intent.getFloatExtra(HTSService.EXTRA_TEMPERATURE, 0.0f);
+				// Update GUI
+				onTemperatureMeasurementReceived(value);
+			}
 		}
 	};
 
@@ -186,6 +227,10 @@ public class TemplateActivity extends BleProfileServiceReadyActivity<TemplateSer
 		final IntentFilter intentFilter = new IntentFilter();
 		intentFilter.addAction(TemplateService.BROADCAST_TEMPLATE_MEASUREMENT);
 		intentFilter.addAction(TemplateService.BROADCAST_BATTERY_LEVEL);
+	//JF
+		intentFilter.addAction(TemplateService.BROADCAST_HTS_MEASUREMENT);
+		intentFilter.addAction(TemplateService.BROADCAST_BATTERY_LEVEL);
 		return intentFilter;
 	}
 }
+
