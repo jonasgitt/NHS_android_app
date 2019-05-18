@@ -195,7 +195,7 @@ public class TemplateActivity extends BleProfileServiceReadyActivity<TemplateSer
 ////			}
 			mTempValueView.setText(getString(R.string.hts_value, value));
 		} else {
-			mTempValueView.setText(R.string.not_available_value);
+			mTempValueView.setText(R.string.tempReceived_butNull);
 		}
 	}
 	private final BroadcastReceiver mBroadcastReceiver = new BroadcastReceiver() {
