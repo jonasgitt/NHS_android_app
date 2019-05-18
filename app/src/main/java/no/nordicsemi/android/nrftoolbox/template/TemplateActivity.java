@@ -145,7 +145,8 @@ public class TemplateActivity extends BleProfileServiceReadyActivity<TemplateSer
 	@Override
 	protected void onServiceBound(final TemplateService.TemplateBinder binder) {
 		// not used
-		onTemperatureMeasurementReceived(binder.getTemperature());
+		float dbug = 1234.0f;
+		onTemperatureMeasurementReceived(dbug); //binder.getTemperature());
 	}
 
 	@Override
@@ -216,7 +217,7 @@ public class TemplateActivity extends BleProfileServiceReadyActivity<TemplateSer
 
 			//JF
 			else if (TemplateService.BROADCAST_HTS_MEASUREMENT.equals(action)) {
-				final float value = intent.getFloatExtra(HTSService.EXTRA_TEMPERATURE, 0.0f);
+				final float value = 1.0f;//intent.getFloatExtra(HTSService.EXTRA_TEMPERATURE, 0.0f);
 				// Update GUI
 				onTemperatureMeasurementReceived(value);
 			}
