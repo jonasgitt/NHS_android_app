@@ -128,8 +128,11 @@ public class TemplateService extends BleProfileService implements TemplateManage
 	}
 
 	@Override
-	public void onBatteryLevelChanged(@NonNull final BluetoothDevice device, final int batteryLevel) {
-
+	public void onBatteryLevelChanged(@NonNull final BluetoothDevice device, final int batteryLevel) { //JF TODO
+		final Intent broadcast = new Intent(BROADCAST_BATTERY_LEVEL);
+		broadcast.putExtra(EXTRA_DEVICE, getBluetoothDevice());
+		broadcast.putExtra(EXTRA_BATTERY_LEVEL, batteryLevel);
+		LocalBroadcastManager.getInstance(this).sendBroadcast(broadcast);
 	}
 
 	/**

@@ -51,7 +51,7 @@
 	<string name="drawer_plugin_nrf_connect">nRF Connect</string>
 	
 	<string name="battery">%d%%</string>
-	<string name="not_available">n/a</string>
+	<string name="not_available">no battery reading</string>
 	<string name="not_available_value">" - "</string>
 	<string name="no_ble">Device doesn\'t have BLE support!</string>
 	<string name="no_apps">No profiles found.</string>
