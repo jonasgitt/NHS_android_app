@@ -82,9 +82,9 @@ public class TemplateManager extends BatteryManager<TemplateManagerCallbacks>   
 
 	//JF UUID of HealthThermometerService
 	/** Health Thermometer service UUID */
-	public final static UUID HT_SERVICE_UUID = UUID.fromString("00001809-0000-1000-8000-00805f9b34fb");
-	/** Health Thermometer Measurement characteristic UUID */
-	private static final UUID HT_MEASUREMENT_CHARACTERISTIC_UUID = UUID.fromString("00002A1C-0000-1000-8000-00805f9b34fb");
+    public final static UUID HT_SERVICE_UUID = UUID.fromString("00001809-0000-1000-8000-00805f9b34fb");
+    /** Health Thermometer Measurement characteristic UUID */
+    private static final UUID HT_MEASUREMENT_CHARACTERISTIC_UUID = UUID.fromString("00002A1C-0000-1000-8000-00805f9b34fb");
 
 	private BluetoothGattCharacteristic mHTCharacteristic;
 
@@ -166,7 +166,7 @@ public class TemplateManager extends BatteryManager<TemplateManagerCallbacks>   
 
 
 			//JF Health Thermometer
-			setIndicationCallback(mHTCharacteristic)
+			setNotificationCallback(mHTCharacteristic)
 					.with(new TemperatureMeasurementDataCallback() {
 						@Override
 						public void onDataReceived(@NonNull final BluetoothDevice device, @NonNull final Data data) {
@@ -182,7 +182,7 @@ public class TemplateManager extends BatteryManager<TemplateManagerCallbacks>   
 							mCallbacks.onTemperatureMeasurementReceived(device, temperature, unit, calendar, type);
 						}
 					});
-			enableIndications(mHTCharacteristic).enqueue();
+			enableNotifications(mHTCharacteristic).enqueue();
 		}
 
 		@Override
@@ -204,7 +204,14 @@ public class TemplateManager extends BatteryManager<TemplateManagerCallbacks>   
 			final BluetoothGattService HTservice = gatt.getService(HT_SERVICE_UUID);
 			if (HTservice != null) {
 				mHTCharacteristic = HTservice.getCharacteristic(HT_MEASUREMENT_CHARACTERISTIC_UUID);
+
+				if(mHTCharacteristic!=null)
+					log(Log.WARN, "mHTCharacteristic is not null ");
+				else
+					log(Log.WARN, "mHTCharacteristic is null ");
 			}
+			else
+				log(Log.WARN, "HTService is null ");
 
 			return mRequiredCharacteristic != null && mDeviceNameCharacteristic != null && mHTCharacteristic != null;
 		}
@@ -256,6 +263,20 @@ public class TemplateManager extends BatteryManager<TemplateManagerCallbacks>   
 						}
 					})
 					.enqueue();
+
+            //JF
+            readCharacteristic(mHTCharacteristic)
+                    .with((device, data) -> {
+                        // Characteristic value has been read
+                        // Let's do some magic with it.
+                        if (data.size() > 0) {
+                            final Integer value = data.getIntValue(Data.FORMAT_UINT8, 0);
+                            log(Log.WARN, "Thermometer reading is '" + value + "' has been read!");
+                        } else {
+                            log(Log.WARN, "thermometer Value is empty!");
+                        }
+                    })
+                    .enqueue();
 		}
 	};
 

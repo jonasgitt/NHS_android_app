@@ -30,12 +30,16 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.util.Log;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.app.NotificationCompat;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 import java.util.Calendar;
+
+import no.nordicsemi.android.log.LogContract;
 
 import no.nordicsemi.android.ble.common.profile.ht.TemperatureMeasurementCallback;
 import no.nordicsemi.android.log.Logger;
@@ -175,11 +179,13 @@ public class TemplateService extends BleProfileService implements TemplateManage
 			// Here we may update the notification to display the current temperature.
 			// TODO modify the notification here
 		}
+
+		Log.w("jonas", "in onTemperatureMeasurementReceived in TemplateService \n mTemp is: "+mTemp.toString());
 	}
 
 	/**
 	 * Creates the notification.
-	 *
+	 *"in onTemperatureMeasurementReceived in TemplateService"
 	 * @param messageResId message resource id. The message must have one String parameter,<br />
 	 *                     f.e. <code>&lt;string name="name"&gt;%s is connected&lt;/string&gt;</code>
 	 * @param defaults     signals that will be used to notify the user

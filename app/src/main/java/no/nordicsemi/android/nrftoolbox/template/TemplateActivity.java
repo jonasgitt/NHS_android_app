@@ -217,7 +217,7 @@ public class TemplateActivity extends BleProfileServiceReadyActivity<TemplateSer
 
 			//JF
 			else if (TemplateService.BROADCAST_HTS_MEASUREMENT.equals(action)) {
-				final float value = 1.0f;//intent.getFloatExtra(HTSService.EXTRA_TEMPERATURE, 0.0f);
+				final float value = intent.getFloatExtra(HTSService.EXTRA_TEMPERATURE, 0.0f);
 				// Update GUI
 				onTemperatureMeasurementReceived(value);
 			}
