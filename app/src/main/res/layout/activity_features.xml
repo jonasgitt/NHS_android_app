@@ -17,6 +17,12 @@
 			layout="@layout/toolbar"/>
 	</LinearLayout>
 
+
+	<FrameLayout
+		android:id="@+id/fragment_container"
+		android:layout_height="wrap_content"
+		android:layout_width="wrap_content" />
+
 	<!-- The navigation drawer -->
 	<com.google.android.material.navigation.NavigationView
 		android:layout_width="@dimen/navdrawer_width"
