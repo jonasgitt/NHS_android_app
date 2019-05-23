@@ -21,10 +21,12 @@ public class ProductCardRecyclerViewAdapter extends RecyclerView.Adapter<Product
 
     private List<ProductEntry> productList;
     //private ImageRequester imageRequester;
+    private String[] dataString;
 
-    ProductCardRecyclerViewAdapter(List<ProductEntry> productList) {
+    ProductCardRecyclerViewAdapter(List<ProductEntry> productList, String[] dataString) {
         this.productList = productList;
         //imageRequester = ImageRequester.getInstance();
+        this.dataString = dataString;
     }
 
     @NonNull
@@ -38,10 +40,16 @@ public class ProductCardRecyclerViewAdapter extends RecyclerView.Adapter<Product
     @Override
     public void onBindViewHolder(@NonNull ProductCardViewHolder holder, int position) {
         if (productList != null && position < productList.size()) {
-            ProductEntry product = productList.get(position);
-            holder.productTitle.setText("Blood Pressure");
-            holder.productPrice.setText("93");
-           // imageRequester.setImageFromUrl(holder.productImage, product.url);
+//            ProductEntry product = productList.get(position);
+//            holder.productTitle.setText("Blood Pressure");
+//            holder.productPrice.setText(product.price);
+//           // imageRequester.setImageFromUrl(holder.productImage, product.url);
+//
+//            holder.productImage.setImageResource(R.drawable.hr_heart);
+
+            holder.productTitle.setText(dataString[position]);
+            holder.productPrice.setText("60");
+            // imageRequester.setImageFromUrl(holder.productImage, product.url);
 
             holder.productImage.setImageResource(R.drawable.hr_heart);
     }

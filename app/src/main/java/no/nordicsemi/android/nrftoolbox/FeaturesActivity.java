@@ -52,7 +52,6 @@ public class FeaturesActivity extends AppCompatActivity implements NavigationHos
 	private ActionBarDrawerToggle mDrawerToggle;
 
 
-
 	@Override
 	protected void onCreate(final Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
