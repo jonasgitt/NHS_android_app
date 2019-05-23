@@ -73,30 +73,30 @@ public class FeaturesActivity extends AppCompatActivity {
 		drawer.addDrawerListener(mDrawerToggle);
 
 		// setup plug-ins in the drawer
-		setupPluginsInDrawer(drawer.findViewById(R.id.plugin_container));
+	//	setupPluginsInDrawer(drawer.findViewById(R.id.plugin_container));
 
 		// configure the app grid
-		final GridView grid = findViewById(R.id.grid);
-		grid.setAdapter(new AppAdapter(this));
-		grid.setEmptyView(findViewById(android.R.id.empty));
-
-		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
-		final Intent intent = getIntent();
-		if (intent.hasExtra(EXTRA_APP) && intent.hasExtra(EXTRA_ADDRESS)) {
-			final String app = intent.getStringExtra(EXTRA_APP);
-			switch (app) {
-				case "HRM":
-					final Intent newIntent = new Intent(this, HRSActivity.class);
-					newIntent.putExtra(EXTRA_ADDRESS, intent.getByteArrayExtra(EXTRA_ADDRESS));
-					newIntent.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-					startActivity(newIntent);
-					break;
-				default:
-					// other are not supported yet
-					break;
-			}
-		}
+//		final GridView grid = findViewById(R.id.grid);
+//		grid.setAdapter(new AppAdapter(this));
+//		grid.setEmptyView(findViewById(android.R.id.empty));
+//
+//		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+//
+//		final Intent intent = getIntent();
+//		if (intent.hasExtra(EXTRA_APP) && intent.hasExtra(EXTRA_ADDRESS)) {
+//			final String app = intent.getStringExtra(EXTRA_APP);
+//			switch (app) {
+//				case "HRM":
+//					final Intent newIntent = new Intent(this, HRSActivity.class);
+//					newIntent.putExtra(EXTRA_ADDRESS, intent.getByteArrayExtra(EXTRA_ADDRESS));
+//					newIntent.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+//					startActivity(newIntent);
+//					break;
+//				default:
+//					// other are not supported yet
+//					break;
+//			}
+//		}
 	}
 
 	@Override
@@ -135,61 +135,61 @@ public class FeaturesActivity extends AppCompatActivity {
 		return true;
 	}
 
-	private void setupPluginsInDrawer(final ViewGroup container) {
-		final LayoutInflater inflater = LayoutInflater.from(this);
-		final PackageManager pm = getPackageManager();
-
-		// look for nRF Connect
-		final Intent nrfConnectIntent = new Intent(Intent.ACTION_MAIN);
-		nrfConnectIntent.addCategory(NRF_CONNECT_CATEGORY);
-		nrfConnectIntent.setClassName(NRF_CONNECT_PACKAGE, NRF_CONNECT_CLASS);
-		final ResolveInfo nrfConnectInfo = pm.resolveActivity(nrfConnectIntent, 0);
-
-		// configure link to nRF Connect
-		final TextView nrfConnectItem = container.findViewById(R.id.link_mcp);
-		if (nrfConnectInfo == null) {
-			nrfConnectItem.setTextColor(Color.GRAY);
-			final ColorMatrix grayscale = new ColorMatrix();
-			grayscale.setSaturation(0.0f);
-			nrfConnectItem.getCompoundDrawables()[0].mutate().setColorFilter(new ColorMatrixColorFilter(grayscale));
-		}
-		nrfConnectItem.setOnClickListener(v -> {
-			Intent action = nrfConnectIntent;
-			if (nrfConnectInfo == null)
-				action = new Intent(Intent.ACTION_VIEW, Uri.parse(NRF_CONNECT_MARKET_URI));
-			action.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-			action.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-			try {
-				startActivity(action);
-			} catch (final ActivityNotFoundException e) {
-				Toast.makeText(FeaturesActivity.this, R.string.no_application_play, Toast.LENGTH_SHORT).show();
-			}
-			mDrawerLayout.closeDrawers();
-		});
-
-		// look for other plug-ins
-		final Intent utilsIntent = new Intent(Intent.ACTION_MAIN);
-		utilsIntent.addCategory(UTILS_CATEGORY);
-
-		final List<ResolveInfo> appList = pm.queryIntentActivities(utilsIntent, 0);
-		for (final ResolveInfo info : appList) {
-			final View item = inflater.inflate(R.layout.drawer_plugin, container, false);
-			final ImageView icon = item.findViewById(android.R.id.icon);
-			final TextView label = item.findViewById(android.R.id.text1);
-
-			label.setText(info.loadLabel(pm));
-			icon.setImageDrawable(info.loadIcon(pm));
-			item.setOnClickListener(v -> {
-				final Intent intent = new Intent();
-				intent.setComponent(new ComponentName(info.activityInfo.packageName, info.activityInfo.name));
-				intent.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-				intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-				startActivity(intent);
-				mDrawerLayout.closeDrawers();
-			});
-			container.addView(item);
-		}
-	}
+//	private void setupPluginsInDrawer(final ViewGroup container) {
+//		final LayoutInflater inflater = LayoutInflater.from(this);
+//		final PackageManager pm = getPackageManager();
+//
+////		// look for nRF Connect
+////		final Intent nrfConnectIntent = new Intent(Intent.ACTION_MAIN);
+////		nrfConnectIntent.addCategory(NRF_CONNECT_CATEGORY);
+////		nrfConnectIntent.setClassName(NRF_CONNECT_PACKAGE, NRF_CONNECT_CLASS);
+////		final ResolveInfo nrfConnectInfo = pm.resolveActivity(nrfConnectIntent, 0);
+//
+//		// configure link to nRF Connect
+////		final TextView nrfConnectItem = container.findViewById(R.id.link_mcp);
+////		if (nrfConnectInfo == null) {
+////			nrfConnectItem.setTextColor(Color.GRAY);
+////			final ColorMatrix grayscale = new ColorMatrix();
+////			grayscale.setSaturation(0.0f);
+////			nrfConnectItem.getCompoundDrawables()[0].mutate().setColorFilter(new ColorMatrixColorFilter(grayscale));
+////		}
+////		nrfConnectItem.setOnClickListener(v -> {
+////			Intent action = nrfConnectIntent;
+////			if (nrfConnectInfo == null)
+////				action = new Intent(Intent.ACTION_VIEW, Uri.parse(NRF_CONNECT_MARKET_URI));
+////			action.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+////			action.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+////			try {
+////				startActivity(action);
+////			} catch (final ActivityNotFoundException e) {
+////				Toast.makeText(FeaturesActivity.this, R.string.no_application_play, Toast.LENGTH_SHORT).show();
+////			}
+////			mDrawerLayout.closeDrawers();
+////		});
+////
+////		// look for other plug-ins
+////		final Intent utilsIntent = new Intent(Intent.ACTION_MAIN);
+////		utilsIntent.addCategory(UTILS_CATEGORY);
+//
+//		final List<ResolveInfo> appList = pm.queryIntentActivities(utilsIntent, 0);
+//		for (final ResolveInfo info : appList) {
+//			final View item = inflater.inflate(R.layout.drawer_plugin, container, false);
+//			final ImageView icon = item.findViewById(android.R.id.icon);
+//			final TextView label = item.findViewById(android.R.id.text1);
+//
+//			label.setText(info.loadLabel(pm));
+//			icon.setImageDrawable(info.loadIcon(pm));
+//			item.setOnClickListener(v -> {
+//				final Intent intent = new Intent();
+//				intent.setComponent(new ComponentName(info.activityInfo.packageName, info.activityInfo.name));
+//				intent.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+//				intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+//				startActivity(intent);
+//				mDrawerLayout.closeDrawers();
+//			});
+//			container.addView(item);
+//		}
+//	}
 
 	private boolean ensureBLEExists() {
 		if (!getPackageManager().hasSystemFeature(PackageManager.FEATURE_BLUETOOTH_LE)) {
