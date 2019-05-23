@@ -103,28 +103,28 @@ public class FeaturesActivity extends AppCompatActivity {
 		/**
 		 * APP GRID
 		 * */
-		// configure the app grid
-		final GridView grid = findViewById(R.id.grid);
-		grid.setAdapter(new AppAdapter(this));
-		grid.setEmptyView(findViewById(android.R.id.empty));
-
-		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
-		final Intent intent = getIntent();
-		if (intent.hasExtra(EXTRA_APP) && intent.hasExtra(EXTRA_ADDRESS)) {
-			final String app = intent.getStringExtra(EXTRA_APP);
-			switch (app) {
-				case "HRM":
-					final Intent newIntent = new Intent(this, HRSActivity.class);
-					newIntent.putExtra(EXTRA_ADDRESS, intent.getByteArrayExtra(EXTRA_ADDRESS));
-					newIntent.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-					startActivity(newIntent);
-					break;
-				default:
-					// other are not supported yet
-					break;
-			}
-		}
+//		// configure the app grid
+//		final GridView grid = findViewById(R.id.grid);
+//		grid.setAdapter(new AppAdapter(this));
+//		grid.setEmptyView(findViewById(android.R.id.empty));
+//
+//		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+//
+//		final Intent intent = getIntent();
+//		if (intent.hasExtra(EXTRA_APP) && intent.hasExtra(EXTRA_ADDRESS)) {
+//			final String app = intent.getStringExtra(EXTRA_APP);
+//			switch (app) {
+//				case "HRM":
+//					final Intent newIntent = new Intent(this, HRSActivity.class);
+//					newIntent.putExtra(EXTRA_ADDRESS, intent.getByteArrayExtra(EXTRA_ADDRESS));
+//					newIntent.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+//					startActivity(newIntent);
+//					break;
+//				default:
+//					// other are not supported yet
+//					break;
+//			}
+//		}
 	}
 
 	@Override
