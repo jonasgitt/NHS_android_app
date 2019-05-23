@@ -49,9 +49,7 @@ public class FeaturesActivity extends AppCompatActivity implements NavigationHos
 	public static final String EXTRA_APP = "application/vnd.no.nordicsemi.type.app";
 	public static final String EXTRA_ADDRESS = "application/vnd.no.nordicsemi.type.address";
 
-	private DrawerLayout mDrawerLayout;
 	private ActionBarDrawerToggle mDrawerToggle;
-
 
 
 
@@ -60,13 +58,13 @@ public class FeaturesActivity extends AppCompatActivity implements NavigationHos
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_features);
 
-//		final Toolbar toolbar = findViewById(R.id.toolbar_actionbar);
-//		setSupportActionBar(toolbar);
-
 		// ensure that Bluetooth exists
 		if (!ensureBLEExists())
 			finish();
 
+		/**DRAWER
+		 * */
+		DrawerLayout mDrawerLayout;
 		final DrawerLayout drawer = mDrawerLayout = findViewById(R.id.drawer_layout);
 		drawer.setDrawerShadow(R.drawable.drawer_shadow, GravityCompat.START);
 
@@ -80,7 +78,9 @@ public class FeaturesActivity extends AppCompatActivity implements NavigationHos
 		};
 		drawer.addDrawerListener(mDrawerToggle);
 
-
+		/**
+		 * FRAGMENT
+		 */
 		if (savedInstanceState == null) {
 			getSupportFragmentManager()
 					.beginTransaction()
@@ -89,11 +89,11 @@ public class FeaturesActivity extends AppCompatActivity implements NavigationHos
 		}
 	}
 
-	@Override
-	public boolean onCreateOptionsMenu(final Menu menu) {
-		getMenuInflater().inflate(R.menu.help, menu);
-		return true;
-	}
+//	@Override
+//	public boolean onCreateOptionsMenu(final Menu menu) {
+//		getMenuInflater().inflate(R.menu.help, menu);
+//		return true;
+//	}
 
 	@Override
 	protected void onPostCreate(final Bundle savedInstanceState) {
@@ -133,9 +133,6 @@ public class FeaturesActivity extends AppCompatActivity implements NavigationHos
 		}
 		return true;
 	}
-
-
-
 
 
 	/**

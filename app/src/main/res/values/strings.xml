@@ -47,8 +47,9 @@
 
 	<string name="drawer_open">Open</string>
 	<string name="drawer_close">Close</string>
-	<string name="drawer_plugins">PLUGINS</string>
-	<string name="drawer_plugin_nrf_connect">nRF Connect</string>
+	<string name="drawer_label">drawer_label</string>
+	<string name="drawer_option1">drawer_option1</string>
+	<string name="drawer_option2">drawer_option2</string>
 	
 	<string name="battery">%d%%</string>
 	<string name="not_available">no battery reading</string>
@@ -81,7 +82,6 @@
 
 
 	//Shrine stuff
-	<string name="shr_app_name">Shrine</string>
 	<string name="shr_hint_username">Username</string>
 	<string name="shr_hint_password">Password</string>
 	<string name="shr_button_next">Next</string>
