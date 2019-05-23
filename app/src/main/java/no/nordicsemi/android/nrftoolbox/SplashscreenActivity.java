@@ -43,7 +43,7 @@ public class SplashscreenActivity extends Activity {
 
 		// Jump to SensorsActivity after DELAY milliseconds 
 		new Handler().postDelayed(() -> {
-			final Intent newIntent = new Intent(SplashscreenActivity.this, TemplateActivity.class);
+			final Intent newIntent = new Intent(SplashscreenActivity.this, FeaturesActivity.class);
 			newIntent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
 
 			// Handle NFC message, if app was opened using NFC AAR record
