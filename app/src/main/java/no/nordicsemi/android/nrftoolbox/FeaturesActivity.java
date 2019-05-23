@@ -60,8 +60,8 @@ public class FeaturesActivity extends AppCompatActivity implements NavigationHos
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_features);
 
-		final Toolbar toolbar = findViewById(R.id.toolbar_actionbar);
-		setSupportActionBar(toolbar);
+//		final Toolbar toolbar = findViewById(R.id.toolbar_actionbar);
+//		setSupportActionBar(toolbar);
 
 		// ensure that Bluetooth exists
 		if (!ensureBLEExists())

@@ -7,15 +7,15 @@
 	android:fitsSystemWindows="true"
 	tools:context=".FeaturesActivity">
 
-	<LinearLayout
-		android:layout_width="match_parent"
-		android:layout_height="match_parent"
-		android:orientation="vertical">
+	<!--<LinearLayout-->
+		<!--android:layout_width="match_parent"-->
+		<!--android:layout_height="match_parent"-->
+		<!--android:orientation="vertical">-->
 
-		<include
-			android:id="@+id/toolbar_actionbar"
-			layout="@layout/toolbar"/>
-	</LinearLayout>
+		<!--<include-->
+			<!--android:id="@+id/toolbar_actionbar"-->
+			<!--layout="@layout/toolbar"/>-->
+	<!--</LinearLayout>-->
 
 
 	<FrameLayout

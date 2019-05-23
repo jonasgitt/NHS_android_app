@@ -39,8 +39,8 @@ public class ProductCardRecyclerViewAdapter extends RecyclerView.Adapter<Product
     public void onBindViewHolder(@NonNull ProductCardViewHolder holder, int position) {
         if (productList != null && position < productList.size()) {
             ProductEntry product = productList.get(position);
-            holder.productTitle.setText(product.title);
-            holder.productPrice.setText(product.price);
+            holder.productTitle.setText("Blood Pressure");
+            holder.productPrice.setText("93");
            // imageRequester.setImageFromUrl(holder.productImage, product.url);
 
             holder.productImage.setImageResource(R.drawable.hr_heart);
