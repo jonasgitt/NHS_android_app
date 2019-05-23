@@ -29,45 +29,29 @@
 	android:fitsSystemWindows="true"
 	tools:context=".FeaturesActivity">
 
-	<LinearLayout
-		android:layout_width="match_parent"
-		android:layout_height="match_parent"
-		android:orientation="vertical">
+	<!--<LinearLayout-->
+		<!--android:layout_width="match_parent"-->
+		<!--android:layout_height="match_parent"-->
+		<!--android:orientation="vertical">-->
 
-		<include
-			android:id="@+id/toolbar_actionbar"
-			layout="@layout/toolbar"/>
+		<!--<include-->
+			<!--android:id="@+id/toolbar_actionbar"-->
+			<!--layout="@layout/toolbar"/>-->
 
-		<FrameLayout
-			style="@style/HeaderShadow"
-			android:layout_width="match_parent"
-			android:layout_height="0dp"
-			android:layout_weight="1">
+	<!--</LinearLayout>-->
+	<!--appBarLayout replaces the toolbar toa-->
+	<!--<com.google.android.material.appbar.AppBarLayout-->
+		<!--android:layout_width="match_parent"-->
+		<!--android:layout_height="wrap_content">-->
 
-			<GridView
-				android:id="@+id/grid"
-				android:layout_width="match_parent"
-				android:layout_height="match_parent"
-				android:cacheColorHint="@null"
-				android:columnWidth="100dp"
-				android:gravity="center_horizontal"
-				android:horizontalSpacing="10dp"
-				android:listSelector="@null"
-				android:numColumns="auto_fit"
-				android:paddingLeft="@dimen/activity_horizontal_margin"
-				android:paddingRight="@dimen/activity_horizontal_margin"
-				android:paddingTop="@dimen/feature_grid_margin_top"
-				android:scrollbarStyle="outsideOverlay"
-				android:stretchMode="columnWidth"/>
-
-			<androidx.appcompat.widget.AppCompatTextView
-				android:id="@android:id/empty"
-				android:layout_width="wrap_content"
-				android:layout_height="wrap_content"
-				android:layout_gravity="center"
-				android:text="@string/no_apps"/>
-		</FrameLayout>
-	</LinearLayout>
+		<!--<androidx.appcompat.widget.Toolbar-->
+			<!--android:id="@+id/app_bar"-->
+			<!--style="@style/Widget.Shrine.Toolbar"-->
+			<!--android:layout_width="match_parent"-->
+			<!--android:layout_height="?attr/actionBarSize"-->
+			<!--app:navigationIcon="@drawable/shr_menu"-->
+			<!--app:title="@string/shr_app_name" />-->
+	<!--</com.google.android.material.appbar.AppBarLayout>-->
 
 	<!-- The navigation drawer -->
 	<com.google.android.material.navigation.NavigationView
