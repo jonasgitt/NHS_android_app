@@ -19,7 +19,7 @@
   ~ ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE
   ~ USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
   -->
-<resources xmlns:android="http://schemas.android.com/apk/res/android">
+<resources xmlns:android="http://schemas.android.com/apk/res/android" xmlns:tools="http://schemas.android.com/tools">
 
 	<!-- Style ot the Toolbar -->
 	<style name="HeaderBar">
@@ -147,4 +147,34 @@
 		<item name="colorPrimaryDark">@android:color/transparent</item>
 	</style>
 
+
+
+
+
+	////////////SHRINE STUFF//////////////////////
+	<!-- Base application theme. -->
+	<style name="MyTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
+		<!-- Customize your theme here. -->
+		<item name="colorPrimary">@color/colorPrimary</item>
+		<item name="fontFamily">sans-serif-medium</item>
+		<item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+		<item name="colorAccent">@color/colorAccent</item>
+		<item name="android:windowLightStatusBar" tools:targetApi="m">true</item>
+		<item name="android:textColorPrimary">@color/textColorPrimary</item>
+	</style>
+
+	<style name="Widget.Shrine.Toolbar" parent="Widget.AppCompat.Toolbar">
+		<item name="android:background">?attr/colorAccent</item>
+		<item name="android:theme">?theme</item>
+		<item name="popupTheme">@style/ThemeOverlay.AppCompat.Light</item>
+	</style>
+
+	<style name="Widget.Shrine.Button" parent="Widget.MaterialComponents.Button">
+		<item name="android:textColor">?android:attr/textColorPrimary</item>
+		<item name="backgroundTint">?attr/colorPrimaryDark</item>
+	</style>
+
+	<style name="Widget.Shrine.Button.TextButton" parent="Widget.MaterialComponents.Button.TextButton">
+		<item name="android:textColor">?android:attr/textColorPrimary</item>
+	</style>
 </resources>

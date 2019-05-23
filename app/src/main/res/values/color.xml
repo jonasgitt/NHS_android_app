@@ -66,4 +66,18 @@
     <color name="white">#FFFFFFFF</color>
     <color name="black">#FF000000</color>
     <color name="lightGray">#FFF5F5F5</color>
+
+
+
+
+    <!--SHRINE STUFF-->
+    <color name="colorPrimary">#80D8FF</color>
+    <color name="colorPrimaryDark">#00B0FF</color>
+    <color name="colorAccent">#29B6F6</color>
+    <color name="textColorPrimary">#000000</color>
+    <color name="toolbarIconColor">@color/textColorPrimary</color>
+    <color name="loginPageBackgroundColor">#FFFFFF</color>
+    <color name="productGridBackgroundColor">#E1F5FE</color>
+
+
 </resources>

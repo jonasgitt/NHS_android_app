@@ -7,6 +7,10 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import no.nordicsemi.android.nrftoolbox.R;
+
+
+
 public class ProductCardViewHolder extends RecyclerView.ViewHolder {
 
     public ImageView productImage;

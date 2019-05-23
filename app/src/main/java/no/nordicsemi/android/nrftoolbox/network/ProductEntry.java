@@ -4,7 +4,7 @@ import android.content.res.Resources;
 import android.net.Uri;
 import android.util.Log;
 
-import com.google.codelabs.mdc.java.shrine.R;
+//import com.google.codelabs.mdc.java.shrine.R;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -18,6 +18,8 @@ import java.io.Writer;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
+
+import no.nordicsemi.android.nrftoolbox.R;
 
 /**
  * A product entry in the list of products.
