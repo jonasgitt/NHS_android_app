@@ -53,6 +53,8 @@ import no.nordicsemi.android.nrftoolbox.profile.BleProfileServiceReadyActivity;
 import no.nordicsemi.android.nrftoolbox.template.TemplateManager;
 import no.nordicsemi.android.nrftoolbox.template.TemplateService;
 
+import static no.nordicsemi.android.nrftoolbox.newGUI.sensorData.initSensorDataList;
+
 public class FeaturesActivity extends BleProfileServiceReadyActivity<TemplateService.LocalBinder> implements NavigationHost  {
 	private static final String NRF_CONNECT_CATEGORY = "no.nordicsemi.android.nrftoolbox.LAUNCHER";
 	private static final String UTILS_CATEGORY = "no.nordicsemi.android.nrftoolbox.UTILS";
@@ -274,17 +276,8 @@ public class FeaturesActivity extends BleProfileServiceReadyActivity<TemplateSer
         return intentFilter;
     }
 
-    public List<sensorData> sensorDataList = new ArrayList<>();
-    public static List<sensorData> initSensorDataList(){
-        List<sensorData> sensorDataList = new ArrayList<>();
-        sensorData data1 = new sensorData("Heart Rate", "00");
-        sensorData data2 = new sensorData("Battery Level", "00");
-        sensorData data3 = new sensorData("Temperature", "00");
-        sensorDataList.add(data1);
-        sensorDataList.add(data2);
-        sensorDataList.add(data3);
-        return sensorDataList;
-    }
+    public List<sensorData> sensorDataList = initSensorDataList();
+
 
     private void onHeartRateReceived(String newReading){
         sensorDataList.get(0).sensorReading = newReading;

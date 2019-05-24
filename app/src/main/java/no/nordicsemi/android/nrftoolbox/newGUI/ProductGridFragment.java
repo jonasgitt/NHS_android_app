@@ -24,18 +24,11 @@ import java.util.List;
 import no.nordicsemi.android.nrftoolbox.R;
 import no.nordicsemi.android.nrftoolbox.network.ProductEntry;
 
+import static no.nordicsemi.android.nrftoolbox.newGUI.sensorData.initSensorDataList;
+
 public class ProductGridFragment extends Fragment {
 
-
-    public static List<sensorData> initSensorDataList(){
-        List<sensorData> sensorDataList = new ArrayList<>();
-        sensorData data1 = new sensorData("measure1", "23");
-        sensorData data2 = new sensorData("measure2", "23");
-        sensorDataList.add(data1);
-        sensorDataList.add(data2);
-        return sensorDataList;
-    }
-
+    public List<sensorData> sensorDataList = new ArrayList<>();
 
     private ProductCardRecyclerViewAdapter mAdapter;
 
@@ -57,7 +50,9 @@ public class ProductGridFragment extends Fragment {
             @Override
             public void onChanged(@Nullable final List<sensorData> newValue) {
                 // Update the UI, in this case, a TextView.
-                Log.w("jonas", "fragment knows that data has changed. notifyDataSetChanged()");
+                Log.w("jonas", "fragment knows that data has changed. notifyDataSetChanged(): " + newValue.get(1).sensorReading);
+                sensorDataList = newValue;
+                Log.w("jonas", "hast the value changed? ____________________________________: " + sensorDataList.get(1).sensorReading);
                 mAdapter.notifyDataSetChanged();
             }
         };
@@ -82,7 +77,8 @@ public class ProductGridFragment extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
         //set up adapter
-        mAdapter = new ProductCardRecyclerViewAdapter(initSensorDataList());
+        sensorDataList = initSensorDataList();
+        mAdapter = new ProductCardRecyclerViewAdapter(sensorDataList);
         recyclerView.setAdapter(mAdapter);
 
         mAdapter.notifyDataSetChanged();

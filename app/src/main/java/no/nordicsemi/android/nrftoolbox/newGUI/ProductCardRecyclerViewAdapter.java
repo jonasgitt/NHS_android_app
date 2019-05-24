@@ -1,5 +1,6 @@
 package no.nordicsemi.android.nrftoolbox.newGUI;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -37,9 +38,9 @@ public class ProductCardRecyclerViewAdapter extends RecyclerView.Adapter<Product
         if (sensorList != null && position < sensorList.size()) {
 
             sensorData data = sensorList.get(position);
-
-            holder.sensorName.setText(data.sensorName);
-            holder.sensorReading.setText(data.sensorReading);
+            Log.w("jonas", "hast the value changed in the adapter?: " + data.sensorReading);
+            holder.sensor_Name.setText(data.sensorName);
+            holder.sensor_Reading.setText(data.sensorReading);
 
             holder.sensorImage.setImageResource(R.drawable.hr_heart);
         }
