@@ -26,6 +26,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -212,6 +213,13 @@ public class FeaturesActivity extends BleProfileServiceReadyActivity<TemplateSer
         // not used
         float dbug = 1234.0f;
         //onTemperatureMeasurementReceived(dbug); //binder.getTemperature());
+        //TemplateService service = getService();
+        //binder is already the result of getService()
+      //  TemplateService.LocalBinder binder = (LocalBinder) service;
+//        TemplateService mService = (TemplateService) binder;
+//        mService.setListener(FeaturesActivity.this);
+
+
     }
 
     @Override
@@ -247,6 +255,8 @@ public class FeaturesActivity extends BleProfileServiceReadyActivity<TemplateSer
                 final float value = intent.getFloatExtra(HTSService.EXTRA_TEMPERATURE, 0.0f);
                 // Update GUI
                 //onTemperatureMeasurementReceived(value);
+                Log.w("jonas", "received a temperature measurement: " + value);
+
             }
         }
     };
