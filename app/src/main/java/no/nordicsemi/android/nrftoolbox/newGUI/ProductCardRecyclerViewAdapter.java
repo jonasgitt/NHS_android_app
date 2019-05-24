@@ -52,6 +52,8 @@ public class ProductCardRecyclerViewAdapter extends RecyclerView.Adapter<Product
             // imageRequester.setImageFromUrl(holder.productImage, product.url);
 
             holder.productImage.setImageResource(R.drawable.hr_heart);
+
+
     }
     }
 

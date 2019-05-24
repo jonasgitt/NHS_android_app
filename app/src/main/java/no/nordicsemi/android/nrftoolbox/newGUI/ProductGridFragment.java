@@ -31,7 +31,7 @@ public class ProductGridFragment extends Fragment {
     private List<sensorData> productList;
     private String[] BLEdata = {"Heart Rate", "Blood Pressure", "Pedometer", "Blood Oxygen", "Temperature"};
 
-
+    private ProductCardRecyclerViewAdapter mAdapter;
 
     protected LiveDataViewModel mViewModel;
     @Override
@@ -52,6 +52,8 @@ public class ProductGridFragment extends Fragment {
             public void onChanged(@Nullable final String newValue) {
                 // Update the UI, in this case, a TextView.
                 Log.w("jonas", "in the fragment: " + newValue);
+                BLEdata[3] = newValue;
+                mAdapter.notifyDataSetChanged();
             }
         };
 
@@ -73,9 +75,14 @@ public class ProductGridFragment extends Fragment {
         RecyclerView recyclerView = view.findViewById(R.id.recycler_view);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        ProductCardRecyclerViewAdapter adapter = new ProductCardRecyclerViewAdapter(
+
+        //set up adapter
+        mAdapter = new ProductCardRecyclerViewAdapter(
                 ProductEntry.initProductEntryList(getResources()), BLEdata);
-        recyclerView.setAdapter(adapter);
+        recyclerView.setAdapter(mAdapter);
+
+        mAdapter.notifyDataSetChanged();
+
         int largePadding = getResources().getDimensionPixelSize(R.dimen.shr_product_grid_spacing);
         int smallPadding = getResources().getDimensionPixelSize(R.dimen.shr_product_grid_spacing_small);
         recyclerView.addItemDecoration(new ProductGridItemDecoration(largePadding, smallPadding));
