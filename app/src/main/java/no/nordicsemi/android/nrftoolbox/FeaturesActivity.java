@@ -1,8 +1,12 @@
 package no.nordicsemi.android.nrftoolbox;
 
+import android.bluetooth.BluetoothDevice;
 import android.content.ActivityNotFoundException;
+import android.content.BroadcastReceiver;
 import android.content.ComponentName;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.content.res.Configuration;
@@ -20,6 +24,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -32,13 +37,19 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.List;
+import java.util.UUID;
 
 import no.nordicsemi.android.nrftoolbox.adapter.AppAdapter;
 import no.nordicsemi.android.nrftoolbox.hrs.HRSActivity;
+import no.nordicsemi.android.nrftoolbox.hts.HTSService;
 import no.nordicsemi.android.nrftoolbox.newGUI.NavigationHost;
 import no.nordicsemi.android.nrftoolbox.newGUI.ProductGridFragment;
+import no.nordicsemi.android.nrftoolbox.profile.BleProfileService;
+import no.nordicsemi.android.nrftoolbox.profile.BleProfileServiceReadyActivity;
+import no.nordicsemi.android.nrftoolbox.template.TemplateManager;
+import no.nordicsemi.android.nrftoolbox.template.TemplateService;
 
-public class FeaturesActivity extends AppCompatActivity implements NavigationHost {
+public class FeaturesActivity extends BleProfileServiceReadyActivity<TemplateService.LocalBinder> implements NavigationHost, SensorListener  {
 	private static final String NRF_CONNECT_CATEGORY = "no.nordicsemi.android.nrftoolbox.LAUNCHER";
 	private static final String UTILS_CATEGORY = "no.nordicsemi.android.nrftoolbox.UTILS";
 	private static final String NRF_CONNECT_PACKAGE = "no.nordicsemi.android.mcp";
@@ -52,41 +63,47 @@ public class FeaturesActivity extends AppCompatActivity implements NavigationHos
 	private ActionBarDrawerToggle mDrawerToggle;
 
 
-	@Override
-	protected void onCreate(final Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_features);
+    @Override //graphical initialization usually takes place here
+    protected void onCreateView(final Bundle savedInstanceState) {
+        setContentView(R.layout.activity_features);
 
-		// ensure that Bluetooth exists
-		if (!ensureBLEExists())
-			finish();
+        /**DRAWER
+         * */
+        DrawerLayout mDrawerLayout;
+        final DrawerLayout drawer = mDrawerLayout = findViewById(R.id.drawer_layout);
+        drawer.setDrawerShadow(R.drawable.drawer_shadow, GravityCompat.START);
 
-		/**DRAWER
-		 * */
-		DrawerLayout mDrawerLayout;
-		final DrawerLayout drawer = mDrawerLayout = findViewById(R.id.drawer_layout);
-		drawer.setDrawerShadow(R.drawable.drawer_shadow, GravityCompat.START);
+        // Set the drawer toggle as the DrawerListener
+        mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, R.string.drawer_open, R.string.drawer_close) {
+            @Override
+            public void onDrawerSlide(final View drawerView, final float slideOffset) {
+                // Disable the Hamburger icon animation
+                super.onDrawerSlide(drawerView, 0);
+            }
+        };
+        drawer.addDrawerListener(mDrawerToggle);
 
-		// Set the drawer toggle as the DrawerListener
-		mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, R.string.drawer_open, R.string.drawer_close) {
-			@Override
-			public void onDrawerSlide(final View drawerView, final float slideOffset) {
-				// Disable the Hamburger icon animation
-				super.onDrawerSlide(drawerView, 0);
-			}
-		};
-		drawer.addDrawerListener(mDrawerToggle);
+        /**
+         * FRAGMENT
+         */
+        if (savedInstanceState == null) {
+            getSupportFragmentManager()
+                    .beginTransaction()
+                    .add(R.id.fragment_container, new ProductGridFragment())
+                    .commit();
+        }
+    }
 
-		/**
-		 * FRAGMENT
-		 */
-		if (savedInstanceState == null) {
-			getSupportFragmentManager()
-					.beginTransaction()
-					.add(R.id.fragment_container, new ProductGridFragment())
-					.commit();
-		}
-	}
+    /** Mandatory implementations
+     * */
+    @Override
+    protected void setDefaultUI() {/* TODO clear your UI*/}
+    @Override
+    protected int getDefaultDeviceName() { return R.string.template_default_name; }
+    @Override
+    protected int getAboutTextId() {
+        return R.string.template_about_text;
+    }
 
 //	@Override
 //	public boolean onCreateOptionsMenu(final Menu menu) {
@@ -124,14 +141,14 @@ public class FeaturesActivity extends AppCompatActivity implements NavigationHos
 		return true;
 	}
 
-
-	private boolean ensureBLEExists() {
-		if (!getPackageManager().hasSystemFeature(PackageManager.FEATURE_BLUETOOTH_LE)) {
-			Toast.makeText(this, R.string.no_ble, Toast.LENGTH_LONG).show();
-			return false;
-		}
-		return true;
-	}
+// used to be called in onCreate which i had to remove. similar feature already exists in BleProfileServiceReadyActivity
+//	private boolean ensureBLEExists() {
+//		if (!getPackageManager().hasSystemFeature(PackageManager.FEATURE_BLUETOOTH_LE)) {
+//			Toast.makeText(this, R.string.no_ble, Toast.LENGTH_LONG).show();
+//			return false;
+//		}
+//		return true;
+//	}
 
 
 	/**
@@ -153,4 +170,94 @@ public class FeaturesActivity extends AppCompatActivity implements NavigationHos
 
 		transaction.commit();
 	}
+
+
+    /**
+     * Service - Activity - Fragment Communication
+     */
+    @Override public void onUpdate(String incomingMessage) {
+        final ProductGridFragment fragment = (ProductGridFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_container);
+        if(fragment != null){
+            fragment.onUpdate(incomingMessage);
+        }
+    }
+
+    //needed in featuresactivity
+    @Override
+    protected void onInitialize(final Bundle savedInstanceState) {
+        LocalBroadcastManager.getInstance(this).registerReceiver(mBroadcastReceiver, makeIntentFilter());
+    }
+    //needed in featuresactivity
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        LocalBroadcastManager.getInstance(this).unregisterReceiver(mBroadcastReceiver);
+    }
+
+
+    @Override //needed in featuresactivity
+    protected UUID getFilterUUID() {
+        // TODO this method may return the UUID of the service that is required to be in the advertisement packet of a device in order to be listed on the Scanner dialog.
+        // If null is returned no filtering is done.
+        return null; //TemplateManager.SERVICE_UUID;
+    }
+
+    @Override //needed in featuresactivity
+    protected Class<? extends BleProfileService> getServiceClass() {
+        return TemplateService.class;
+    }
+
+    @Override //needed in featuresactivity
+    protected void onServiceBound(final TemplateService.LocalBinder binder) {
+        // not used
+        float dbug = 1234.0f;
+        //onTemperatureMeasurementReceived(dbug); //binder.getTemperature());
+    }
+
+    @Override
+    protected void onServiceUnbound() {
+        // not used
+    }
+
+    @Override //needed in featuresactivity
+    public void onDeviceDisconnected(final BluetoothDevice device) {
+        super.onDeviceDisconnected(device);
+        //mBatteryLevelView.setText(R.string.not_available);
+    }
+
+    //needed in featuresactivity
+    private final BroadcastReceiver mBroadcastReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(final Context context, final Intent intent) {
+            final String action = intent.getAction();
+            final BluetoothDevice device = intent.getParcelableExtra(TemplateService.EXTRA_DEVICE);
+
+            if (TemplateService.BROADCAST_TEMPLATE_MEASUREMENT.equals(action)) {
+                final int value = intent.getIntExtra(TemplateService.EXTRA_DATA, 0);
+                // Update GUI
+                //setValueOnView(device, value);
+            } else if (TemplateService.BROADCAST_BATTERY_LEVEL.equals(action)) {
+                final int batteryLevel = intent.getIntExtra(TemplateService.EXTRA_BATTERY_LEVEL, 0);
+                // Update GUI
+               // onBatteryLevelChanged(device, batteryLevel);
+            }
+
+            //JF
+            else if (TemplateService.BROADCAST_HTS_MEASUREMENT.equals(action)) {
+                final float value = intent.getFloatExtra(HTSService.EXTRA_TEMPERATURE, 0.0f);
+                // Update GUI
+                //onTemperatureMeasurementReceived(value);
+            }
+        }
+    };
+    //needed in featuresactivity
+    private static IntentFilter makeIntentFilter() {
+        final IntentFilter intentFilter = new IntentFilter();
+        intentFilter.addAction(TemplateService.BROADCAST_TEMPLATE_MEASUREMENT);
+        intentFilter.addAction(TemplateService.BROADCAST_BATTERY_LEVEL);
+        //JF
+        intentFilter.addAction(TemplateService.BROADCAST_HTS_MEASUREMENT);
+        intentFilter.addAction(TemplateService.BROADCAST_BATTERY_LEVEL);
+        return intentFilter;
+    }
 }

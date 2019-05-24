@@ -78,11 +78,12 @@ public class TemplateActivity extends BleProfileServiceReadyActivity<TemplateSer
 //		});
 	}
 
+	//needed in featuresactivity
 	@Override
 	protected void onInitialize(final Bundle savedInstanceState) {
 		LocalBroadcastManager.getInstance(this).registerReceiver(mBroadcastReceiver, makeIntentFilter());
 	}
-
+	//needed in featuresactivity
 	@Override
 	protected void onDestroy() {
 		super.onDestroy();
@@ -130,19 +131,19 @@ public class TemplateActivity extends BleProfileServiceReadyActivity<TemplateSer
 		return R.string.template_default_name;
 	}
 
-	@Override
+	@Override //needed in featuresactivity
 	protected UUID getFilterUUID() {
 		// TODO this method may return the UUID of the service that is required to be in the advertisement packet of a device in order to be listed on the Scanner dialog.
 		// If null is returned no filtering is done.
 		return TemplateManager.SERVICE_UUID;
 	}
 
-	@Override
+	@Override //needed in featuresactivity
 	protected Class<? extends BleProfileService> getServiceClass() {
 		return TemplateService.class;
 	}
 
-	@Override
+	@Override //needed in featuresactivity
 	protected void onServiceBound(final TemplateService.TemplateBinder binder) {
 		// not used
 		float dbug = 1234.0f;
@@ -159,20 +160,18 @@ public class TemplateActivity extends BleProfileServiceReadyActivity<TemplateSer
 		// this may notify user or show some views
 	}
 
-	@Override
+	@Override //needed in featuresactivity
 	public void onDeviceDisconnected(final BluetoothDevice device) {
 		super.onDeviceDisconnected(device);
 		mBatteryLevelView.setText(R.string.not_available);
 	}
 
 	// Handling updates from the device
-	@SuppressWarnings("unused")
 	private void setValueOnView(@NonNull final BluetoothDevice device, final int value) {
 		// TODO assign the value to a view
 		mValueView.setText(String.valueOf(value));
 	}
 
-	@SuppressWarnings("unused")
 	public void onBatteryLevelChanged(@NonNull final BluetoothDevice device, final int value) {
 		mBatteryLevelView.setText(getString(R.string.battery, value));
 	}
@@ -199,6 +198,7 @@ public class TemplateActivity extends BleProfileServiceReadyActivity<TemplateSer
 			mTempValueView.setText(R.string.tempReceived_butNull);
 		}
 	}
+	//needed in featuresactivity
 	private final BroadcastReceiver mBroadcastReceiver = new BroadcastReceiver() {
 		@Override
 		public void onReceive(final Context context, final Intent intent) {
@@ -223,7 +223,7 @@ public class TemplateActivity extends BleProfileServiceReadyActivity<TemplateSer
 			}
 		}
 	};
-
+	//needed in featuresactivity
 	private static IntentFilter makeIntentFilter() {
 		final IntentFilter intentFilter = new IntentFilter();
 		intentFilter.addAction(TemplateService.BROADCAST_TEMPLATE_MEASUREMENT);
