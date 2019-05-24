@@ -1,6 +1,7 @@
 package no.nordicsemi.android.nrftoolbox.newGUI;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -8,34 +9,56 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
 
+import no.nordicsemi.android.nrftoolbox.LiveDataViewModel;
 import no.nordicsemi.android.nrftoolbox.R;
 import no.nordicsemi.android.nrftoolbox.SensorListener;
 import no.nordicsemi.android.nrftoolbox.network.ProductEntry;
 import no.nordicsemi.android.nrftoolbox.sensorData;
 
-public class ProductGridFragment extends Fragment implements SensorListener {
+public class ProductGridFragment extends Fragment {
 
     private List<sensorData> productList;
     private String[] BLEdata = {"Heart Rate", "Blood Pressure", "Pedometer", "Blood Oxygen", "Temperature"};
-    @Override
-    public void onUpdate(String incomingMessage) {
-        BLEdata[4] = incomingMessage;
-    }
 
 
+
+    protected LiveDataViewModel mViewModel;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
+
+
+        /** View MODEL stuff
+         *
+         */
+        mViewModel = ViewModelProviders.of(getActivity()).get(LiveDataViewModel.class);
+
+
+        // Create the observer which updates the UI.
+        final Observer<String> nameObserver = new Observer<String>() {
+            @Override
+            public void onChanged(@Nullable final String newValue) {
+                // Update the UI, in this case, a TextView.
+                Log.w("jonas", "in the fragment: " + newValue);
+            }
+        };
+
+        // Observe the LiveData, passing in this activity as the LifecycleOwner and the observer.
+        mViewModel.getCurrentValue().observe(getActivity(), nameObserver);
     }
+
 
     @Override
     public View onCreateView(

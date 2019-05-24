@@ -50,7 +50,7 @@ import no.nordicsemi.android.nrftoolbox.profile.BleProfileServiceReadyActivity;
 import no.nordicsemi.android.nrftoolbox.template.TemplateManager;
 import no.nordicsemi.android.nrftoolbox.template.TemplateService;
 
-public class FeaturesActivity extends BleProfileServiceReadyActivity<TemplateService.LocalBinder> implements NavigationHost, SensorListener  {
+public class FeaturesActivity extends BleProfileServiceReadyActivity<TemplateService.LocalBinder> implements NavigationHost  {
 	private static final String NRF_CONNECT_CATEGORY = "no.nordicsemi.android.nrftoolbox.LAUNCHER";
 	private static final String UTILS_CATEGORY = "no.nordicsemi.android.nrftoolbox.UTILS";
 	private static final String NRF_CONNECT_PACKAGE = "no.nordicsemi.android.mcp";
@@ -177,12 +177,12 @@ public class FeaturesActivity extends BleProfileServiceReadyActivity<TemplateSer
     /**
      * Service - Activity - Fragment Communication
      */
-    @Override public void onUpdate(String incomingMessage) {
-        final ProductGridFragment fragment = (ProductGridFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_container);
-        if(fragment != null){
-            fragment.onUpdate(incomingMessage);
-        }
-    }
+//    @Override public void onUpdate(String incomingMessage) {
+//        final ProductGridFragment fragment = (ProductGridFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_container);
+//        if(fragment != null){
+//            fragment.onUpdate(incomingMessage);
+//        }
+//    }
 
     //needed in featuresactivity
     @Override
@@ -259,6 +259,8 @@ public class FeaturesActivity extends BleProfileServiceReadyActivity<TemplateSer
                 Log.w("jonas", "received a temperature measurement: " + value);
                 mViewModel.scoreTeamA = (int) value;
                 Log.w("jonas", "view model has been updated: " + mViewModel.scoreTeamA);
+
+                mViewModel.getCurrentValue().setValue(Float.toString(value));
             }
         }
     };
