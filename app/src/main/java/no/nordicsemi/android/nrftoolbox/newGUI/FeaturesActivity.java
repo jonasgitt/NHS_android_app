@@ -37,6 +37,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -70,6 +71,8 @@ public class FeaturesActivity extends BleProfileServiceReadyActivity<TemplateSer
     @Override //graphical initialization usually takes place here
     protected void onCreateView(final Bundle savedInstanceState) {
         setContentView(R.layout.activity_features);
+
+        sensorDataList = initSensorDataList();
 
         /**DRAWER
          * */
@@ -179,12 +182,6 @@ public class FeaturesActivity extends BleProfileServiceReadyActivity<TemplateSer
     /**
      * Service - Activity - Fragment Communication
      */
-//    @Override public void onUpdate(String incomingMessage) {
-//        final ProductGridFragment fragment = (ProductGridFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_container);
-//        if(fragment != null){
-//            fragment.onUpdate(incomingMessage);
-//        }
-//    }
 
     //needed in featuresactivity
     @Override
@@ -245,25 +242,25 @@ public class FeaturesActivity extends BleProfileServiceReadyActivity<TemplateSer
 
             if (TemplateService.BROADCAST_TEMPLATE_MEASUREMENT.equals(action)) {
                 final int value = intent.getIntExtra(TemplateService.EXTRA_DATA, 0);
-                // Update GUI
-                //setValueOnView(device, value);
-            } else if (TemplateService.BROADCAST_BATTERY_LEVEL.equals(action)) {
+                onHeartRateReceived(Integer.toString(value));
+            }
+             else if (TemplateService.BROADCAST_BATTERY_LEVEL.equals(action)) {
                 final int batteryLevel = intent.getIntExtra(TemplateService.EXTRA_BATTERY_LEVEL, 0);
-                // Update GUI
-               // onBatteryLevelChanged(device, batteryLevel);
+                onBatteryReceived(Integer.toString(batteryLevel));
             }
 
             //JF
             else if (TemplateService.BROADCAST_HTS_MEASUREMENT.equals(action)) {
                 final float value = intent.getFloatExtra(HTSService.EXTRA_TEMPERATURE, 0.0f);
                 // Update GUI
-                //onTemperatureMeasurementReceived(value);
+                onTemperatureReceived(Float.toString(value));
                 Log.w("jonas", "received a temperature measurement: " + value);
                // mViewModel.scoreTeamA = (int) value;
                 Log.w("jonas", "view model has been updated: " + mViewModel.scoreTeamA);
 
-                //mViewModel.getCurrentValue().setValue(Float.toString(value));
+
             }
+            mViewModel.getCurrentValue().setValue(sensorDataList);
         }
     };
     //needed in featuresactivity
@@ -275,5 +272,27 @@ public class FeaturesActivity extends BleProfileServiceReadyActivity<TemplateSer
         intentFilter.addAction(TemplateService.BROADCAST_HTS_MEASUREMENT);
         intentFilter.addAction(TemplateService.BROADCAST_BATTERY_LEVEL);
         return intentFilter;
+    }
+
+    public List<sensorData> sensorDataList = new ArrayList<>();
+    public static List<sensorData> initSensorDataList(){
+        List<sensorData> sensorDataList = new ArrayList<>();
+        sensorData data1 = new sensorData("Heart Rate", "00");
+        sensorData data2 = new sensorData("Battery Level", "00");
+        sensorData data3 = new sensorData("Temperature", "00");
+        sensorDataList.add(data1);
+        sensorDataList.add(data2);
+        sensorDataList.add(data3);
+        return sensorDataList;
+    }
+
+    private void onHeartRateReceived(String newReading){
+        sensorDataList.get(0).sensorReading = newReading;
+    }
+    private void onBatteryReceived(String newReading){
+        sensorDataList.get(1).sensorReading = newReading;
+    }
+    private void onTemperatureReceived(String newReading){
+        sensorDataList.get(2).sensorReading = newReading;
     }
 }

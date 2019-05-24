@@ -36,7 +36,6 @@ public class ProductGridFragment extends Fragment {
         return sensorDataList;
     }
 
-    private String[] BLEdata = {"Heart Rate", "Blood Pressure", "Pedometer", "Blood Oxygen", "Temperature"};
 
     private ProductCardRecyclerViewAdapter mAdapter;
 
@@ -54,18 +53,17 @@ public class ProductGridFragment extends Fragment {
 
 
         // Create the observer which updates the UI.
-        final Observer<String> nameObserver = new Observer<String>() {
+        final Observer<List<sensorData>> nameObserver = new Observer<List<sensorData>>() {
             @Override
-            public void onChanged(@Nullable final String newValue) {
+            public void onChanged(@Nullable final List<sensorData> newValue) {
                 // Update the UI, in this case, a TextView.
-                Log.w("jonas", "in the fragment: " + newValue);
-                BLEdata[3] = newValue;
+                Log.w("jonas", "fragment knows that data has changed. notifyDataSetChanged()");
                 mAdapter.notifyDataSetChanged();
             }
         };
 
         // Observe the LiveData, passing in this activity as the LifecycleOwner and the observer.
-       // mViewModel.getCurrentValue().observe(getActivity(), nameObserver);
+       mViewModel.getCurrentValue().observe(getActivity(), nameObserver);
     }
 
 

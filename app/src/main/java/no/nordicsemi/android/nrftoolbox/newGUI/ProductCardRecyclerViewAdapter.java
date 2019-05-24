@@ -7,7 +7,6 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-//import com.google.codelabs.mdc.java.shrine.network.ProductEntry;
 
 import java.util.List;
 
