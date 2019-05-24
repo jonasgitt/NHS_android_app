@@ -39,13 +39,10 @@ import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 import java.util.Calendar;
 
-import no.nordicsemi.android.log.LogContract;
-
 import no.nordicsemi.android.ble.common.profile.ht.TemperatureMeasurementCallback;
 import no.nordicsemi.android.log.Logger;
-import no.nordicsemi.android.nrftoolbox.FeaturesActivity;
+import no.nordicsemi.android.nrftoolbox.newGUI.FeaturesActivity;
 import no.nordicsemi.android.nrftoolbox.R;
-import no.nordicsemi.android.nrftoolbox.SensorListener;
 import no.nordicsemi.android.nrftoolbox.ToolboxApplication;
 import no.nordicsemi.android.nrftoolbox.profile.BleProfileService;
 import no.nordicsemi.android.nrftoolbox.profile.LoggableBleManager;

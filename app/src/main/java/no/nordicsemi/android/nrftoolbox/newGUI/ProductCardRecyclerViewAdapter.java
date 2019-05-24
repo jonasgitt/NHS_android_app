@@ -12,21 +12,17 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.List;
 
 import no.nordicsemi.android.nrftoolbox.R;
-import no.nordicsemi.android.nrftoolbox.network.ProductEntry;
 
 /**
  * Adapter used to show a simple grid of products.
  */
 public class ProductCardRecyclerViewAdapter extends RecyclerView.Adapter<ProductCardViewHolder> {
 
-    private List<ProductEntry> productList;
-    //private ImageRequester imageRequester;
-    private String[] dataString;
+    private List<sensorData> sensorList;
 
-    ProductCardRecyclerViewAdapter(List<ProductEntry> productList, String[] dataString) {
-        this.productList = productList;
-        //imageRequester = ImageRequester.getInstance();
-        this.dataString = dataString;
+
+    ProductCardRecyclerViewAdapter(List<sensorData> sensorList) {
+        this.sensorList = sensorList;
     }
 
     @NonNull
@@ -39,26 +35,19 @@ public class ProductCardRecyclerViewAdapter extends RecyclerView.Adapter<Product
     //The below code tells our RecyclerView's adapter what to do with each card, using a ViewHolder.
     @Override
     public void onBindViewHolder(@NonNull ProductCardViewHolder holder, int position) {
-        if (productList != null && position < productList.size()) {
-//            ProductEntry product = productList.get(position);
-//            holder.productTitle.setText("Blood Pressure");
-//            holder.productPrice.setText(product.price);
-//           // imageRequester.setImageFromUrl(holder.productImage, product.url);
-//
-//            holder.productImage.setImageResource(R.drawable.hr_heart);
+        if (sensorList != null && position < sensorList.size()) {
 
-            holder.productTitle.setText(dataString[position]);
-            holder.productPrice.setText("60");
-            // imageRequester.setImageFromUrl(holder.productImage, product.url);
+            sensorData data = sensorList.get(position);
 
-            holder.productImage.setImageResource(R.drawable.hr_heart);
+            holder.sensorName.setText(data.sensorName);
+            holder.sensorReading.setText(data.sensorReading);
 
-
-    }
+            holder.sensorImage.setImageResource(R.drawable.hr_heart);
+        }
     }
 
     @Override
     public int getItemCount() {
-        return productList.size();
+        return sensorList.size();
     }
 }

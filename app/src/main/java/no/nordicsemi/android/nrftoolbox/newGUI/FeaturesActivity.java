@@ -1,4 +1,4 @@
-package no.nordicsemi.android.nrftoolbox;
+package no.nordicsemi.android.nrftoolbox.newGUI;
 
 import android.bluetooth.BluetoothDevice;
 import android.content.ActivityNotFoundException;
@@ -40,6 +40,8 @@ import android.widget.Toast;
 import java.util.List;
 import java.util.UUID;
 
+import no.nordicsemi.android.nrftoolbox.AppHelpFragment;
+import no.nordicsemi.android.nrftoolbox.R;
 import no.nordicsemi.android.nrftoolbox.adapter.AppAdapter;
 import no.nordicsemi.android.nrftoolbox.hrs.HRSActivity;
 import no.nordicsemi.android.nrftoolbox.hts.HTSService;
@@ -257,10 +259,10 @@ public class FeaturesActivity extends BleProfileServiceReadyActivity<TemplateSer
                 // Update GUI
                 //onTemperatureMeasurementReceived(value);
                 Log.w("jonas", "received a temperature measurement: " + value);
-                mViewModel.scoreTeamA = (int) value;
+               // mViewModel.scoreTeamA = (int) value;
                 Log.w("jonas", "view model has been updated: " + mViewModel.scoreTeamA);
 
-                mViewModel.getCurrentValue().setValue(Float.toString(value));
+                //mViewModel.getCurrentValue().setValue(Float.toString(value));
             }
         }
     };

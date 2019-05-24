@@ -18,17 +18,24 @@ import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.util.ArrayList;
 import java.util.List;
 
-import no.nordicsemi.android.nrftoolbox.LiveDataViewModel;
 import no.nordicsemi.android.nrftoolbox.R;
-import no.nordicsemi.android.nrftoolbox.SensorListener;
 import no.nordicsemi.android.nrftoolbox.network.ProductEntry;
-import no.nordicsemi.android.nrftoolbox.sensorData;
 
 public class ProductGridFragment extends Fragment {
 
-    private List<sensorData> productList;
+
+    public static List<sensorData> initSensorDataList(){
+        List<sensorData> sensorDataList = new ArrayList<>();
+        sensorData data1 = new sensorData("measure1", "23");
+        sensorData data2 = new sensorData("measure2", "23");
+        sensorDataList.add(data1);
+        sensorDataList.add(data2);
+        return sensorDataList;
+    }
+
     private String[] BLEdata = {"Heart Rate", "Blood Pressure", "Pedometer", "Blood Oxygen", "Temperature"};
 
     private ProductCardRecyclerViewAdapter mAdapter;
@@ -58,7 +65,7 @@ public class ProductGridFragment extends Fragment {
         };
 
         // Observe the LiveData, passing in this activity as the LifecycleOwner and the observer.
-        mViewModel.getCurrentValue().observe(getActivity(), nameObserver);
+       // mViewModel.getCurrentValue().observe(getActivity(), nameObserver);
     }
 
 
@@ -77,8 +84,7 @@ public class ProductGridFragment extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
         //set up adapter
-        mAdapter = new ProductCardRecyclerViewAdapter(
-                ProductEntry.initProductEntryList(getResources()), BLEdata);
+        mAdapter = new ProductCardRecyclerViewAdapter(initSensorDataList());
         recyclerView.setAdapter(mAdapter);
 
         mAdapter.notifyDataSetChanged();

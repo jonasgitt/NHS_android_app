@@ -39,7 +39,7 @@ import java.util.Calendar;
 
 import no.nordicsemi.android.ble.common.profile.ht.TemperatureMeasurementCallback;
 import no.nordicsemi.android.log.Logger;
-import no.nordicsemi.android.nrftoolbox.FeaturesActivity;
+import no.nordicsemi.android.nrftoolbox.newGUI.FeaturesActivity;
 import no.nordicsemi.android.nrftoolbox.R;
 import no.nordicsemi.android.nrftoolbox.ToolboxApplication;
 import no.nordicsemi.android.nrftoolbox.profile.BleProfileService;

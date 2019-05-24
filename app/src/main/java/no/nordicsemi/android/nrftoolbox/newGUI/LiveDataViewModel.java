@@ -1,10 +1,12 @@
-package no.nordicsemi.android.nrftoolbox;
+package no.nordicsemi.android.nrftoolbox.newGUI;
 
-
-import android.content.ClipData;
 
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
+
+import java.util.List;
+
+
 
 public class LiveDataViewModel extends ViewModel {
 
@@ -14,11 +16,11 @@ public class LiveDataViewModel extends ViewModel {
         // Tracks the score for Team B
         public int scoreTeamB = 0;
 
-        private  MutableLiveData<String> currentValue = new MutableLiveData<String>();
+        private  MutableLiveData<List<sensorData>> currentValue = new MutableLiveData<List<sensorData>>();
 
-        public MutableLiveData<String> getCurrentValue() {
+        public MutableLiveData<List<sensorData>> getCurrentValue() {
                 if (currentValue == null) {
-                        currentValue = new MutableLiveData<String>();
+                        currentValue = new MutableLiveData<List<sensorData>>();
                 }
                 return currentValue;
         }

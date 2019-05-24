@@ -30,7 +30,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Parcelable;
 
-import no.nordicsemi.android.nrftoolbox.template.TemplateActivity;
+import no.nordicsemi.android.nrftoolbox.newGUI.FeaturesActivity;
 
 public class SplashscreenActivity extends Activity {
 	/** Splash screen duration time in milliseconds */

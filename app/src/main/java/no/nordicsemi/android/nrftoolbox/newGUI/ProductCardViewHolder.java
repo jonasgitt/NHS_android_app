@@ -13,15 +13,15 @@ import no.nordicsemi.android.nrftoolbox.R;
 
 public class ProductCardViewHolder extends RecyclerView.ViewHolder {
 
-    public ImageView productImage;
-    public TextView productTitle;
-    public TextView productPrice;
+    public ImageView sensorImage;
+    public TextView sensorName;
+    public TextView sensorReading;
 
     public ProductCardViewHolder(@NonNull View itemView) {
         super(itemView);
         //TODO: Find and store views from itemView
-        productImage = itemView.findViewById(R.id.product_image);
-        productTitle = itemView.findViewById(R.id.product_title);
-        productPrice = itemView.findViewById(R.id.product_price);
+        sensorImage = itemView.findViewById(R.id.product_image);
+        sensorName = itemView.findViewById(R.id.product_title);
+        sensorReading = itemView.findViewById(R.id.product_price);
     }
 }
