@@ -38,7 +38,7 @@ public class ProductCardRecyclerViewAdapter extends RecyclerView.Adapter<Product
         if (sensorList != null && position < sensorList.size()) {
 
             sensorData data = sensorList.get(position);
-            Log.w("jonas", "hast the value changed in the adapter?: " + data.sensorReading);
+            Log.w("jonas", "hast the value changed in the adapter?: " + data.sensorReading +"  position: " + position);
             holder.sensor_Name.setText(data.sensorName);
             holder.sensor_Reading.setText(data.sensorReading);
 
