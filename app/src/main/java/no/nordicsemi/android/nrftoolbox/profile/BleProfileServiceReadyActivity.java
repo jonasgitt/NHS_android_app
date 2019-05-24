@@ -230,8 +230,8 @@ public abstract class BleProfileServiceReadyActivity<E extends BleProfileService
 		// The onCreateView class should... create the view
 		onCreateView(savedInstanceState);
 
-		final Toolbar toolbar = findViewById(R.id.toolbar_actionbar);
-		setSupportActionBar(toolbar);
+//		final Toolbar toolbar = findViewById(R.id.toolbar_actionbar);
+//		setSupportActionBar(toolbar);
 
 		// Common nRF Toolbox view references are obtained here
 		setUpView();
@@ -363,7 +363,7 @@ public abstract class BleProfileServiceReadyActivity<E extends BleProfileService
 	 */
 	protected final void setUpView() {
 		// set GUI
-		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+		//getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 		mConnectButton = findViewById(R.id.action_connect);
 		mDeviceNameView = findViewById(R.id.device_name);
 	}
