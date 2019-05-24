@@ -64,6 +64,7 @@ public class FeaturesActivity extends BleProfileServiceReadyActivity<TemplateSer
 	private ActionBarDrawerToggle mDrawerToggle;
 
 
+
     @Override //graphical initialization usually takes place here
     protected void onCreateView(final Bundle savedInstanceState) {
         setContentView(R.layout.activity_features);
@@ -200,7 +201,7 @@ public class FeaturesActivity extends BleProfileServiceReadyActivity<TemplateSer
     protected UUID getFilterUUID() {
         // TODO this method may return the UUID of the service that is required to be in the advertisement packet of a device in order to be listed on the Scanner dialog.
         // If null is returned no filtering is done.
-        return null; //TemplateManager.SERVICE_UUID;
+        return  UUID.fromString("0000180D-0000-1000-8000-00805f9b34fb"); // Heart Rate service
     }
 
     @Override //needed in featuresactivity

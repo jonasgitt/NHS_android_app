@@ -14,12 +14,16 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.util.List;
+
 import no.nordicsemi.android.nrftoolbox.R;
 import no.nordicsemi.android.nrftoolbox.SensorListener;
 import no.nordicsemi.android.nrftoolbox.network.ProductEntry;
+import no.nordicsemi.android.nrftoolbox.sensorData;
 
 public class ProductGridFragment extends Fragment implements SensorListener {
 
+    private List<sensorData> productList;
     private String[] BLEdata = {"Heart Rate", "Blood Pressure", "Pedometer", "Blood Oxygen", "Temperature"};
     @Override
     public void onUpdate(String incomingMessage) {
