@@ -71,15 +71,15 @@ public class TemplateService extends BleProfileService implements TemplateManage
 
 	/**LISTENER STUFF //////////////////////////////
 	 * */
-	private SensorListener listener;
 
-	public void setSensorListener(SensorListener listener){
-		this.listener = listener;
-	}
 
-	public void removeListener(){
-		this.listener = null;
-	}
+//	public void setSensorListener(SensorListener listener){
+//		this.listener = listener;
+//	}
+//
+//	public void removeListener(){
+//		this.listener = null;
+//	}
 
 	private TemplateManager mManager;
 
@@ -192,7 +192,7 @@ public class TemplateService extends BleProfileService implements TemplateManage
 			// TODO modify the notification here
 		}
 
-		listener.onUpdate(mTemp.toString());
+//		listener.onUpdate(mTemp.toString());
 		Log.w("jonas", "in onTemperatureMeasurementReceived in TemplateService \n mTemp is: "+mTemp.toString());
 	}
 

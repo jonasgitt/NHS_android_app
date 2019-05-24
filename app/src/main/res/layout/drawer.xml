@@ -78,6 +78,26 @@
 				android:paddingStart="@dimen/navdrawer_padding_horiz"
 				android:text="@string/drawer_option2"/>
 
+			<com.google.android.material.button.MaterialButton
+				android:id="@+id/action_connect"
+				style="@style/Widget.Connect"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_marginBottom="@dimen/activity_vertical_margin_bottom"
+				android:onClick="onConnectClicked"
+				android:text="@string/action_connect"/>
+
+			<TextView
+				android:id="@+id/device_name"
+				style="@style/DrawerItem"
+				android:layout_width="match_parent"
+				android:layout_height="48dp"
+				android:background="?android:selectableItemBackground"
+				android:drawableLeft="@drawable/ic_nrf_connect_feature_small"
+				android:drawablePadding="24dp"
+				android:paddingEnd="@dimen/navdrawer_padding_horiz"
+				android:paddingStart="@dimen/navdrawer_padding_horiz"
+				android:text="@string/drawer_option1"/>
 		</LinearLayout>
 
 	</LinearLayout>
