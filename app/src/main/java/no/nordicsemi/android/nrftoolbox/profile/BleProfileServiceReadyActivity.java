@@ -36,6 +36,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.IBinder;
 import androidx.annotation.NonNull;
+import androidx.lifecycle.ViewModelProviders;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -53,6 +54,7 @@ import no.nordicsemi.android.log.ILogSession;
 import no.nordicsemi.android.log.LocalLogSession;
 import no.nordicsemi.android.log.Logger;
 import no.nordicsemi.android.nrftoolbox.AppHelpFragment;
+import no.nordicsemi.android.nrftoolbox.LiveDataViewModel;
 import no.nordicsemi.android.nrftoolbox.R;
 import no.nordicsemi.android.nrftoolbox.scanner.ScannerFragment;
 import no.nordicsemi.android.nrftoolbox.utility.DebugLogger;
@@ -209,7 +211,7 @@ public abstract class BleProfileServiceReadyActivity<E extends BleProfileService
 			onServiceUnbound();
 		}
 	};
-
+	protected LiveDataViewModel mViewModel;
 	@Override
 	protected final void onCreate(final Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -224,6 +226,7 @@ public abstract class BleProfileServiceReadyActivity<E extends BleProfileService
 			final Uri logUri = savedInstanceState.getParcelable(LOG_URI);
 			mLogSession = Logger.openSession(getApplicationContext(), logUri);
 		}
+		mViewModel = ViewModelProviders.of(this).get(LiveDataViewModel.class);
 
 		// In onInitialize method a final class may register local broadcast receivers that will listen for events from the service
 		onInitialize(savedInstanceState);

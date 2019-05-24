@@ -257,7 +257,8 @@ public class FeaturesActivity extends BleProfileServiceReadyActivity<TemplateSer
                 // Update GUI
                 //onTemperatureMeasurementReceived(value);
                 Log.w("jonas", "received a temperature measurement: " + value);
-
+                mViewModel.scoreTeamA = (int) value;
+                Log.w("jonas", "view model has been updated: " + mViewModel.scoreTeamA);
             }
         }
     };
