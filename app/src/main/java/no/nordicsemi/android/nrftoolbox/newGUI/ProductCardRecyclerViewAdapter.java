@@ -19,10 +19,11 @@ import no.nordicsemi.android.nrftoolbox.R;
 public class ProductCardRecyclerViewAdapter extends RecyclerView.Adapter<ProductCardViewHolder> {
 
     private List<sensorData> sensorList;
+    private sensorData[] test_data;
 
-
-    ProductCardRecyclerViewAdapter(List<sensorData> sensorList) {
+    ProductCardRecyclerViewAdapter(List<sensorData> sensorList, sensorData[] data) {
         this.sensorList = sensorList;
+        this.test_data = data;
     }
 
     @NonNull
@@ -40,8 +41,13 @@ public class ProductCardRecyclerViewAdapter extends RecyclerView.Adapter<Product
             sensorData data = sensorList.get(position);
             Log.w("jonas", "hast the value changed in the adapter?: " + data.sensorReading +"  position: " + position);
             holder.sensor_Name.setText(data.sensorName);
-            holder.sensor_Reading.setText(data.sensorReading);
+            //holder.sensor_Reading.setText(data.sensorReading);
 
+            if(test_data !=null){
+                sensorData reading = test_data[position];
+                if (reading != null)
+                    holder.sensor_Reading.setText(reading.sensorReading);
+            }
             holder.sensorImage.setImageResource(R.drawable.hr_heart);
         }
     }

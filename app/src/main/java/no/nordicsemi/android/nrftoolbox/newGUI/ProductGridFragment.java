@@ -29,6 +29,8 @@ import static no.nordicsemi.android.nrftoolbox.newGUI.sensorData.initSensorDataL
 public class ProductGridFragment extends Fragment {
 
     public List<sensorData> sensorDataList = initSensorDataList();
+    private sensorData[] BLEdata = new sensorData[3];
+
 
     private ProductCardRecyclerViewAdapter mAdapter;
 
@@ -55,8 +57,11 @@ public class ProductGridFragment extends Fragment {
                 sensorDataList = newValue;
                 Log.w("jonas", "hast the value changed? ____________________________________: " + sensorDataList.get(1).sensorReading);
 
-
-
+                //BLEdata[3] = newValue.get(1).sensorReading;
+                //with sensorData array
+                BLEdata[0] = newValue.get(0);
+                BLEdata[1] = newValue.get(1);
+                BLEdata[2] = newValue.get(2);
 
                 mAdapter.notifyDataSetChanged();
             }
@@ -83,7 +88,7 @@ public class ProductGridFragment extends Fragment {
 
         //set up adapter
 
-        mAdapter = new ProductCardRecyclerViewAdapter(sensorDataList);
+        mAdapter = new ProductCardRecyclerViewAdapter(sensorDataList, BLEdata);
         recyclerView.setAdapter(mAdapter);
 
         mAdapter.notifyDataSetChanged();
