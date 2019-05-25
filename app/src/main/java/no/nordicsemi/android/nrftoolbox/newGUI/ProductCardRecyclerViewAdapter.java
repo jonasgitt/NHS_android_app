@@ -45,10 +45,12 @@ public class ProductCardRecyclerViewAdapter extends RecyclerView.Adapter<Product
 
             if(test_data !=null){
                 sensorData reading = test_data[position];
-                if (reading != null)
+                if (reading != null){
                     holder.sensor_Reading.setText(reading.sensorReading);
+                    holder.sensorImage.setImageResource(reading.imageId);
+                }
             }
-            holder.sensorImage.setImageResource(R.drawable.hr_heart);
+
         }
     }
 

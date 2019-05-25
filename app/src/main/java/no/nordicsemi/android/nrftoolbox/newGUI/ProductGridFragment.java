@@ -29,7 +29,7 @@ import static no.nordicsemi.android.nrftoolbox.newGUI.sensorData.initSensorDataL
 public class ProductGridFragment extends Fragment {
 
     public List<sensorData> sensorDataList = initSensorDataList();
-    private sensorData[] BLEdata = new sensorData[3];
+    private sensorData[] BLEdata = new sensorData[3]; //TODO make this device agnostic (by changing to arraylist?)
 
 
     private ProductCardRecyclerViewAdapter mAdapter;
@@ -59,6 +59,7 @@ public class ProductGridFragment extends Fragment {
 
                 //BLEdata[3] = newValue.get(1).sensorReading;
                 //with sensorData array
+                //TODO update using DiffUtil
                 BLEdata[0] = newValue.get(0);
                 BLEdata[1] = newValue.get(1);
                 BLEdata[2] = newValue.get(2);
