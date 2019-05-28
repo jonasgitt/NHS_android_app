@@ -12,12 +12,14 @@ class sensorData {
 
     String sensorReading;
     String sensorName;
+    String units;
     int imageId;
 
     sensorData(String name, String value){
         this.sensorReading = value;
         this.sensorName = name;
         this.imageId = getDrawableId();
+        this.units = getUnits();
     }
 
     public static sensorData[]  initSensorDataArray(){
@@ -60,6 +62,17 @@ class sensorData {
             throw new RuntimeException("No resource ID found for: "
                     + resourceName + " / ", e);
         }
+    }
+
+    private String getUnits(){
+        String units;
+        switch (sensorName){
+            case "Temperature": units = "°C"; break;
+            case "Battery Level": units = "%"; break;
+            case "Heart Rate": units = "bpm"; break;
+            default: units = "?";
+        }
+        return units;
     }
 
     public void logObject(){

@@ -49,6 +49,7 @@ public class ProductCardRecyclerViewAdapter extends RecyclerView.Adapter<Product
                     reading.logObject();
                     holder.sensor_Reading.setText(reading.sensorReading);
                     holder.sensorImage.setImageResource(reading.imageId);
+                    holder.sensor_units_view.setText(reading.units);
                 }
             }
 

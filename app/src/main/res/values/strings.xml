@@ -91,6 +91,8 @@
 	<string name="shr_search_title">Search</string>
 	<string name="shr_product_title">Title</string>
 	<string name="shr_product_description">135</string>
+	<string name="no_units_available">N/A</string>
+
 
 	<!-- Shrine backdrop menu labels -->
 	<string name="shr_featured_label">Featured</string>
