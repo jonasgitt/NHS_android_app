@@ -21,9 +21,9 @@ public class ProductCardViewHolder extends RecyclerView.ViewHolder {
     public ProductCardViewHolder(@NonNull View itemView) {
         super(itemView);
         //TODO: Find and store views from itemView
-        sensorImage = itemView.findViewById(R.id.product_image);
-        sensor_Name = itemView.findViewById(R.id.product_title);
-        sensor_Reading = itemView.findViewById(R.id.product_price);
+        sensorImage = itemView.findViewById(R.id.sensorImage_field);
+        sensor_Name = itemView.findViewById(R.id.sensorName_field);
+        sensor_Reading = itemView.findViewById(R.id.sensorValue_field);
         sensor_units_view = itemView.findViewById(R.id.units_field);
     }
 }

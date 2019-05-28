@@ -16,7 +16,7 @@
 
 
         <TextView
-            android:id="@+id/product_title"
+            android:id="@+id/sensorName_field"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_gravity="center|left"
@@ -28,7 +28,7 @@
             />
 
         <TextView
-            android:id="@+id/product_price"
+            android:id="@+id/sensorValue_field"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -50,7 +50,7 @@
             android:textSize="16sp" />
 
         <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/product_image"
+            android:id="@+id/sensorImage_field"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_gravity="center|left"

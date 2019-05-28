@@ -23,7 +23,6 @@ class sensorData {
     }
 
     public static sensorData[]  initSensorDataArray(){
-//        List<sensorData> sensorDataList = new ArrayList<>();
         sensorData[] BLEdata = new sensorData[3];
         sensorData data0 = new sensorData("Heart Rate", "00");
         sensorData data1= new sensorData("Battery Level", "00");//TODO fix this
