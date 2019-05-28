@@ -32,12 +32,14 @@
 
 		<androidx.appcompat.widget.AppCompatImageView
 			android:layout_width="match_parent"
-			android:layout_height="wrap_content"
+			android:layout_height="150dp"
 			android:layout_marginBottom="8dp"
 			android:background="@color/actionBarColorDark"
-			android:paddingBottom="30dp"
 			android:paddingTop="@dimen/navdrawer_padding_top"
-			app:srcCompat="@drawable/nordic_logo_horiz_white"/>
+			android:paddingBottom="30dp"
+			android:scaleType="centerCrop"
+			app:srcCompat="@drawable/p24logo_transparent" />
+
 
 		<LinearLayout
 			android:id="@+id/plugin_container"
