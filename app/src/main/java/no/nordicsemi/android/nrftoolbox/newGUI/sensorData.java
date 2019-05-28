@@ -50,8 +50,8 @@ class sensorData {
         try {
             switch (sensorName){
                 case "Temperature": resourceName = "icon_temperature"; break;
-                case "Battery Level": resourceName = "icon_notfound"; break;
-                case "Heart Rate": resourceName = "icon_battery"; break;
+                case "Battery Level": resourceName = "icon_battery_level"; break;
+                case "Heart Rate": resourceName = "icon_heart_rate"; break;
                 default: resourceName = "icon_notfound";
             }
             Field idField = R.drawable.class.getDeclaredField(resourceName);
