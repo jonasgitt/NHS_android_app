@@ -1,5 +1,7 @@
 package no.nordicsemi.android.nrftoolbox.newGUI;
 
+import android.util.Log;
+
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
@@ -7,11 +9,6 @@ import java.util.List;
 import no.nordicsemi.android.nrftoolbox.R;
 
 class sensorData {
-    public static final int TEMPERATURE = 0;
-    public static final int BATTERY = 1;
-    public static final int HEARTRATE = 2;
-
-
 
     String sensorReading;
     String sensorName;
@@ -23,10 +20,23 @@ class sensorData {
         this.imageId = getDrawableId();
     }
 
+    public static sensorData[]  initSensorDataArray(){
+//        List<sensorData> sensorDataList = new ArrayList<>();
+        sensorData[] BLEdata = new sensorData[3];
+        sensorData data0 = new sensorData("Heart Rate", "00");
+        sensorData data1= new sensorData("Battery Level", "00");//TODO fix this
+        sensorData data2 = new sensorData("Temperature", "00");
+        BLEdata[0] = data0;
+        BLEdata[1] = data1;
+        BLEdata[2] = data2;
+
+        return BLEdata;
+    }
+
     public static List<sensorData> initSensorDataList(){
         List<sensorData> sensorDataList = new ArrayList<>();
         sensorData data1 = new sensorData("Heart Rate", "00");
-        sensorData data2 = new sensorData("Battery Level", "00");//TODO fix this
+        sensorData data2 = new sensorData("Battery Level", "00");
         sensorData data3 = new sensorData("Temperature", "00");
         sensorDataList.add(data1);
         sensorDataList.add(data2);
@@ -35,19 +45,24 @@ class sensorData {
     }
 
     private int getDrawableId() {
-        String resourceName = "icon_notfound";
+        String resourceName = "0";
         try {
-            switch (this.sensorName){
-                case "Temperature": resourceName = "icon_temperature";
-                case "Battery Level": resourceName = "icon_notfound";
-                case "Heart Rate": resourceName = "icon_heart_rate";
+            switch (sensorName){
+                case "Temperature": resourceName = "icon_temperature"; break;
+                case "Battery Level": resourceName = "icon_notfound"; break;
+                case "Heart Rate": resourceName = "icon_heart_rate"; break;
                 default: resourceName = "icon_notfound";
             }
             Field idField = R.drawable.class.getDeclaredField(resourceName);
             return idField.getInt(idField);
         } catch (Exception e) {
+            Log.w("jonas", "resource not found: " + resourceName);
             throw new RuntimeException("No resource ID found for: "
                     + resourceName + " / ", e);
         }
+    }
+
+    public void logObject(){
+        Log.w("jonas", "sensorName: " + sensorName + "     sensorReading: " + sensorReading + "     imageId: " + imageId);
     }
 }
