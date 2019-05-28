@@ -53,8 +53,6 @@ import no.nordicsemi.android.nrftoolbox.profile.BleProfileServiceReadyActivity;
 import no.nordicsemi.android.nrftoolbox.template.TemplateManager;
 import no.nordicsemi.android.nrftoolbox.template.TemplateService;
 
-import static no.nordicsemi.android.nrftoolbox.newGUI.sensorData.initSensorDataList;
-
 public class FeaturesActivity extends BleProfileServiceReadyActivity<TemplateService.LocalBinder> implements NavigationHost  {
 	private static final String NRF_CONNECT_CATEGORY = "no.nordicsemi.android.nrftoolbox.LAUNCHER";
 	private static final String UTILS_CATEGORY = "no.nordicsemi.android.nrftoolbox.UTILS";
@@ -74,7 +72,6 @@ public class FeaturesActivity extends BleProfileServiceReadyActivity<TemplateSer
     protected void onCreateView(final Bundle savedInstanceState) {
         setContentView(R.layout.activity_features);
 
-        sensorDataList = initSensorDataList();
 
         /**DRAWER
          * */
@@ -256,7 +253,6 @@ public class FeaturesActivity extends BleProfileServiceReadyActivity<TemplateSer
                 final float value = intent.getFloatExtra(HTSService.EXTRA_TEMPERATURE, 0.0f);
                 int val = Math.round(value);
                 onTemperatureReceived(Integer.toString(val));
-                Log.w("jonas", "received a temperature measurement: " + val);
             }
             mViewModel.getCurrentValue().setValue(sensorDataList);
         }
@@ -272,16 +268,54 @@ public class FeaturesActivity extends BleProfileServiceReadyActivity<TemplateSer
         return intentFilter;
     }
 
-    public List<sensorData> sensorDataList = initSensorDataList();
+    public List<sensorData> sensorDataList = new ArrayList<>();
 
+    public int numOfServices = 0;
+    private int heartRateIDX = -1;
+    private int batteryIDX = -1;
+    private int temperatureIDX = -1;
 
     private void onHeartRateReceived(String newReading){
-        sensorDataList.get(0).sensorReading = newReading;
+        if(heartRateIDX ==-1){//if this is the first reading
+            heartRateIDX = numOfServices;
+            numOfServices += 1;
+            sensorData HRData = new sensorData("Heart Rate", newReading);
+            sensorDataList.add(HRData);
+            //private HR_service_num = numOfServices ------ use this to index in future
+            //create sensorData object and add it to the sensorDataList
+        }
+        else {
+            sensorDataList.get(heartRateIDX).sensorReading = newReading;
+            Log.w("featuresactivity", "HEARTRATEIDX = " + heartRateIDX + "    newReading = " + newReading);
+        }
+
     }
     private void onBatteryReceived(String newReading){
-        sensorDataList.get(1).sensorReading = newReading;
+        if(batteryIDX ==-1){//if this is the first reading
+            batteryIDX = numOfServices;
+            numOfServices += 1;
+            sensorData HRData = new sensorData("Battery Level", newReading);
+            sensorDataList.add(HRData);
+            //private HR_service_num = numOfServices ------ use this to index in future
+            //create sensorData object and add it to the sensorDataList
+        }
+        else{
+            sensorDataList.get(batteryIDX).sensorReading = newReading;
+        Log.w("featuresactivity", "batt_IDX = " + batteryIDX + "    newReading = " + newReading);
+    }
     }
     private void onTemperatureReceived(String newReading){
-        sensorDataList.get(2).sensorReading = newReading;
+        if(temperatureIDX ==-1){//if this is the first reading
+            temperatureIDX = numOfServices;
+            numOfServices += 1;
+            sensorData HRData = new sensorData("Temperature", newReading);
+            sensorDataList.add(HRData);
+            //private HR_service_num = numOfServices ------ use this to index in future
+            //create sensorData object and add it to the sensorDataList
+        }
+        else {
+            sensorDataList.get(temperatureIDX).sensorReading = newReading;
+            Log.w("featuresactivity", "temp_IDX = " + temperatureIDX + "    newReading = " + newReading);
+        }
     }
 }

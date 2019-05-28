@@ -23,7 +23,7 @@
             android:padding="2dp"
             android:layout_weight="2"
             android:gravity="center_vertical"
-            android:text="@string/shr_product_title"
+            android:text="@string/no_name_available"
             android:textAppearance="@style/TextAppearance.MyTheme.SensorNameText"
             />
 
@@ -34,7 +34,7 @@
             android:layout_gravity="center"
             android:layout_weight="3"
             android:gravity="center"
-            android:text="@string/shr_product_description"
+            android:text="@string/no_value_available"
             android:textAppearance="@style/TextAppearance.MyTheme.SensorValueText"
             />
 

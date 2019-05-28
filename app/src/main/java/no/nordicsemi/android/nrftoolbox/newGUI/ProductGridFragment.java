@@ -29,7 +29,7 @@ import static no.nordicsemi.android.nrftoolbox.newGUI.sensorData.initSensorDataL
 public class ProductGridFragment extends Fragment {
 
     public List<sensorData> sensorDataList = initSensorDataList();
-    private sensorData[] BLEdata = new sensorData[3]; //TODO make this device agnostic (by changing to arraylist?)
+    private sensorData[] BLEdata = new sensorData[6]; //TODO make this device agnostic (by changing to arraylist?)
 
 
     private ProductCardRecyclerViewAdapter mAdapter;
@@ -51,19 +51,13 @@ public class ProductGridFragment extends Fragment {
         final Observer<List<sensorData>> nameObserver = new Observer<List<sensorData>>() {
             @Override
             public void onChanged(@Nullable final List<sensorData> newValue) {
-                Log.w("jonas", "fragment knows that data has changed. notifyDataSetChanged(): " + newValue.get(1).sensorReading);
-
-//                sensorDataList.clear();
                 sensorDataList = newValue;
-                Log.w("jonas", "hast the value changed? ____________________________________: " + sensorDataList.get(1).sensorReading);
-
-                //BLEdata[3] = newValue.get(1).sensorReading;
+               // Log.w("jonas", "hast the value changed? ____________________________________: " + sensorDataList.get(1).sensorReading);
                 //with sensorData array
                 //TODO update using DiffUtil
-                BLEdata[0] = newValue.get(0);
-                BLEdata[1] = newValue.get(1);
-                BLEdata[2] = newValue.get(2);
-
+                for (int i  = 0;  i < newValue.size(); i++){
+                    BLEdata[i] = newValue.get(i);
+                }
                 mAdapter.notifyDataSetChanged();
             }
         };

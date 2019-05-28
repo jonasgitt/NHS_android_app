@@ -89,8 +89,9 @@
 	<string name="shr_error_password">Password must contain at least 8 characters.</string>
 	<string name="shr_filter_title">Filter</string>
 	<string name="shr_search_title">Search</string>
-	<string name="shr_product_title">Title</string>
-	<string name="shr_product_description">135</string>
+
+	<string name="no_name_available">Sensor</string>
+	<string name="no_value_available">\?</string>
 	<string name="no_units_available">N/A</string>
 
 
@@ -103,5 +104,8 @@
 	<string name="shr_bottoms_label">Bottoms</string>
 	<string name="shr_dresses_label">Dresses</string>
 	<string name="shr_account_label">My Account</string>
+
+	<!--sensor names-->
+	<string name="sensorName_heartRate">Heart Rate</string>
 
 </resources>

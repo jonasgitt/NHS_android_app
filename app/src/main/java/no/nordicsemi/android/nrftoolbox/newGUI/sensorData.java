@@ -37,11 +37,18 @@ class sensorData {
     public static List<sensorData> initSensorDataList(){
         List<sensorData> sensorDataList = new ArrayList<>();
         sensorData data1 = new sensorData("Heart Rate", "00");
-        sensorData data2 = new sensorData("Battery Level", "00");
+        sensorData data2 = new sensorData("Blood Pressure", "00");
         sensorData data3 = new sensorData("Temperature", "00");
+        sensorData data4 = new sensorData("Blood Oxygen", "00");
+        sensorData data5 = new sensorData("Step Count", "00");
+        sensorData data6 = new sensorData("Battery Level", "00");
+
         sensorDataList.add(data1);
         sensorDataList.add(data2);
         sensorDataList.add(data3);
+        sensorDataList.add(data4);
+        sensorDataList.add(data5);
+        sensorDataList.add(data6);
         return sensorDataList;
     }
 
@@ -51,7 +58,10 @@ class sensorData {
             switch (sensorName){
                 case "Temperature": resourceName = "icon_temperature"; break;
                 case "Battery Level": resourceName = "icon_battery_level"; break;
-                case "Heart Rate": resourceName = "icon_heart_rate"; break;
+                case "@string/sensorName_heartRate": resourceName = "icon_heart_rate"; break;
+                case "Step Count": resourceName = "icon_pedometer"; break;
+                case "Blood Oxygen": resourceName = "icon_blood_oxygen"; break;
+                case "Blood Pressure": resourceName = "icon_blood_pressure"; break;
                 default: resourceName = "icon_notfound";
             }
             Field idField = R.drawable.class.getDeclaredField(resourceName);
@@ -69,6 +79,9 @@ class sensorData {
             case "Temperature": units = "°C"; break;
             case "Battery Level": units = "%"; break;
             case "Heart Rate": units = "bpm"; break;
+            case "Step Count": units = "steps"; break;
+            case "Blood Oxygen": units = "SaO\u2082"; break;
+            case "Blood Pressure": units = "mmHg"; break;
             default: units = "?";
         }
         return units;
