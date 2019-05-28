@@ -58,7 +58,7 @@ class sensorData {
             switch (sensorName){
                 case "Temperature": resourceName = "icon_temperature"; break;
                 case "Battery Level": resourceName = "icon_battery_level"; break;
-                case "@string/sensorName_heartRate": resourceName = "icon_heart_rate"; break;
+                case "Heart Rate": resourceName = "icon_heart_rate"; break;
                 case "Step Count": resourceName = "icon_pedometer"; break;
                 case "Blood Oxygen": resourceName = "icon_blood_oxygen"; break;
                 case "Blood Pressure": resourceName = "icon_blood_pressure"; break;

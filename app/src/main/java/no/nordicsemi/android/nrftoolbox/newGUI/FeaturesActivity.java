@@ -53,6 +53,8 @@ import no.nordicsemi.android.nrftoolbox.profile.BleProfileServiceReadyActivity;
 import no.nordicsemi.android.nrftoolbox.template.TemplateManager;
 import no.nordicsemi.android.nrftoolbox.template.TemplateService;
 
+import static no.nordicsemi.android.nrftoolbox.newGUI.sensorData.initSensorDataList;
+
 public class FeaturesActivity extends BleProfileServiceReadyActivity<TemplateService.LocalBinder> implements NavigationHost  {
 	private static final String NRF_CONNECT_CATEGORY = "no.nordicsemi.android.nrftoolbox.LAUNCHER";
 	private static final String UTILS_CATEGORY = "no.nordicsemi.android.nrftoolbox.UTILS";
@@ -268,54 +270,24 @@ public class FeaturesActivity extends BleProfileServiceReadyActivity<TemplateSer
         return intentFilter;
     }
 
-    public List<sensorData> sensorDataList = new ArrayList<>();
+    public List<sensorData> sensorDataList = initSensorDataList();
 
     public int numOfServices = 0;
-    private int heartRateIDX = -1;
-    private int batteryIDX = -1;
-    private int temperatureIDX = -1;
+    private int heartRateIDX = 0;
+    private int bloodPressIDX = 1;
+    private int temperatureIDX = 2;
+    private int bloodOxIDX = 3;
+    private int stepIDX = 4;
+    private int batteryIDX = 5;
+
 
     private void onHeartRateReceived(String newReading){
-        if(heartRateIDX ==-1){//if this is the first reading
-            heartRateIDX = numOfServices;
-            numOfServices += 1;
-            sensorData HRData = new sensorData("Heart Rate", newReading);
-            sensorDataList.add(HRData);
-            //private HR_service_num = numOfServices ------ use this to index in future
-            //create sensorData object and add it to the sensorDataList
-        }
-        else {
             sensorDataList.get(heartRateIDX).sensorReading = newReading;
-            Log.w("featuresactivity", "HEARTRATEIDX = " + heartRateIDX + "    newReading = " + newReading);
-        }
-
     }
     private void onBatteryReceived(String newReading){
-        if(batteryIDX ==-1){//if this is the first reading
-            batteryIDX = numOfServices;
-            numOfServices += 1;
-            sensorData HRData = new sensorData("Battery Level", newReading);
-            sensorDataList.add(HRData);
-            //private HR_service_num = numOfServices ------ use this to index in future
-            //create sensorData object and add it to the sensorDataList
-        }
-        else{
-            sensorDataList.get(batteryIDX).sensorReading = newReading;
-        Log.w("featuresactivity", "batt_IDX = " + batteryIDX + "    newReading = " + newReading);
+        sensorDataList.get(batteryIDX).sensorReading = newReading;
     }
-    }
-    private void onTemperatureReceived(String newReading){
-        if(temperatureIDX ==-1){//if this is the first reading
-            temperatureIDX = numOfServices;
-            numOfServices += 1;
-            sensorData HRData = new sensorData("Temperature", newReading);
-            sensorDataList.add(HRData);
-            //private HR_service_num = numOfServices ------ use this to index in future
-            //create sensorData object and add it to the sensorDataList
-        }
-        else {
-            sensorDataList.get(temperatureIDX).sensorReading = newReading;
-            Log.w("featuresactivity", "temp_IDX = " + temperatureIDX + "    newReading = " + newReading);
-        }
+    private void onTemperatureReceived(String newReading) {
+        sensorDataList.get(temperatureIDX).sensorReading = newReading;
     }
 }
