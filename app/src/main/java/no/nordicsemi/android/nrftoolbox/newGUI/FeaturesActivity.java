@@ -254,8 +254,8 @@ public class FeaturesActivity extends BleProfileServiceReadyActivity<TemplateSer
             //JF
             else if (TemplateService.BROADCAST_HTS_MEASUREMENT.equals(action)) {
                 final float value = intent.getFloatExtra(HTSService.EXTRA_TEMPERATURE, 0.0f);
-                int val = (int) value;
-                onTemperatureReceived(Float.toString(val));
+                int val = Math.round(value);
+                onTemperatureReceived(Integer.toString(val));
                 Log.w("jonas", "received a temperature measurement: " + val);
             }
             mViewModel.getCurrentValue().setValue(sensorDataList);
