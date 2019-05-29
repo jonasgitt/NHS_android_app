@@ -38,7 +38,7 @@
 	<androidx.appcompat.widget.AppCompatImageView
 		android:layout_width="match_parent"
 		android:layout_height="match_parent"
-		android:background="@color/colorNordicLogoTop"
+		android:background="@color/colorPrimary"
 		android:fitsSystemWindows="true"
 		android:scaleType="centerInside"
 		app:srcCompat="@drawable/p24logo_transparent" />

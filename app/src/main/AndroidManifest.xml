@@ -41,8 +41,8 @@
 	<application
 		android:fullBackupContent="true"
 		android:allowBackup="true"
-		android:icon="@mipmap/p24_launcher"
-		android:roundIcon="@mipmap/p24_launcher"
+		android:icon="@mipmap/ic_launcher_patient24"
+		android:roundIcon="@mipmap/ic_launcher_patient24"
 		android:label="@string/app_name"
 		android:theme="@style/AppTheme"
 		android:name=".ToolboxApplication"

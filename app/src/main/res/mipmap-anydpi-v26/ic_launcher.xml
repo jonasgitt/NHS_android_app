@@ -22,6 +22,6 @@
   -->
 
 <adaptive-icon xmlns:android="http://schemas.android.com/apk/res/android">
-    <background android:drawable="@color/actionBarColor"/>
-    <foreground android:drawable="@mipmap/p24_launcher"/>
+    <background android:drawable="@color/colorPrimary"/>
+    <foreground android:drawable="@mipmap/ic_launcher_patient24"/>
 </adaptive-icon>
