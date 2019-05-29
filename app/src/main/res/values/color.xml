@@ -80,4 +80,8 @@
     <color name="productGridBackgroundColor">#E1F5FE</color>
 
 
+    <color name="colorExpandedCardSeparator">@color/colorPrimaryDark</color>
+
+
+
 </resources>
