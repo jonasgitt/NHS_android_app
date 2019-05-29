@@ -11,6 +11,10 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 
+import com.jjoe64.graphview.series.DataPoint;
+import com.jjoe64.graphview.series.LineGraphSeries;
+
+import java.util.Date;
 import java.util.List;
 
 import no.nordicsemi.android.nrftoolbox.R;
@@ -25,6 +29,16 @@ public class ProductCardRecyclerViewAdapter extends RecyclerView.Adapter<Product
     private List<sensorData> sensorList;
     private sensorData[] test_data;
 
+    private DataPoint[] pt = {new DataPoint(new Date(), 23)};
+    private LineGraphSeries<DataPoint> mSeries2 = new LineGraphSeries<>(pt);
+//    LineGraphSeries<DataPoint> series = new LineGraphSeries<>(new DataPoint[] {
+//        new DataPoint(0, 1),
+//        new DataPoint(1, 5),
+//        new DataPoint(2, 3),
+//        new DataPoint(3, 2),
+//        new DataPoint(4, 6)});
+
+
     ProductCardRecyclerViewAdapter(List<sensorData> sensorList, sensorData[] data) {
         this.sensorList = sensorList;
         this.test_data = data;
@@ -34,6 +48,7 @@ public class ProductCardRecyclerViewAdapter extends RecyclerView.Adapter<Product
     @Override
     public ProductCardViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View layoutView = LayoutInflater.from(parent.getContext()).inflate(R.layout.shr_product_card, parent, false);
+
 
         return new ProductCardViewHolder(layoutView);
     }
@@ -56,10 +71,16 @@ public class ProductCardRecyclerViewAdapter extends RecyclerView.Adapter<Product
                     holder.sensor_Reading.setText(reading.sensorReading);
                     holder.sensorImage.setImageResource(reading.imageId);
                     holder.sensor_units_view.setText(reading.units);
+
+
+                    Date curDate = new Date();
+                    Double val = Double.parseDouble(reading.sensorReading);
+                    mSeries2.appendData(new DataPoint(curDate, val), true, 40);
                 }
             }
         }
 
+        //Handles Expansion
         final boolean isExpanded = position==mExpandedPosition;
         holder.expandedArea.setVisibility(isExpanded?View.VISIBLE:View.GONE);
         holder.itemView.setActivated(isExpanded);
@@ -75,6 +96,15 @@ public class ProductCardRecyclerViewAdapter extends RecyclerView.Adapter<Product
                 notifyItemChanged(position);
             }
         });
+
+        //Handle Graphing
+        holder.graph.addSeries(mSeries2);
+        //holder.graph.getViewport().setXAxisBoundsManual(true);
+      //  holder.graph.getViewport().setMinX(0);
+       // holder.graph.getViewport().setMaxX(40);
+
+
+
     }
 
 
