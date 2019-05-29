@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.jjoe64.graphview.series.DataPoint;
 import com.jjoe64.graphview.series.LineGraphSeries;
+import com.jjoe64.graphview.series.PointsGraphSeries;
 
 import java.util.Date;
 import java.util.List;
@@ -29,8 +30,9 @@ public class ProductCardRecyclerViewAdapter extends RecyclerView.Adapter<Product
     private List<sensorData> sensorList;
     private sensorData[] test_data;
 
-    private DataPoint[] pt = {new DataPoint(new Date(), 23)};
-    private LineGraphSeries<DataPoint> mSeries2 = new LineGraphSeries<>(pt);
+    private DataPoint[] initPt = {new DataPoint(new Date(), 50)};
+    private PointsGraphSeries<DataPoint> mSeries2;
+
 //    LineGraphSeries<DataPoint> series = new LineGraphSeries<>(new DataPoint[] {
 //        new DataPoint(0, 1),
 //        new DataPoint(1, 5),
@@ -49,6 +51,7 @@ public class ProductCardRecyclerViewAdapter extends RecyclerView.Adapter<Product
     public ProductCardViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View layoutView = LayoutInflater.from(parent.getContext()).inflate(R.layout.shr_product_card, parent, false);
 
+        mSeries2 = new PointsGraphSeries<>(initPt);
 
         return new ProductCardViewHolder(layoutView);
     }
@@ -56,6 +59,8 @@ public class ProductCardRecyclerViewAdapter extends RecyclerView.Adapter<Product
     //The below code tells our RecyclerView's adapter what to do with each card, using a ViewHolder.
     @Override
     public void onBindViewHolder(@NonNull ProductCardViewHolder holder, int position) {
+
+
         if (sensorList != null && position < sensorList.size()) {
 
             sensorData data = sensorList.get(position);
