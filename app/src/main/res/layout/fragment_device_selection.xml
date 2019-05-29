@@ -44,7 +44,7 @@
 		android:id="@+id/action_cancel"
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
-		android:textColor="@color/nordicLake"
+		android:textColor="@color/colorPrimary"
 		android:text="@string/scanner_action_scan"/>
 
 </LinearLayout>
