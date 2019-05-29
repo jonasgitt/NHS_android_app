@@ -1,9 +1,11 @@
 package no.nordicsemi.android.nrftoolbox.newGUI;
 
+import android.transition.TransitionManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -18,6 +20,8 @@ import no.nordicsemi.android.nrftoolbox.R;
  */
 public class ProductCardRecyclerViewAdapter extends RecyclerView.Adapter<ProductCardViewHolder> {
 
+    private int mExpandedPosition = -1;
+
     private List<sensorData> sensorList;
     private sensorData[] test_data;
 
@@ -30,6 +34,7 @@ public class ProductCardRecyclerViewAdapter extends RecyclerView.Adapter<Product
     @Override
     public ProductCardViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View layoutView = LayoutInflater.from(parent.getContext()).inflate(R.layout.shr_product_card, parent, false);
+
         return new ProductCardViewHolder(layoutView);
     }
 
@@ -53,9 +58,25 @@ public class ProductCardRecyclerViewAdapter extends RecyclerView.Adapter<Product
                     holder.sensor_units_view.setText(reading.units);
                 }
             }
-
         }
+
+        final boolean isExpanded = position==mExpandedPosition;
+        holder.expandedArea.setVisibility(isExpanded?View.VISIBLE:View.GONE);
+        holder.itemView.setActivated(isExpanded);
+
+        if (isExpanded)
+            mExpandedPosition = position;
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mExpandedPosition = isExpanded ? -1:position;
+                notifyItemChanged(mExpandedPosition);
+                notifyItemChanged(position);
+            }
+        });
     }
+
 
     @Override
     public int getItemCount() {
