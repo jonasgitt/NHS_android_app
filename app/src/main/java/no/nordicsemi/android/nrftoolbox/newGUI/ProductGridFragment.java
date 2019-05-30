@@ -73,8 +73,7 @@ public class ProductGridFragment extends Fragment {
         // Inflate the layout for this fragment with the ProductGrid theme
         View view = inflater.inflate(R.layout.shr_product_grid_fragment, container, false);
 
-        // Set up the toolbar
-        setUpToolbar(view);
+
 
         // Set up the RecyclerView
         RecyclerView recyclerView = view.findViewById(R.id.recycler_view);
@@ -94,13 +93,13 @@ public class ProductGridFragment extends Fragment {
         return view;
     }
 
-    private void setUpToolbar(View view) {
-        Toolbar toolbar = view.findViewById(R.id.app_bar);
-        AppCompatActivity activity = (AppCompatActivity) getActivity();
-        if (activity != null) {
-            activity.setSupportActionBar(toolbar);
-        }
-    }
+//    private void setUpToolbar(View view) {
+//        Toolbar toolbar = view.findViewById(R.id.app_bar);
+//        AppCompatActivity activity = (AppCompatActivity) getActivity();
+//        if (activity != null) {
+//            activity.setSupportActionBar(toolbar);
+//        }
+//    }
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater menuInflater) {

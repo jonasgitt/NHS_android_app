@@ -18,6 +18,7 @@ import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.core.view.GravityCompat;
@@ -83,6 +84,7 @@ public class FeaturesActivity extends BleProfileServiceReadyActivity<TemplateSer
         setContentView(R.layout.activity_features);
 
 
+
         /**DRAWER
          * */
         DrawerLayout mDrawerLayout;
@@ -97,30 +99,39 @@ public class FeaturesActivity extends BleProfileServiceReadyActivity<TemplateSer
                 super.onDrawerSlide(drawerView, 0);
             }
         };
-                drawer.addDrawerListener(mDrawerToggle);
+        drawer.addDrawerListener(mDrawerToggle);
 
 
+        nv = findViewById(R.id.navigation_view);
+        nv.setNavigationItemSelectedListener(this);
 
-                nv = findViewById(R.id.navigation_view);
-                nv.setNavigationItemSelectedListener(this);
 
-
-                /**
-                 * FRAGMENT
-                 */
-                if (savedInstanceState == null) {
-                    navigateTo(new ProductGridFragment(), false);
-                }
-
+        /**
+         * FRAGMENT
+         */
+        if (savedInstanceState == null) {
+            navigateTo(new ProductGridFragment(), false);
         }
 
-        @Override
-        public boolean onNavigationItemSelected(MenuItem item) {
+        configureToolbar();
+    }
+
+    private void configureToolbar() {
+        Toolbar toolbar = findViewById(R.id.app_bar);
+        setSupportActionBar(toolbar);
+        ActionBar actionbar = getSupportActionBar();
+        //actionbar.setHomeAsUpIndicator(R.drawable.ic_action_add);
+        actionbar.setDisplayHomeAsUpEnabled(true);
+    }
+
+
+    @Override
+    public boolean onNavigationItemSelected(MenuItem item) {
             displaySelectedScreen(item.getItemId());
             return true;
-        }
+    }
 
-        private void displaySelectedScreen(int itemId) {
+    private void displaySelectedScreen(int itemId) {
 
             //creating fragment object
             Fragment fragment = null;
