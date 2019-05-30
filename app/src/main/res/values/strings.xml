@@ -87,4 +87,10 @@
 	<!--sensor names-->
 	<string name="sensorName_heartRate">Heart Rate</string>
 
+	<!--SMS Strings-->
+	<string name="SMS_button_label">Send SMS</string>
+    <string name="no_sms_permission">Permission Denied</string>
+
+
+
 </resources>

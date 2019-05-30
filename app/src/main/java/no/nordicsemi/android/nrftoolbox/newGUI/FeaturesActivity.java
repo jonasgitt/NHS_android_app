@@ -1,5 +1,6 @@
 package no.nordicsemi.android.nrftoolbox.newGUI;
 
+import android.Manifest;
 import android.bluetooth.BluetoothDevice;
 import android.content.ActivityNotFoundException;
 import android.content.BroadcastReceiver;
@@ -17,6 +18,8 @@ import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.ActionBarDrawerToggle;
@@ -26,12 +29,14 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
+import android.telephony.SmsManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -62,12 +67,13 @@ public class FeaturesActivity extends BleProfileServiceReadyActivity<TemplateSer
 	private static final String NRF_CONNECT_CLASS = NRF_CONNECT_PACKAGE + ".DeviceListActivity";
 	private static final String NRF_CONNECT_MARKET_URI = "market://details?id=no.nordicsemi.android.mcp";
 
+    private static final int MY_PERMISSIONS_REQUEST_SEND_SMS = 1;
+
 	// Extras that can be passed from NFC (see SplashscreenActivity)
 	public static final String EXTRA_APP = "application/vnd.no.nordicsemi.type.app";
 	public static final String EXTRA_ADDRESS = "application/vnd.no.nordicsemi.type.address";
 
 	private ActionBarDrawerToggle mDrawerToggle;
-
 
 
     @Override //graphical initialization usually takes place here
@@ -99,6 +105,73 @@ public class FeaturesActivity extends BleProfileServiceReadyActivity<TemplateSer
                     .beginTransaction()
                     .add(R.id.fragment_container, new ProductGridFragment())
                     .commit();
+        }
+
+        /**
+        * SMS Button
+        * */
+        final Button button = findViewById(R.id.sms_button);
+        button.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                // Code here executes on main thread after user presses button
+                sendSMS();
+            }
+        });
+    }
+
+    /**
+     * SMS Permissions
+     */
+    private void sendSMS() {
+
+        // Here, thisActivity is the current activity
+        if (ContextCompat.checkSelfPermission(this,
+                Manifest.permission.SEND_SMS)
+                != PackageManager.PERMISSION_GRANTED) {
+
+            // Permission is not granted
+            // Should we show an explanation?
+            if (ActivityCompat.shouldShowRequestPermissionRationale(this,
+                    Manifest.permission.SEND_SMS)) {
+                // Show an explanation to the user *asynchronously* -- don't block
+                // this thread waiting for the user's response! After the user
+                // sees the explanation, try again to request the permission.
+            } else {
+                // No explanation needed; request the permission
+                ActivityCompat.requestPermissions(this,
+                        new String[]{Manifest.permission.SEND_SMS},
+                        MY_PERMISSIONS_REQUEST_SEND_SMS);
+
+                // MY_PERMISSIONS_REQUEST_READ_CONTACTS is an
+                // app-defined int constant. The callback method gets the
+                // result of the request.
+            }
+        } else {
+            //smgr.sendTextMessage(MobileNumber,null,Message,null,null);
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode,
+                                           String[] permissions, int[] grantResults) {
+        switch (requestCode) {
+            case MY_PERMISSIONS_REQUEST_SEND_SMS: {
+                // If request is cancelled, the result arrays are empty.
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    // permission was granted, yay!
+                    SmsManager smgr = SmsManager.getDefault();
+                    String MobileNumber = "07936698636";
+                    String Message = "it worked!";
+                    smgr.sendTextMessage(MobileNumber,null,Message,null,null);
+                } else {
+                    // permission denied, boo! Disable the functionality that depends on this permission.
+                    Toast.makeText(this, R.string.no_sms_permission, Toast.LENGTH_LONG).show();
+                }
+                return;
+            }
+
+            // other 'case' lines to check for other
+            // permissions this app might request.
         }
     }
 
