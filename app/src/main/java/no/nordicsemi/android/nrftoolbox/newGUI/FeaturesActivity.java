@@ -148,7 +148,7 @@ public class FeaturesActivity extends BleProfileServiceReadyActivity<TemplateSer
 
         //replacing the fragment
         if (fragment != null) {
-            navigateTo(fragment,true);
+            navigateTo(fragment,false);
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
