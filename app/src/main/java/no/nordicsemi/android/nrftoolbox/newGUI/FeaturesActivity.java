@@ -97,41 +97,41 @@ public class FeaturesActivity extends BleProfileServiceReadyActivity<TemplateSer
                 super.onDrawerSlide(drawerView, 0);
             }
         };
-        drawer.addDrawerListener(mDrawerToggle);
+                drawer.addDrawerListener(mDrawerToggle);
 
 
 
-        nv = findViewById(R.id.navigation_view);
-        nv.setNavigationItemSelectedListener(this);
+                nv = findViewById(R.id.navigation_view);
+                nv.setNavigationItemSelectedListener(this);
 
 
-        /**
-         * FRAGMENT
-         */
-        if (savedInstanceState == null) {
-            navigateTo(new ProductGridFragment(), false);
+                /**
+                 * FRAGMENT
+                 */
+                if (savedInstanceState == null) {
+                    navigateTo(new ProductGridFragment(), false);
+                }
+
         }
 
-    }
+        @Override
+        public boolean onNavigationItemSelected(MenuItem item) {
+            displaySelectedScreen(item.getItemId());
+            return true;
+        }
 
-    @Override
-    public boolean onNavigationItemSelected(MenuItem item) {
-        displaySelectedScreen(item.getItemId());
-        return true;
-    }
+        private void displaySelectedScreen(int itemId) {
 
-    private void displaySelectedScreen(int itemId) {
+            //creating fragment object
+            Fragment fragment = null;
 
-        //creating fragment object
-        Fragment fragment = null;
-
-        //initializing the fragment object which is selected
-        switch (itemId) {
-            case R.id.sensor_page:
-                fragment = new ProductGridFragment();
-                break;
-            case R.id.sms_page:
-                fragment = new SMSFragment();
+            //initializing the fragment object which is selected
+            switch (itemId) {
+                case R.id.sensor_page:
+                    fragment = new ProductGridFragment();
+                    break;
+                case R.id.sms_page:
+                    fragment = new SettingsFragment();
                 break;
         }
 

@@ -1,96 +1,112 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-	<string name="app_name">patient24</string>
-	<string name="font_path">fonts/trebucbd.ttf</string>
-	<string name="normal_font_path">fonts/trebuc.ttf</string>
+    <string name="app_name">patient24</string>
+    <string name="font_path">fonts/trebucbd.ttf</string>
+    <string name="normal_font_path">fonts/trebuc.ttf</string>
 
-	<string name="shortcut_dfu_short">DFU</string>
-	<string name="shortcut_dfu_long">Device Firmware Update</string>
-	<string name="shortcut_uart_short">UART</string>
-	<string name="shortcut_uart_long">Nordic UART Service</string>
-	
-	<string name="ok">OK</string>
-	<string name="yes">Yes</string>
-	<string name="no">No</string>
-	<string name="cancel">Cancel</string>
-	
-	<string name="action_about">About</string>
-	<string name="action_settings">Settings</string>
-	<string name="action_connect">CONNECT</string>
-	<string name="action_select">SELECT DEVICE</string>
-	<string name="action_add_device">ADD DEVICE</string>
-	<string name="action_connecting">CONNECTING…</string>
-	<string name="action_disconnect">DISCONNECT</string>
-	<string name="action_disconnecting">DISCONNECTING…</string>
+    <string name="shortcut_dfu_short">DFU</string>
+    <string name="shortcut_dfu_long">Device Firmware Update</string>
+    <string name="shortcut_uart_short">UART</string>
+    <string name="shortcut_uart_long">Nordic UART Service</string>
 
-	<string name="drawer_open">Open</string>
-	<string name="drawer_close">Close</string>
-	<string name="drawer_label">drawer_label</string>
-	<string name="drawer_option1">drawer_option1</string>
-	<string name="drawer_option2">drawer_option2</string>
-	
-	<string name="battery">%d%%</string>
-	<string name="not_available">no battery reading</string>
-	<string name="not_available_value">" not available "</string>
-	<string name="no_ble">Device doesn\'t have BLE support!</string>
-	<string name="no_apps">No profiles found.</string>
-	<string name="not_supported">The device does not have required services.</string>
-	<string name="no_application">Web Browser application is not available.</string>
-	<string name="no_uri_application">There is no application that can open this URI.</string>
-	<string name="no_application_play">Google Play not installed.</string>
-	<string name="no_required_permission">Permission denied.</string>
-	<string name="scanner_title">Select device:</string>
-	<string name="scanner_empty">No device found</string>
-	<string name="scanner_action_scan">Scan</string>
-	<string name="scanner_action_cancel">Cancel</string>
-	<string name="scanner_subtitle_bonded">BONDED DEVICES:</string>
-	<string name="scanner_subtitle_not_bonded">AVAILABLE DEVICES:</string>
-	<string name="scanner_permission_rationale">Since Android 6.0 Marshmallow system requires granting access to device\'s location in order to scan for Bluetooth Smart devices. Bluetooth beacons may be used to determine the phone\'s and user\'s location.</string>
+    <string name="ok">OK</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="cancel">Cancel</string>
 
-	//JF
-	<string name="tempReceived_butNull">Null Temp Received</string>
+    <string name="action_about">About</string>
+    <string name="action_settings">Settings</string>
+    <string name="action_connect">CONNECT</string>
+    <string name="action_select">SELECT DEVICE</string>
+    <string name="action_add_device">ADD DEVICE</string>
+    <string name="action_connecting">CONNECTING…</string>
+    <string name="action_disconnect">DISCONNECT</string>
+    <string name="action_disconnecting">DISCONNECTING…</string>
 
-	<string name="log" formatted="false">%1$tR:%1$tS.%1$tL</string>
+    <string name="drawer_open">Open</string>
+    <string name="drawer_close">Close</string>
+    <string name="drawer_label">drawer_label</string>
+    <string name="drawer_option1">drawer_option1</string>
+    <string name="drawer_option2">drawer_option2</string>
 
-	<string name="permission_title">Permission required</string>
-	<string name="permission_sd_text">nRF Toolbox would like to copy some sample applications, that may be uploaded onto your nRF51 device using the DFU (Device Firmware Update), to the memory of this device. If you agree, you will be asked to give the application permission to access files on your device.</string>
-	<string name="about_title">About</string>
-	<string name="about_version">\n\nVersion: %s</string>
-	<string name="about_text">Patient24 about text</string>
+    <string name="battery">%d%%</string>
+    <string name="not_available">no battery reading</string>
+    <string name="not_available_value">" not available "</string>
+    <string name="no_ble">Device doesn\'t have BLE support!</string>
+    <string name="no_apps">No profiles found.</string>
+    <string name="not_supported">The device does not have required services.</string>
+    <string name="no_application">Web Browser application is not available.</string>
+    <string name="no_uri_application">There is no application that can open this URI.</string>
+    <string name="no_application_play">Google Play not installed.</string>
+    <string name="no_required_permission">Permission denied.</string>
+    <string name="scanner_title">Select device:</string>
+    <string name="scanner_empty">No device found</string>
+    <string name="scanner_action_scan">Scan</string>
+    <string name="scanner_action_cancel">Cancel</string>
+    <string name="scanner_subtitle_bonded">BONDED DEVICES:</string>
+    <string name="scanner_subtitle_not_bonded">AVAILABLE DEVICES:</string>
+    <string name="scanner_permission_rationale">Since Android 6.0 Marshmallow system requires granting access to device\'s location in order to scan for Bluetooth Smart devices. Bluetooth beacons may be used to determine the phone\'s and user\'s location.</string>
 
+    //JF
+    <string name="tempReceived_butNull">Null Temp Received</string>
 
-	//Shrine stuff
-	<string name="shr_hint_username">Username</string>
-	<string name="shr_hint_password">Password</string>
-	<string name="shr_button_next">Next</string>
-	<string name="shr_button_cancel">Cancel</string>
-	<string name="shr_error_password">Password must contain at least 8 characters.</string>
-	<string name="shr_filter_title">Filter</string>
-	<string name="shr_search_title">Search</string>
+    <string name="log" formatted="false">%1$tR:%1$tS.%1$tL</string>
 
-	<string name="no_name_available">Sensor</string>
-	<string name="no_value_available">-</string>
-	<string name="no_units_available">N/A</string>
+    <string name="permission_title">Permission required</string>
+    <string name="permission_sd_text">nRF Toolbox would like to copy some sample applications, that may be uploaded onto your nRF51 device using the DFU (Device Firmware Update), to the memory of this device. If you agree, you will be asked to give the application permission to access files on your device.</string>
+    <string name="about_title">About</string>
+    <string name="about_version">\n\nVersion: %s</string>
+    <string name="about_text">Patient24 about text</string>
 
 
-	<!-- Shrine backdrop menu labels -->
-	<string name="shr_featured_label">Featured</string>
-	<string name="shr_apartment_label">Apartment</string>
-	<string name="shr_accessories_label">Accessories</string>
-	<string name="shr_shoes_label">Shoes</string>
-	<string name="shr_tops_label">Tops</string>
-	<string name="shr_bottoms_label">Bottoms</string>
-	<string name="shr_dresses_label">Dresses</string>
-	<string name="shr_account_label">My Account</string>
+    //Shrine stuff
+    <string name="shr_hint_username">Username</string>
+    <string name="shr_hint_password">Password</string>
+    <string name="shr_button_next">Next</string>
+    <string name="shr_button_cancel">Cancel</string>
+    <string name="shr_error_password">Password must contain at least 8 characters.</string>
+    <string name="shr_filter_title">Filter</string>
+    <string name="shr_search_title">Search</string>
 
-	<!--sensor names-->
-	<string name="sensorName_heartRate">Heart Rate</string>
+    <string name="no_name_available">Sensor</string>
+    <string name="no_value_available">-</string>
+    <string name="no_units_available">N/A</string>
 
-	<!--SMS Strings-->
-	<string name="SMS_button_label">Send SMS</string>
+
+    <!-- Shrine backdrop menu labels -->
+    <string name="shr_featured_label">Featured</string>
+    <string name="shr_apartment_label">Apartment</string>
+    <string name="shr_accessories_label">Accessories</string>
+    <string name="shr_shoes_label">Shoes</string>
+    <string name="shr_tops_label">Tops</string>
+    <string name="shr_bottoms_label">Bottoms</string>
+    <string name="shr_dresses_label">Dresses</string>
+    <string name="shr_account_label">My Account</string>
+
+    <!--sensor names-->
+    <string name="sensorName_heartRate">Heart Rate</string>
+
+    <!--SMS Strings-->
+    <string name="SMS_button_label">Send SMS</string>
     <string name="no_sms_permission">Permission Denied</string>
-	<string name="sms_sent">SMS Sent</string>
+    <string name="sms_sent">SMS Sent</string>
+    <string name="title_activity_settings">Settings</string>
+
+    <!-- Preference Titles -->
+    <string name="messages_header">Messages</string>
+    <string name="sync_header">Sync</string>
+
+    <!-- Messages Preferences -->
+    <string name="signature_title">Your signature</string>
+    <string name="reply_title">Default reply action</string>
+
+    <!-- Sync Preferences -->
+    <string name="sync_title">Sync email periodically</string>
+    <string name="attachment_title">Download incoming attachments</string>
+    <string name="attachment_summary_on">Automatically download attachments for incoming emails
+    </string>
+    <string name="attachment_summary_off">Only download attachments when manually requested</string>
 
 
 </resources>
