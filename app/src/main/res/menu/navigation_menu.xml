@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:id="@+id/sensor_page"
+        android:icon="@drawable/hr_heart"
+        android:title="My Account"/>
+    <item android:id="@+id/sms_page"
+        android:icon="@drawable/hr_heart"
+        android:title="Settings"/>
+
+</menu>

@@ -111,5 +111,7 @@
 				android:text="@string/SMS_button_label"/>
 		</LinearLayout>
 
+
+
 	</LinearLayout>
 </ScrollView>

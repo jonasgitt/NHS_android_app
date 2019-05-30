@@ -42,6 +42,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.material.navigation.NavigationView;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -60,7 +62,7 @@ import no.nordicsemi.android.nrftoolbox.template.TemplateService;
 
 import static no.nordicsemi.android.nrftoolbox.newGUI.sensorData.initSensorDataList;
 
-public class FeaturesActivity extends BleProfileServiceReadyActivity<TemplateService.LocalBinder> implements NavigationHost  {
+public class FeaturesActivity extends BleProfileServiceReadyActivity<TemplateService.LocalBinder> implements NavigationHost, NavigationView.OnNavigationItemSelectedListener  {
 	private static final String NRF_CONNECT_CATEGORY = "no.nordicsemi.android.nrftoolbox.LAUNCHER";
 	private static final String UTILS_CATEGORY = "no.nordicsemi.android.nrftoolbox.UTILS";
 	private static final String NRF_CONNECT_PACKAGE = "no.nordicsemi.android.mcp";
@@ -75,6 +77,7 @@ public class FeaturesActivity extends BleProfileServiceReadyActivity<TemplateSer
 
 	private ActionBarDrawerToggle mDrawerToggle;
 
+    private NavigationView nv;
 
     @Override //graphical initialization usually takes place here
     protected void onCreateView(final Bundle savedInstanceState) {
@@ -97,26 +100,59 @@ public class FeaturesActivity extends BleProfileServiceReadyActivity<TemplateSer
         };
         drawer.addDrawerListener(mDrawerToggle);
 
+
+
+        nv = findViewById(R.id.navigation_view);
+        nv.setNavigationItemSelectedListener(this);
+
+
         /**
          * FRAGMENT
          */
         if (savedInstanceState == null) {
-            getSupportFragmentManager()
-                    .beginTransaction()
-                    .add(R.id.fragment_container, new ProductGridFragment())
-                    .commit();
+            navigateTo(new ProductGridFragment(), false);
         }
 
         /**
         * SMS Button
         * */
-        final Button button = findViewById(R.id.sms_button);
-        button.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                // Code here executes on main thread after user presses button
-                sendSMS();
-            }
-        });
+//        final Button button = findViewById(R.id.sms_button);
+//        button.setOnClickListener(new View.OnClickListener() {
+//            public void onClick(View v) {
+//                // Code here executes on main thread after user presses button
+//                sendSMS();
+//            }
+//        });
+    }
+
+    @Override
+    public boolean onNavigationItemSelected(MenuItem item) {
+        displaySelectedScreen(item.getItemId());
+        return true;
+    }
+
+    private void displaySelectedScreen(int itemId) {
+
+        //creating fragment object
+        Fragment fragment = null;
+
+        //initializing the fragment object which is selected
+        switch (itemId) {
+            case R.id.sensor_page:
+                fragment = new ProductGridFragment();
+                break;
+            case R.id.sms_page:
+                fragment = new SMSFragment();
+                break;
+        }
+
+        //replacing the fragment
+        if (fragment != null) {
+            navigateTo(fragment,true);
+        }
+
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        drawer.closeDrawer(GravityCompat.START);
     }
 
     /**

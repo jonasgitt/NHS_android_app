@@ -22,18 +22,38 @@
 
 	<!-- The navigation drawer -->
 	<com.google.android.material.navigation.NavigationView
+		android:id="@+id/navigation_view"
 		android:layout_width="@dimen/navdrawer_width"
 		android:layout_height="match_parent"
 		android:layout_gravity="start"
 		android:background="#FFFFFFFF"
 		android:fitsSystemWindows="true"
-		app:insetForeground="#2000">
+		app:insetForeground="#2000"
+		app:menu="@menu/navigation_menu">
 
-		<include
-			layout="@layout/drawer"
-			android:layout_width="match_parent"
-			android:layout_height="match_parent"
-			android:layout_gravity="start"/>
+		<!--<include-->
+			<!--layout="@layout/drawer"-->
+			<!--android:layout_width="match_parent"-->
+			<!--android:layout_height="match_parent"-->
+			<!--android:layout_gravity="start"/>-->
 	</com.google.android.material.navigation.NavigationView>
 
+	<!-- Layout to contain contents of main body of screen (drawer will slide over this) -->
+	<!--<fragment-->
+		<!--android:name="androidx.navigation.fragment.NavHostFragment"-->
+		<!--android:id="@+id/nav_host_fragment"-->
+		<!--android:layout_width="match_parent"-->
+		<!--android:layout_height="match_parent"-->
+		<!--app:defaultNavHost="true"-->
+		<!--app:navGraph="@navigation/nav_graph" />-->
+
+	<!--&lt;!&ndash; Container for contents of drawer - use NavigationView to make configuration easier &ndash;&gt;-->
+	<!--<android.support.design.widget.NavigationView-->
+		<!--android:id="@+id/nav_view"-->
+		<!--android:layout_width="wrap_content"-->
+		<!--android:layout_height="match_parent"-->
+		<!--android:layout_gravity="start"-->
+		<!--android:fitsSystemWindows="true" />-->
+
 </androidx.drawerlayout.widget.DrawerLayout>
+<!--</android.support.v4.widget.DrawerLayout>-->
