@@ -147,7 +147,11 @@ public class FeaturesActivity extends BleProfileServiceReadyActivity<TemplateSer
                 // result of the request.
             }
         } else {
-            //smgr.sendTextMessage(MobileNumber,null,Message,null,null);
+            SmsManager smgr = SmsManager.getDefault();
+            String MobileNumber = "07936698636";
+            String Message = "it worked!";
+            smgr.sendTextMessage(MobileNumber,null,Message,null,null);
+            Toast.makeText(this, R.string.sms_sent, Toast.LENGTH_LONG).show();
         }
     }
 
@@ -163,6 +167,7 @@ public class FeaturesActivity extends BleProfileServiceReadyActivity<TemplateSer
                     String MobileNumber = "07936698636";
                     String Message = "it worked!";
                     smgr.sendTextMessage(MobileNumber,null,Message,null,null);
+                    Toast.makeText(this, R.string.no_sms_permission, Toast.LENGTH_LONG).show();
                 } else {
                     // permission denied, boo! Disable the functionality that depends on this permission.
                     Toast.makeText(this, R.string.no_sms_permission, Toast.LENGTH_LONG).show();

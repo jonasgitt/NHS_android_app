@@ -90,7 +90,7 @@
 	<!--SMS Strings-->
 	<string name="SMS_button_label">Send SMS</string>
     <string name="no_sms_permission">Permission Denied</string>
-
+	<string name="sms_sent">SMS Sent</string>
 
 
 </resources>
