@@ -56,8 +56,7 @@ public class ProductCardRecyclerViewAdapter extends RecyclerView.Adapter<Product
         return new ProductCardViewHolder(layoutView);
     }
 
-    //private DataPoint b = makeDataPoint("10");
-    Random mRand = new Random();
+
     private DataPoint[] dPtArray = generateData();
     private List<DataPoint[]> dPtArrayList  = Arrays.asList(dPtArray,dPtArray,dPtArray,dPtArray,dPtArray,dPtArray);
 
@@ -67,7 +66,7 @@ public class ProductCardRecyclerViewAdapter extends RecyclerView.Adapter<Product
 
         PointsGraphSeries<DataPoint> singleSeries = new PointsGraphSeries<>();
 
-        if (sensorList != null && position < sensorList.size()) {
+        if (sensorList != null && position < sensorList.size()  ) {
 
             sensorData data = sensorList.get(position);
             holder.sensor_Name.setText(data.sensorName);
@@ -82,34 +81,36 @@ public class ProductCardRecyclerViewAdapter extends RecyclerView.Adapter<Product
 
                     if (position == 5) {
                         counter++;
-                        if (counter == 10) {
-                            counter = 0;
-                        }
+//                        if (counter == 10) {
+//                            counter = 0;
+//                        }
                     }
 
-                    dPtArray = dPtArrayList.get(position);
-                    dPtArray[counter] = makeDataPoint(reading.sensorReading);
-                    ///////////resume here///// use resetData with dPtArray as arg.
-                    if (dPtArray[0] != null)
-                        singleSeries.resetData(dPtArray); //dptarray must have been empty
-
-                    holder.graph.removeAllSeries();
-                    holder.graph.addSeries(singleSeries);
-
-//                    singleSeries = dataSeriesList.get(position);
+//                    dPtArray = dPtArrayList.get(position);
+//                    dPtArray[counter] = makeDataPoint(reading.sensorReading);
+//                    ///////////resume here///// use resetData with dPtArray as arg.
+//                    if (dPtArray[0] != null)
+//                        singleSeries.resetData(dPtArray); //dptarray must have been empty
 //
-//                    singleSeries.appendData(makeDataPoint(reading.sensorReading), true, 40);
 //                    holder.graph.removeAllSeries();
-//                    singleSeries.resetData();
 //                    holder.graph.addSeries(singleSeries);
-//
-//                    dataSeriesList.set(position,singleSeries);
+
+                    //singleSeries = dataSeriesList.get(position);
+                    dataSeriesList.get(position).appendData(makeDataPoint(reading.sensorReading), true, 40);
+                    //singleSeries.appendData(makeDataPoint(reading.sensorReading), true, 40);
+                    //holder.graph.removeAllSeries();
+                    //holder.graph.addSeries(singleSeries);
+
+                    if (holder.graph.getSeries().size() == 0)
+                        holder.graph.addSeries(dataSeriesList.get(position));
+
+                    //dataSeriesList.set(position,singleSeries);
 
                     holder.graph.getViewport().setXAxisBoundsManual(true);
                     holder.graph.getViewport().setMinX(0);
                     holder.graph.getViewport().setMaxX(100);
 
-                    Log.w("jonas", "size of list: " + dataSeriesList.size());
+                    Log.w("jonas", "# of Series on Graph: " + holder.graph.getSeries().size());
                     Log.w("jonas", "current position: " + position);
 
                 }
@@ -151,12 +152,11 @@ public class ProductCardRecyclerViewAdapter extends RecyclerView.Adapter<Product
 
 
     private DataPoint[] generateData() {
-        int count = 30;
+        int count = 10;
         DataPoint[] values = new DataPoint[count];
         for (int i=0; i<count; i++) {
             double x = i;
-            double f = mRand.nextDouble()*0.15+0.3;
-            double y = Math.sin(i*f+2) + mRand.nextDouble()*0.3;
+            double y = 0;
             DataPoint v = new DataPoint(x, y);
             values[i] = v;
         }
