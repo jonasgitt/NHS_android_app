@@ -37,7 +37,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                     if (TextUtils.isEmpty(text)) {
                         return "Not set";
                     }
-                    return "Phone Number: " + text();
+                    return "Phone Number: " + text;
                 }
             });
             phonePreference.setOnBindEditTextListener(
