@@ -12,6 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.preference.EditTextPreference;
+import androidx.preference.ListPreference;
 import androidx.preference.Preference;
 import androidx.preference.PreferenceFragmentCompat;
 
@@ -49,7 +50,23 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                     });
         }
 
+        /**
+         * Selecting Dialog for Regular Updates
+         */
+        ListPreference updaterPreference = findPreference("updater_preference");
 
+        if (updaterPreference != null) {
+            updaterPreference.setSummaryProvider(new Preference.SummaryProvider<ListPreference>() {
+                @Override
+                public CharSequence provideSummary(ListPreference preference) {
+                    String text =  (String) preference.getEntry();
+                    if (TextUtils.isEmpty(text)) {
+                        return "Keep your loved one up to date";
+                    }
+                    return "SMS update every " + text;
+                }
+            });
+        }
 
     }
 

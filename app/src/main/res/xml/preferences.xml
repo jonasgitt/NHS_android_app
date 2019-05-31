@@ -7,19 +7,28 @@
             app:key="notifications"
             app:title="Enable message notifications"/>
     </PreferenceCategory>
-    <PreferenceCategory android:title="Advanced Settings">
-    <Preference
-        app:key="feedback"
-        app:title="Send feedback"
-        app:summary="Report technical issues or suggest new features"/>
-    </PreferenceCategory>
+    <PreferenceCategory android:title="Caregiver Contact Settings">
+    <!--<Preference-->
+        <!--app:key="feedback"-->
+        <!--app:title="Send feedback"-->
+        <!--app:summary="Report technical issues or suggest new features"/>-->
+
     <EditTextPreference
-    android:dialogTitle="Enter a text"
+    android:dialogTitle="Enter a phone number"
     android:key="PhoneNumber"
-    android:summary="Click to show a text entry dialog"
-    android:title="EditText Preference"
+    android:summary="Send regular SMS updates to a phone number"
+    android:title="Contact a loved one"
     android:inputType="text"
     app:useSimpleSummaryProvider="true"/>
+    <ListPreference
+        android:dialogTitle="Send update every..."
+        android:entries="@array/settings_list_preference_titles"
+        android:entryValues="@array/settings_list_preference_values"
+        android:key="updater_preference"
+        android:summary="Select frequency"
+        android:title="Schedule Regular Updates"
+        app:useSimpleSummaryProvider="true"/>
+    </PreferenceCategory>
 </PreferenceScreen>
 
     <!--<?xml version="1.0" encoding="utf-8"?>-->
