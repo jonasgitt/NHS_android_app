@@ -1,12 +1,18 @@
 package no.nordicsemi.android.nrftoolbox.newGUI;
 
 import android.os.Bundle;
+import android.text.InputType;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.preference.EditTextPreference;
+import androidx.preference.Preference;
 import androidx.preference.PreferenceFragmentCompat;
 
 import no.nordicsemi.android.nrftoolbox.R;
@@ -16,6 +22,34 @@ public class SettingsFragment extends PreferenceFragmentCompat {
     @Override
     public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
         setPreferencesFromResource(R.xml.preferences, rootKey);
+
+
+        /**
+         * Edit Text for Phone Number
+         */
+        EditTextPreference phonePreference = findPreference("PhoneNumber");
+
+        if (phonePreference != null) {
+            phonePreference.setSummaryProvider(new Preference.SummaryProvider<EditTextPreference>() {
+                @Override
+                public CharSequence provideSummary(EditTextPreference preference) {
+                    String text = preference.getText();
+                    if (TextUtils.isEmpty(text)) {
+                        return "Not set";
+                    }
+                    return "Phone Number: " + text();
+                }
+            });
+            phonePreference.setOnBindEditTextListener(
+                    new EditTextPreference.OnBindEditTextListener() {
+                        @Override
+                        public void onBindEditText(@NonNull EditText editText) {
+                            editText.setInputType(InputType.TYPE_CLASS_PHONE);
+                        }
+                    });
+        }
+
+
 
     }
 
