@@ -90,7 +90,7 @@ public class TemplateManager extends BatteryManager<TemplateManagerCallbacks>   
 	/**
 	 *CUSTOM SERVICE
 	*/
-	public final static UUID P24_SERVICE_UUID = UUID.fromString("34D61520-E9CE-476C-BAD6-FB0F310898E1");
+	public final static UUID P24_SERVICE_UUID = UUID.fromString("34D60724-E9CE-476C-BAD6-FB0F310898E1");
 	/** Step Count Measurement characteristic UUID */
 	private static final UUID STEP_COUNT_MEASUREMENT_CHARACTERISTIC_UUID = UUID.fromString("34D651e7-E9CE-476C-BAD6-FB0F310898E1");
 

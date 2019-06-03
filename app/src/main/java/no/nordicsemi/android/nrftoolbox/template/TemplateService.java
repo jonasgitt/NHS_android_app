@@ -187,10 +187,10 @@ public class TemplateService extends BleProfileService implements TemplateManage
 	public void onStepCountReceived(final int stepCount){
 		final Intent broadcast = new Intent(BROADCAST_STEPCOUNT_MEASUREMENT);
 		//broadcast.putExtra(EXTRA_DEVICE, getBluetoothDevice());
-		broadcast.putExtra(EXTRA_DATA, stepCount);
+		broadcast.putExtra(EXTRA_STEPCOUNT, stepCount);
 		LocalBroadcastManager.getInstance(this).sendBroadcast(broadcast);
 
-		Log.w("P24", "in onStepCountReceived in TemplateService \n StepCount is: "+ stepCount);
+		Log.w("P24", "Broadcasting Step Count: "+ stepCount);
 	}
 
 

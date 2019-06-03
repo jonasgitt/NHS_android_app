@@ -308,6 +308,7 @@ public class FeaturesActivity extends BleProfileServiceReadyActivity<TemplateSer
             //JF2
             else if (TemplateService.BROADCAST_STEPCOUNT_MEASUREMENT.equals(action)) {
                 final int value = intent.getIntExtra(TemplateService.EXTRA_STEPCOUNT, 0);
+                Log.w("P24", "Received Step count integer: " + value);
                 onStepCountReceived(Integer.toString(value));
             }
 
@@ -347,6 +348,7 @@ public class FeaturesActivity extends BleProfileServiceReadyActivity<TemplateSer
         sensorDataList.get(temperatureIDX).sensorReading = newReading;
     }
     private void onStepCountReceived(String newReading) {
+        Log.w("P24", "Received Step count: " + newReading);
         sensorDataList.get(stepIDX).sensorReading = newReading;
     }
 
