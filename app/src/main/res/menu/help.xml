@@ -19,10 +19,5 @@
         app:showAsAction="never"
         android:title="undefined"/>
 
-    <item
-        android:id="@+id/action_connect"
-        android:orderInCategory="99"
-        app:showAsAction="never"
-        android:title="undefined"/>
 
 </menu>

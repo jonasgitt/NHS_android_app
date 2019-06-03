@@ -40,6 +40,7 @@ import androidx.lifecycle.ViewModelProviders;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.text.Html;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -83,8 +84,10 @@ public abstract class BleProfileServiceReadyActivity<E extends BleProfileService
 
 	private E mService;
 
-	private TextView mDeviceNameView;
-	private Button mConnectButton;
+	public Menu  myMenu;
+
+	private MenuItem mDeviceNameView;
+	private MenuItem mConnectButton;
 
 	private ILogSession mLogSession;
 	private BluetoothDevice mBluetoothDevice;
@@ -181,8 +184,8 @@ public abstract class BleProfileServiceReadyActivity<E extends BleProfileService
 
 			// Update UI
 			mDeviceName = bleService.getDeviceName();
-			mDeviceNameView.setText(mDeviceName);
-			//mConnectButton.setText(R.string.action_disconnect);
+			mDeviceNameView.setTitle(mDeviceName);
+			mConnectButton.setTitle(R.string.action_disconnect);
 
 			// And notify user if device is connected
 			if (bleService.isConnected()) {
@@ -201,8 +204,8 @@ public abstract class BleProfileServiceReadyActivity<E extends BleProfileService
 			// It will be called only when there is critically low memory, in practice never
 			// when the activity is in foreground.
 			Logger.d(mLogSession, "Activity disconnected from the service");
-			mDeviceNameView.setText(getDefaultDeviceName());
-			mConnectButton.setText(R.string.action_connect);
+			mDeviceNameView.setTitle(getDefaultDeviceName());
+			mConnectButton.setTitle(R.string.action_connect);
 
 			mService = null;
 			mDeviceName = null;
@@ -367,8 +370,8 @@ public abstract class BleProfileServiceReadyActivity<E extends BleProfileService
 	protected final void setUpView() {
 		// set GUI
 		//getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-		mConnectButton = findViewById(R.id.action_connect);
-		mDeviceNameView = findViewById(R.id.device_name);
+		//mConnectButton = findViewById(R.id.action_connect);
+
 	}
 
 	@Override
@@ -390,6 +393,10 @@ public abstract class BleProfileServiceReadyActivity<E extends BleProfileService
 	@Override
 	public boolean onCreateOptionsMenu(final Menu menu) {
 		getMenuInflater().inflate(R.menu.help, menu);
+
+		myMenu = menu;
+		mDeviceNameView = myMenu.findItem(R.id.device_name);
+		mConnectButton = myMenu.findItem(R.id.bluetooth_connect);
 		return true;
 	}
 
@@ -487,25 +494,25 @@ public abstract class BleProfileServiceReadyActivity<E extends BleProfileService
 
 	@Override
 	public void onDeviceConnecting(final BluetoothDevice device) {
-		mDeviceNameView.setText(mDeviceName != null ? mDeviceName : getString(R.string.not_available));
-		mConnectButton.setText(R.string.action_connecting);
+		mDeviceNameView.setTitle(mDeviceName != null ? mDeviceName : getString(R.string.not_available));
+		mConnectButton.setTitle(R.string.action_connecting);
 	}
 
 	@Override
 	public void onDeviceConnected(final BluetoothDevice device) {
-		mDeviceNameView.setText(mDeviceName);
-		mConnectButton.setText(R.string.action_disconnect);
+		mDeviceNameView.setTitle(mDeviceName);
+		mConnectButton.setTitle(R.string.action_disconnect);
 	}
 
 	@Override
 	public void onDeviceDisconnecting(final BluetoothDevice device) {
-		mConnectButton.setText(R.string.action_disconnecting);
+		mConnectButton.setTitle(R.string.action_disconnecting);
 	}
 
 	@Override
 	public void onDeviceDisconnected(final BluetoothDevice device) {
-		mConnectButton.setText(R.string.action_connect);
-		mDeviceNameView.setText(getDefaultDeviceName());
+		mConnectButton.setTitle(R.string.action_connect);
+		mDeviceNameView.setTitle(getDefaultDeviceName());
 
 		try {
 			Logger.d(mLogSession, "Unbinding from the service...");
