@@ -58,7 +58,8 @@ public class ProductGridFragment extends Fragment {
                 for (int i  = 0;  i < newValue.size(); i++){
                     BLEdata[i] = newValue.get(i);
                 }
-                mAdapter.notifyDataSetChanged();
+                if (mAdapter != null)
+                    mAdapter.notifyDataSetChanged();
             }
         };
 
