@@ -7,5 +7,4 @@
     <item android:id="@+id/sms_page"
         android:icon="@drawable/hr_heart"
         android:title="Settings"/>
-
 </menu>

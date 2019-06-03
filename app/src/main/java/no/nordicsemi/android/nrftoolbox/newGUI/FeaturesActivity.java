@@ -199,6 +199,8 @@ public class FeaturesActivity extends BleProfileServiceReadyActivity<TemplateSer
 				final AppHelpFragment fragment = AppHelpFragment.getInstance(R.string.about_text, true);
 				fragment.show(getSupportFragmentManager(), null);
 				break;
+            case R.id.bluetooth_connect:
+                onConnectClicked();
 		}
 		return true;
 	}

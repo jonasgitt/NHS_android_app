@@ -38,7 +38,7 @@ public class ProductGridFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setHasOptionsMenu(true);
+        setHasOptionsMenu(false);
 
 
         /** View MODEL stuff
@@ -101,10 +101,10 @@ public class ProductGridFragment extends Fragment {
 //        }
 //    }
 
-    @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater menuInflater) {
-        menuInflater.inflate(R.menu.settings_and_about, menu);
-        super.onCreateOptionsMenu(menu, menuInflater);
-    }
-
+//    @Override
+//    public void onCreateOptionsMenu(Menu menu, MenuInflater menuInflater) {
+//        menuInflater.inflate(R.menu.settings_and_about, menu);
+//        super.onCreateOptionsMenu(menu, menuInflater);
+//    }
+//
 }

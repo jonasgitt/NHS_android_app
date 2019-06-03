@@ -182,7 +182,7 @@ public abstract class BleProfileServiceReadyActivity<E extends BleProfileService
 			// Update UI
 			mDeviceName = bleService.getDeviceName();
 			mDeviceNameView.setText(mDeviceName);
-			mConnectButton.setText(R.string.action_disconnect);
+			//mConnectButton.setText(R.string.action_disconnect);
 
 			// And notify user if device is connected
 			if (bleService.isConnected()) {
@@ -424,7 +424,7 @@ public abstract class BleProfileServiceReadyActivity<E extends BleProfileService
 	/**
 	 * Called when user press CONNECT or DISCONNECT button. See layout files -> onClick attribute.
 	 */
-	public void onConnectClicked(final View view) {
+	public void onConnectClicked() {
 		if (isBLEEnabled()) {
 			if (mService == null) {
 				setDefaultUI();
