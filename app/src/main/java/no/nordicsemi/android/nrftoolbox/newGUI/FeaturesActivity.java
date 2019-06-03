@@ -64,12 +64,6 @@ import no.nordicsemi.android.nrftoolbox.template.TemplateService;
 import static no.nordicsemi.android.nrftoolbox.newGUI.sensorData.initSensorDataList;
 
 public class FeaturesActivity extends BleProfileServiceReadyActivity<TemplateService.LocalBinder> implements NavigationHost, NavigationView.OnNavigationItemSelectedListener  {
-	private static final String NRF_CONNECT_CATEGORY = "no.nordicsemi.android.nrftoolbox.LAUNCHER";
-	private static final String UTILS_CATEGORY = "no.nordicsemi.android.nrftoolbox.UTILS";
-	private static final String NRF_CONNECT_PACKAGE = "no.nordicsemi.android.mcp";
-	private static final String NRF_CONNECT_CLASS = NRF_CONNECT_PACKAGE + ".DeviceListActivity";
-	private static final String NRF_CONNECT_MARKET_URI = "market://details?id=no.nordicsemi.android.mcp";
-
 
 	// Extras that can be passed from NFC (see SplashscreenActivity)
 	public static final String EXTRA_APP = "application/vnd.no.nordicsemi.type.app";
@@ -151,7 +145,7 @@ public class FeaturesActivity extends BleProfileServiceReadyActivity<TemplateSer
             navigateTo(fragment,false);
         }
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
     }
 
@@ -239,8 +233,6 @@ public class FeaturesActivity extends BleProfileServiceReadyActivity<TemplateSer
     /**
      * Service - Activity - Fragment Communication
      */
-
-    //needed in featuresactivity
     @Override
     protected void onInitialize(final Bundle savedInstanceState) {
         LocalBroadcastManager.getInstance(this).registerReceiver(mBroadcastReceiver, makeIntentFilter());
@@ -284,13 +276,13 @@ public class FeaturesActivity extends BleProfileServiceReadyActivity<TemplateSer
         // not used
     }
 
-    @Override //needed in featuresactivity
+    @Override
     public void onDeviceDisconnected(final BluetoothDevice device) {
         super.onDeviceDisconnected(device);
         //mBatteryLevelView.setText(R.string.not_available);
     }
 
-    //needed in featuresactivity
+
     private final BroadcastReceiver mBroadcastReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(final Context context, final Intent intent) {
@@ -308,10 +300,17 @@ public class FeaturesActivity extends BleProfileServiceReadyActivity<TemplateSer
 
             //JF
             else if (TemplateService.BROADCAST_HTS_MEASUREMENT.equals(action)) {
-                final float value = intent.getFloatExtra(HTSService.EXTRA_TEMPERATURE, 0.0f);
+                final float value = intent.getFloatExtra(TemplateService.EXTRA_TEMPERATURE, 0.0f);
                 int val = Math.round(value);
                 onTemperatureReceived(Integer.toString(val));
             }
+
+            //JF2
+            else if (TemplateService.BROADCAST_STEPCOUNT_MEASUREMENT.equals(action)) {
+                final int value = intent.getIntExtra(TemplateService.EXTRA_STEPCOUNT, 0);
+                onStepCountReceived(Integer.toString(value));
+            }
+
             mViewModel.getCurrentValue().setValue(sensorDataList);
         }
     };
@@ -322,7 +321,8 @@ public class FeaturesActivity extends BleProfileServiceReadyActivity<TemplateSer
         intentFilter.addAction(TemplateService.BROADCAST_BATTERY_LEVEL);
         //JF
         intentFilter.addAction(TemplateService.BROADCAST_HTS_MEASUREMENT);
-        intentFilter.addAction(TemplateService.BROADCAST_BATTERY_LEVEL);
+        //JF2
+        intentFilter.addAction(TemplateService.BROADCAST_STEPCOUNT_MEASUREMENT);
         return intentFilter;
     }
 
@@ -346,4 +346,8 @@ public class FeaturesActivity extends BleProfileServiceReadyActivity<TemplateSer
     private void onTemperatureReceived(String newReading) {
         sensorDataList.get(temperatureIDX).sensorReading = newReading;
     }
+    private void onStepCountReceived(String newReading) {
+        sensorDataList.get(stepIDX).sensorReading = newReading;
+    }
+
 }

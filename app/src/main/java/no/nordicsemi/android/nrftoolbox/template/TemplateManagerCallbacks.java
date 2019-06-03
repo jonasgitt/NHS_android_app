@@ -21,20 +21,32 @@
  */
 package no.nordicsemi.android.nrftoolbox.template;
 
+import android.bluetooth.BluetoothDevice;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+
+import java.util.Calendar;
+
+import no.nordicsemi.android.ble.common.profile.ht.TemperatureType;
+import no.nordicsemi.android.ble.common.profile.ht.TemperatureUnit;
 import no.nordicsemi.android.nrftoolbox.battery.BatteryManagerCallbacks;
 import no.nordicsemi.android.nrftoolbox.hts.HTSManager;
 import no.nordicsemi.android.nrftoolbox.hts.HTSManagerCallbacks;
+import no.nordicsemi.android.nrftoolbox.newGUI.p24callbacks.p24CharacteristicCallback;
 import no.nordicsemi.android.nrftoolbox.template.callback.TemplateCharacteristicCallback;
 
 /**
  * Interface {@link TemplateManagerCallbacks} must be implemented by {@link TemplateService}
  * in order to receive callbacks from {@link TemplateManager}
  */
-interface TemplateManagerCallbacks extends BatteryManagerCallbacks, TemplateCharacteristicCallback, HTSManagerCallbacks  {
+interface TemplateManagerCallbacks extends BatteryManagerCallbacks, TemplateCharacteristicCallback, HTSManagerCallbacks, p24CharacteristicCallback {
 
 	// Callbacks are called when a data has been received/written to a remote device.
 	// This is the way how the manager notifies the activity about this event.
 
 	// TODO add more callbacks.
 	// If you need, create more ...Callback interfaces and extend this interface with them.
+
+
 }

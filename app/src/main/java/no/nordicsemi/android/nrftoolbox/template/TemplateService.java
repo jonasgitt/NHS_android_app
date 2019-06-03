@@ -66,17 +66,10 @@ public class TemplateService extends BleProfileService implements TemplateManage
 	/** The last received temperature value in Celsius degrees. */
 	private Float mTemp;
 
-	/**LISTENER STUFF //////////////////////////////
-	 * */
+	//JF2
+	public static final String BROADCAST_STEPCOUNT_MEASUREMENT = "no.nordicsemi.android.nrftoolbox.template.BROADCAST_STEPCOUNT_MEASUREMENT";
+	public static final String EXTRA_STEPCOUNT = "no.nordicsemi.android.nrftoolbox.template.EXTRA_STEPCOUNT";
 
-
-//	public void setSensorListener(SensorListener listener){
-//		this.listener = listener;
-//	}
-//
-//	public void removeListener(){
-//		this.listener = null;
-//	}
 
 	private TemplateManager mManager;
 
@@ -188,10 +181,18 @@ public class TemplateService extends BleProfileService implements TemplateManage
 			// Here we may update the notification to display the current temperature.
 			// TODO modify the notification here
 		}
-
-//		listener.onUpdate(mTemp.toString());
-		Log.w("jonas", "in onTemperatureMeasurementReceived in TemplateService \n mTemp is: "+mTemp.toString());
 	}
+
+	@Override
+	public void onStepCountReceived(final int stepCount){
+		final Intent broadcast = new Intent(BROADCAST_STEPCOUNT_MEASUREMENT);
+		//broadcast.putExtra(EXTRA_DEVICE, getBluetoothDevice());
+		broadcast.putExtra(EXTRA_DATA, stepCount);
+		LocalBroadcastManager.getInstance(this).sendBroadcast(broadcast);
+
+		Log.w("P24", "in onStepCountReceived in TemplateService \n StepCount is: "+ stepCount);
+	}
+
 
 	/**
 	 * Creates the notification.

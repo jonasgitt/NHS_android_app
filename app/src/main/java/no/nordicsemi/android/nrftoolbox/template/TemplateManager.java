@@ -42,6 +42,7 @@ import no.nordicsemi.android.nrftoolbox.battery.BatteryManager;
 import no.nordicsemi.android.nrftoolbox.hts.HTSService;
 import no.nordicsemi.android.nrftoolbox.hts.HTSManager;
 import no.nordicsemi.android.nrftoolbox.hts.htsInterface;
+import no.nordicsemi.android.nrftoolbox.newGUI.p24callbacks.P24DataCallback;
 import no.nordicsemi.android.nrftoolbox.parser.TemperatureMeasurementParser;
 import no.nordicsemi.android.nrftoolbox.parser.TemplateParser;
 import no.nordicsemi.android.nrftoolbox.template.callback.TemplateDataCallback;
@@ -59,13 +60,11 @@ public class TemplateManager extends BatteryManager<TemplateManagerCallbacks>   
 
 	// TODO Replace the services and characteristics below to match your device.
 	/**
-	 * The service UUID.
+	 * HEART RATE SERVICE
 	 */
 	static final UUID SERVICE_UUID = UUID.fromString("0000180D-0000-1000-8000-00805f9b34fb"); // Heart Rate service
-	/**
-	 * A UUID of a characteristic with notify property.
-	 */
 	private static final UUID MEASUREMENT_CHARACTERISTIC_UUID = UUID.fromString("00002A37-0000-1000-8000-00805f9b34fb"); // Heart Rate Measurement
+
 	/**
 	 * A UUID of a characteristic with read property.
 	 */
@@ -87,6 +86,15 @@ public class TemplateManager extends BatteryManager<TemplateManagerCallbacks>   
     private static final UUID HT_MEASUREMENT_CHARACTERISTIC_UUID = UUID.fromString("00002A1C-0000-1000-8000-00805f9b34fb");
 
 	private BluetoothGattCharacteristic mHTCharacteristic;
+
+	/**
+	 *CUSTOM SERVICE
+	*/
+	public final static UUID P24_SERVICE_UUID = UUID.fromString("34D61520-E9CE-476C-BAD6-FB0F310898E1");
+	/** Step Count Measurement characteristic UUID */
+	private static final UUID STEP_COUNT_MEASUREMENT_CHARACTERISTIC_UUID = UUID.fromString("34D651e7-E9CE-476C-BAD6-FB0F310898E1");
+
+	private BluetoothGattCharacteristic stepCountCharacteristic;
 
 
 	// TODO Add more services and characteristics references.
@@ -166,7 +174,7 @@ public class TemplateManager extends BatteryManager<TemplateManagerCallbacks>   
 
 
 			//JF Health Thermometer
-			setNotificationCallback(mHTCharacteristic)
+			setIndicationCallback(mHTCharacteristic)
 					.with(new TemperatureMeasurementDataCallback() {
 						@Override
 						public void onDataReceived(@NonNull final BluetoothDevice device, @NonNull final Data data) {
@@ -182,7 +190,27 @@ public class TemplateManager extends BatteryManager<TemplateManagerCallbacks>   
 							mCallbacks.onTemperatureMeasurementReceived(device, temperature, unit, calendar, type);
 						}
 					});
-			enableNotifications(mHTCharacteristic).enqueue();
+			enableIndications(mHTCharacteristic).enqueue();
+
+			//JF2 StepCount
+			setNotificationCallback(stepCountCharacteristic)
+					.with(new P24DataCallback() { //sets callback for when notification for characteristic is received
+						@Override
+						public void onDataReceived(@NonNull final BluetoothDevice device, @NonNull final Data data) {
+							log(LogContract.Log.Level.APPLICATION, "\"" + data.toString() + "\" STEPS received");
+							super.onDataReceived(device, data);
+						}
+
+						@Override
+						public void onStepCountReceived(final int stepCount) {
+
+							mCallbacks.onStepCountReceived(stepCount);
+						}
+					});
+			enableNotifications(stepCountCharacteristic)
+					.done(device -> log(Log.INFO, "P24: Step Count notifications enabled"))
+					.fail((device, status) -> log(Log.WARN, "P24: Step Count characteristic not found"))
+					.enqueue();
 		}
 
 		@Override
@@ -198,22 +226,7 @@ public class TemplateManager extends BatteryManager<TemplateManagerCallbacks>   
 				mDeviceNameCharacteristic = otherService.getCharacteristic(WRITABLE_CHARACTERISTIC_UUID);
 			}
 
-
-
-			//JF
-			final BluetoothGattService HTservice = gatt.getService(HT_SERVICE_UUID);
-			if (HTservice != null) {
-				mHTCharacteristic = HTservice.getCharacteristic(HT_MEASUREMENT_CHARACTERISTIC_UUID);
-
-				if(mHTCharacteristic!=null)
-					log(Log.WARN, "mHTCharacteristic is not null ");
-				else
-					log(Log.WARN, "mHTCharacteristic is null ");
-			}
-			else
-				log(Log.WARN, "HTService is null ");
-
-			return mRequiredCharacteristic != null && mDeviceNameCharacteristic != null && mHTCharacteristic != null;
+			return mRequiredCharacteristic != null && mDeviceNameCharacteristic != null;
 		}
 
 		@Override
@@ -226,7 +239,30 @@ public class TemplateManager extends BatteryManager<TemplateManagerCallbacks>   
 			if (service != null) {
 				mOptionalCharacteristic = service.getCharacteristic(READABLE_CHARACTERISTIC_UUID);
 			}
-			return mOptionalCharacteristic != null;
+
+			//JF
+			final BluetoothGattService HTservice = gatt.getService(HT_SERVICE_UUID);
+			if (HTservice != null) {
+				mHTCharacteristic = HTservice.getCharacteristic(HT_MEASUREMENT_CHARACTERISTIC_UUID);
+
+				if(mHTCharacteristic==null)
+					log(Log.ERROR, "mHTCharacteristic is null ");
+			}
+			else
+				log(Log.ERROR, "HTService is null ");
+
+			//JF2
+			final BluetoothGattService p24Service = gatt.getService(P24_SERVICE_UUID);
+			if (p24Service != null){
+				stepCountCharacteristic = p24Service.getCharacteristic(STEP_COUNT_MEASUREMENT_CHARACTERISTIC_UUID);
+
+				if(stepCountCharacteristic!=null)
+					log(Log.ERROR, "p24Service: stepCountCharacteristic is not null ");
+			}
+			else
+				log(Log.ERROR, "p24Service is null ");
+
+			return mOptionalCharacteristic != null && mHTCharacteristic != null && stepCountCharacteristic!=null;
 		}
 
 		@Override
@@ -239,6 +275,7 @@ public class TemplateManager extends BatteryManager<TemplateManagerCallbacks>   
 			mDeviceNameCharacteristic = null;
 			mOptionalCharacteristic = null;
 			mHTCharacteristic = null; //JF
+			stepCountCharacteristic = null; //JF2
 		}
 
 		@Override
@@ -277,6 +314,19 @@ public class TemplateManager extends BatteryManager<TemplateManagerCallbacks>   
                         }
                     })
                     .enqueue();
+
+            //JF2
+			readCharacteristic(stepCountCharacteristic)
+					.with((device, data) -> {
+						// Characteristic value has been read
+						// Let's do some magic with it.
+						if (data.size() > 0) {
+							log(Log.WARN, "Step Count reading is '" + data.toString() + "' has been read!");
+						} else {
+							log(Log.WARN, "Step Count Value is empty!");
+						}
+					})
+					.enqueue();
 		}
 	};
 
