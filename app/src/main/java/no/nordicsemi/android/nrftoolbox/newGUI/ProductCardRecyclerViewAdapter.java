@@ -95,14 +95,20 @@ public class ProductCardRecyclerViewAdapter extends RecyclerView.Adapter<Product
 //                    holder.graph.removeAllSeries();
 //                    holder.graph.addSeries(singleSeries);
 
+
+
                     //singleSeries = dataSeriesList.get(position);
-                    dataSeriesList.get(position).appendData(makeDataPoint(reading.sensorReading), true, 40);
+                    //dataSeriesList.get(position).appendData(makeDataPoint(reading.sensorReading), true, 40);
                     //singleSeries.appendData(makeDataPoint(reading.sensorReading), true, 40);
                     //holder.graph.removeAllSeries();
                     //holder.graph.addSeries(singleSeries);
 
+                    PointsGraphSeries s1 = dataSeriesList.get(position);
+                    s1.appendData(makeDataPoint(reading.sensorReading), true, 40);
+                    dataSeriesList.set(position, s1);
+
                     if (holder.graph.getSeries().size() == 0)
-                        holder.graph.addSeries(dataSeriesList.get(position));
+                        holder.graph.addSeries(s1);
 
                     //dataSeriesList.set(position,singleSeries);
 
@@ -112,6 +118,7 @@ public class ProductCardRecyclerViewAdapter extends RecyclerView.Adapter<Product
 
                     Log.w("jonas", "# of Series on Graph: " + holder.graph.getSeries().size());
                     Log.w("jonas", "current position: " + position);
+                    Log.w("jonas", "Size of Series: " + s1.getValues(0, counter));
 
                 }
             }

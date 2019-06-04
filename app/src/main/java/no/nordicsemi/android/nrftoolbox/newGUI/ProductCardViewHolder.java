@@ -34,6 +34,6 @@ public class ProductCardViewHolder extends RecyclerView.ViewHolder {
 
         expandedArea = itemView.findViewById(R.id.expanded_area);
 
-        graph = itemView.findViewById(R.id.graph);
+        graph = itemView.findViewById(R.id.graph); //is red because the expanded section is #included
     }
 }
