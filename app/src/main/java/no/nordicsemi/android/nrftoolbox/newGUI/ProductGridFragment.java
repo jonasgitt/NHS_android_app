@@ -78,9 +78,9 @@ public class ProductGridFragment extends Fragment {
                 for (int i  = 0;  i < newValue.size(); i++){
                     BLEdata[i] = newValue.get(i);
 
-                    dataSeriesList.get(i).appendData(makeDataPoint(newValue.get(i).sensorReading),true, 40 );
+                    //dataSeriesList.get(i).appendData(makeDataPoint(newValue.get(i).sensorReading),true, 40 );
                 }
-
+                singleSeries.appendData(makeDataPoint(newValue.get(0).sensorReading),true,40);
                 mAdapter.notifyDataSetChanged();
             }
         };
@@ -105,7 +105,7 @@ public class ProductGridFragment extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
         //set up adapter
-        mAdapter = new ProductCardRecyclerViewAdapter(sensorDataList, BLEdata, dataSeriesList);
+        mAdapter = new ProductCardRecyclerViewAdapter(sensorDataList, BLEdata, singleSeries);
         recyclerView.setAdapter(mAdapter);
 
         mAdapter.notifyDataSetChanged();

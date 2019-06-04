@@ -36,16 +36,16 @@ public class ProductCardRecyclerViewAdapter extends RecyclerView.Adapter<Product
     //private List<PointsGraphSeries<DataPoint>> dataSeriesList = new ArrayList<>();
 
 //    private DataPoint[] initPt = {makeDataPoint("1")};
-//    private PointsGraphSeries<DataPoint> singleSeries = new PointsGraphSeries<>(initPt);
+    private PointsGraphSeries<DataPoint> singleSeries ; //= new PointsGraphSeries<>(initPt);
 
-    private List<PointsGraphSeries<DataPoint>>  dataSeriesList; //= Arrays.asList(singleSeries, singleSeries, singleSeries, singleSeries, singleSeries, singleSeries);
+    //private List<PointsGraphSeries<DataPoint>>  dataSeriesList; //= Arrays.asList(singleSeries, singleSeries, singleSeries, singleSeries, singleSeries, singleSeries);
 
 
-    ProductCardRecyclerViewAdapter(List<sensorData> sensorList, sensorData[] data, List<PointsGraphSeries<DataPoint>> seriesList) {
+    ProductCardRecyclerViewAdapter(List<sensorData> sensorList, sensorData[] data, PointsGraphSeries<DataPoint> singleSeries) {
         this.sensorList = sensorList;
         this.test_data = data;
 
-        this.dataSeriesList = seriesList;
+        this.singleSeries = singleSeries;
     }
 
     @NonNull
@@ -54,8 +54,9 @@ public class ProductCardRecyclerViewAdapter extends RecyclerView.Adapter<Product
         View layoutView = LayoutInflater.from(parent.getContext()).inflate(R.layout.shr_product_card, parent, false);
 
         //dataSeriesList.add(singleSeries);
-
-        return new ProductCardViewHolder(layoutView);
+        ProductCardViewHolder holder = new ProductCardViewHolder(layoutView);
+        //holder.graph.addSeries(singleSeries); wont work because we dont have access to position
+        return holder;
     }
 
 
@@ -66,7 +67,7 @@ public class ProductCardRecyclerViewAdapter extends RecyclerView.Adapter<Product
     @Override
     public void onBindViewHolder(@NonNull ProductCardViewHolder holder, int position) {
 
-        PointsGraphSeries<DataPoint> singleSeries = new PointsGraphSeries<>();
+        //PointsGraphSeries<DataPoint> singleSeries = new PointsGraphSeries<>();
 
         if (sensorList != null && position < sensorList.size()  ) {
 
@@ -109,13 +110,16 @@ public class ProductCardRecyclerViewAdapter extends RecyclerView.Adapter<Product
                     //s1.appendData(makeDataPoint(reading.sensorReading), true, 40);
                     //dataSeriesList.set(position, s1);
 
-                    if (!dataSeriesList.isEmpty()){
-                        PointsGraphSeries s1 = dataSeriesList.get(position);
-                    //if (holder.graph.getSeries().size() == 0)
-                        holder.graph.removeAllSeries();
-                        holder.graph.addSeries(s1);
-                    }
+//                    if (!dataSeriesList.isEmpty()){
+//                        PointsGraphSeries s1 = dataSeriesList.get(position);
+//                    //if (holder.graph.getSeries().size() == 0)
+//                        holder.graph.removeAllSeries();
+//                        holder.graph.addSeries(s1);
+//                    }
 
+                    if (!singleSeries.isEmpty() && holder.graph.getSeries().size() == 0 && position ==0){
+                        holder.graph.addSeries(singleSeries);
+                    }
                     //dataSeriesList.set(position,singleSeries);
 
                     holder.graph.getViewport().setXAxisBoundsManual(true);
