@@ -18,7 +18,12 @@ import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.jjoe64.graphview.series.DataPoint;
+import com.jjoe64.graphview.series.PointsGraphSeries;
+
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 
 import no.nordicsemi.android.nrftoolbox.R;
@@ -31,6 +36,21 @@ public class ProductGridFragment extends Fragment {
     public List<sensorData> sensorDataList = initSensorDataList();
     private sensorData[] BLEdata = new sensorData[6]; //TODO make this device agnostic (by changing to arraylist?)
 
+    /***/
+    private DataPoint[] initPt = {makeDataPoint("1")};
+    private PointsGraphSeries<DataPoint> singleSeries = new PointsGraphSeries<>(initPt);
+    private List<PointsGraphSeries<DataPoint>>  dataSeriesList = Arrays.asList(singleSeries, singleSeries, singleSeries, singleSeries, singleSeries, singleSeries);
+
+    private int counter = 0;
+    private DataPoint makeDataPoint(String newReading){
+        Date curDate = new Date();
+        counter++;
+        //if (counter == 40) counter =0;
+        Double val = Double.parseDouble(newReading);
+        DataPoint newDataPoint = new DataPoint(counter, val) ;
+        return newDataPoint;
+    }
+     /***/
 
     private ProductCardRecyclerViewAdapter mAdapter;
 
@@ -57,7 +77,10 @@ public class ProductGridFragment extends Fragment {
                 //TODO update using DiffUtil
                 for (int i  = 0;  i < newValue.size(); i++){
                     BLEdata[i] = newValue.get(i);
+
+                    dataSeriesList.get(i).appendData(makeDataPoint(newValue.get(i).sensorReading),true, 40 );
                 }
+
                 mAdapter.notifyDataSetChanged();
             }
         };
@@ -82,7 +105,7 @@ public class ProductGridFragment extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
         //set up adapter
-        mAdapter = new ProductCardRecyclerViewAdapter(sensorDataList, BLEdata);
+        mAdapter = new ProductCardRecyclerViewAdapter(sensorDataList, BLEdata, dataSeriesList);
         recyclerView.setAdapter(mAdapter);
 
         mAdapter.notifyDataSetChanged();

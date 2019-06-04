@@ -35,15 +35,17 @@ public class ProductCardRecyclerViewAdapter extends RecyclerView.Adapter<Product
     private sensorData[] test_data;
     //private List<PointsGraphSeries<DataPoint>> dataSeriesList = new ArrayList<>();
 
-    private DataPoint[] initPt = {makeDataPoint("1")};
-    private PointsGraphSeries<DataPoint> singleSeries = new PointsGraphSeries<>(initPt);
+//    private DataPoint[] initPt = {makeDataPoint("1")};
+//    private PointsGraphSeries<DataPoint> singleSeries = new PointsGraphSeries<>(initPt);
 
-    private List<PointsGraphSeries<DataPoint>> dataSeriesList = Arrays.asList(singleSeries, singleSeries, singleSeries, singleSeries, singleSeries, singleSeries);
+    private List<PointsGraphSeries<DataPoint>>  dataSeriesList; //= Arrays.asList(singleSeries, singleSeries, singleSeries, singleSeries, singleSeries, singleSeries);
 
 
-    ProductCardRecyclerViewAdapter(List<sensorData> sensorList, sensorData[] data) {
+    ProductCardRecyclerViewAdapter(List<sensorData> sensorList, sensorData[] data, List<PointsGraphSeries<DataPoint>> seriesList) {
         this.sensorList = sensorList;
         this.test_data = data;
+
+        this.dataSeriesList = seriesList;
     }
 
     @NonNull
@@ -103,12 +105,16 @@ public class ProductCardRecyclerViewAdapter extends RecyclerView.Adapter<Product
                     //holder.graph.removeAllSeries();
                     //holder.graph.addSeries(singleSeries);
 
-                    PointsGraphSeries s1 = dataSeriesList.get(position);
-                    s1.appendData(makeDataPoint(reading.sensorReading), true, 40);
-                    dataSeriesList.set(position, s1);
+                    //PointsGraphSeries s1 = dataSeriesList.get(position);
+                    //s1.appendData(makeDataPoint(reading.sensorReading), true, 40);
+                    //dataSeriesList.set(position, s1);
 
-                    if (holder.graph.getSeries().size() == 0)
+                    if (!dataSeriesList.isEmpty()){
+                        PointsGraphSeries s1 = dataSeriesList.get(position);
+                    //if (holder.graph.getSeries().size() == 0)
+                        holder.graph.removeAllSeries();
                         holder.graph.addSeries(s1);
+                    }
 
                     //dataSeriesList.set(position,singleSeries);
 
@@ -116,9 +122,8 @@ public class ProductCardRecyclerViewAdapter extends RecyclerView.Adapter<Product
                     holder.graph.getViewport().setMinX(0);
                     holder.graph.getViewport().setMaxX(100);
 
-                    Log.w("jonas", "# of Series on Graph: " + holder.graph.getSeries().size());
-                    Log.w("jonas", "current position: " + position);
-                    Log.w("jonas", "Size of Series: " + s1.getValues(0, counter));
+                    Log.w("graph", "position: " + position+ "  # of Series on Graph: " + holder.graph.getSeries().size() +"   newReading: " + reading.sensorName);
+                    //Log.w("jonas", "Size of Series: " + s1.getValues(0, counter));
 
                 }
             }
