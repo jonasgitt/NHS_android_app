@@ -35,17 +35,15 @@ public class ProductCardRecyclerViewAdapter extends RecyclerView.Adapter<Product
     private sensorData[] test_data;
     //private List<PointsGraphSeries<DataPoint>> dataSeriesList = new ArrayList<>();
 
-//    private DataPoint[] initPt = {makeDataPoint("1")};
-//    private PointsGraphSeries<DataPoint> singleSeries = new PointsGraphSeries<>(initPt);
+    private DataPoint[] initPt = {makeDataPoint("1")};
+    private PointsGraphSeries<DataPoint> singleSeries = new PointsGraphSeries<>(initPt);
 
-    private List<PointsGraphSeries<DataPoint>>  dataSeriesList; //= Arrays.asList(singleSeries, singleSeries, singleSeries, singleSeries, singleSeries, singleSeries);
+    private List<PointsGraphSeries<DataPoint>> dataSeriesList = Arrays.asList(singleSeries, singleSeries, singleSeries, singleSeries, singleSeries, singleSeries);
 
 
-    ProductCardRecyclerViewAdapter(List<sensorData> sensorList, sensorData[] data, List<PointsGraphSeries<DataPoint>> seriesList) {
+    ProductCardRecyclerViewAdapter(List<sensorData> sensorList, sensorData[] data) {
         this.sensorList = sensorList;
         this.test_data = data;
-
-        this.dataSeriesList = seriesList;
     }
 
     @NonNull
@@ -61,6 +59,16 @@ public class ProductCardRecyclerViewAdapter extends RecyclerView.Adapter<Product
 
     private DataPoint[] dPtArray = generateData();
     private List<DataPoint[]> dPtArrayList  = Arrays.asList(dPtArray,dPtArray,dPtArray,dPtArray,dPtArray,dPtArray);
+
+
+
+    LineGraphSeries<DataPoint> series0 = new LineGraphSeries<>();
+    LineGraphSeries<DataPoint> series1 = new LineGraphSeries<>();
+    LineGraphSeries<DataPoint> series2 = new LineGraphSeries<>();
+    LineGraphSeries<DataPoint> series3 = new LineGraphSeries<>();
+    LineGraphSeries<DataPoint> series4 = new LineGraphSeries<>();
+    LineGraphSeries<DataPoint> series5 = new LineGraphSeries<>();
+
 
     //The below code tells our RecyclerView's adapter what to do with each card, using a ViewHolder.
     @Override
@@ -88,13 +96,46 @@ public class ProductCardRecyclerViewAdapter extends RecyclerView.Adapter<Product
 //                        }
                     }
 
-
-                    PointsGraphSeries<DataPoint> singleSeries = dataSeriesList.get(position);
-
-                    if (!singleSeries.isEmpty() && holder.graph.getSeries().size() == 0){
-                        holder.graph.addSeries(singleSeries);
+                    switch (reading.sensorName){
+                        case "Heart Rate":
+                           // series0 = dataSeriesList.get(0);
+                            series0.appendData(makeDataPoint(reading.sensorReading), true, 40, true);
+                            holder.graph.removeAllSeries();
+                            //if(holder.graph.getSeries().size()==0)
+                            holder.graph.addSeries(series0);
+                            break;
+                        case "Blood Pressure":
+//                            series0 = dataSeriesList.get(0);
+//                            series0.appendData(makeDataPoint(reading.sensorReading), true, 40);
+//                            if(holder.graph.getSeries().size()==0) holder.graph.addSeries(series0);
+                            break;
+                        case "Temperature":
+                           // series2 = dataSeriesList.get(2);
+                            series2.appendData(makeDataPoint(reading.sensorReading), true, 40,true);
+                            holder.graph.removeAllSeries();
+                            //if(holder.graph.getSeries().size()==0)
+                                holder.graph.addSeries(series2);
+                            break;
+                        case "Blood Oxygen":
+//                            series0 = dataSeriesList.get(0);
+//                            series0.appendData(makeDataPoint(reading.sensorReading), true, 40);
+//                            if(holder.graph.getSeries().size()==0) holder.graph.addSeries(series0);
+                            break;
+                        case "Step Count":
+//                            series0 = dataSeriesList.get(0);
+//                            series0.appendData(makeDataPoint(reading.sensorReading), true, 40);
+//                            if(holder.graph.getSeries().size()==0) holder.graph.addSeries(series0);
+                            break;
+                        case "Battery Level":
+                          //  series5 = dataSeriesList.get(5);
+                            series5.appendData(makeDataPoint(reading.sensorReading), true, 40,true);
+                            holder.graph.removeAllSeries();
+                            //if(holder.graph.getSeries().size()==0)
+                                holder.graph.addSeries(series5);
+                            break;
+                        default: break;
                     }
-                    //dataSeriesList.set(position,singleSeries);
+
 
                     holder.graph.getViewport().setXAxisBoundsManual(true);
                     holder.graph.getViewport().setMinX(0);
@@ -119,8 +160,9 @@ public class ProductCardRecyclerViewAdapter extends RecyclerView.Adapter<Product
             @Override
             public void onClick(View v) {
                 mExpandedPosition = isExpanded ? -1:position;
-                notifyItemChanged(mExpandedPosition);
-                notifyItemChanged(position);
+              //  notifyItemChanged(mExpandedPosition);
+                //notifyItemChanged(position);
+                notifyDataSetChanged();
             }
         });
     }
