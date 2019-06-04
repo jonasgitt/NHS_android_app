@@ -280,6 +280,14 @@ public class FeaturesActivity extends BleProfileServiceReadyActivity<TemplateSer
     public void onDeviceDisconnected(final BluetoothDevice device) {
         super.onDeviceDisconnected(device);
         //mBatteryLevelView.setText(R.string.not_available);
+        String disconnected = "-";
+        onHeartRateReceived(disconnected);
+        onBatteryReceived(disconnected);
+        onBloodOxReceived(disconnected);
+        onStepCountReceived(disconnected);
+        onTemperatureReceived(disconnected);
+
+        mViewModel.getCurrentValue().setValue(sensorDataList);
     }
 
 
