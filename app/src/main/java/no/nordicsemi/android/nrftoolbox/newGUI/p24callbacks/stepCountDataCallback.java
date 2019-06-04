@@ -10,7 +10,7 @@ import no.nordicsemi.android.ble.data.Data;
 import no.nordicsemi.android.nrftoolbox.newGUI.p24callbacks.p24CharacteristicCallback;
 
 
-public abstract class P24DataCallback implements p24CharacteristicCallback, ProfileDataCallback {
+public abstract class stepCountDataCallback implements p24CharacteristicCallback, ProfileDataCallback {
 
     @Override
     public void onDataReceived(@NonNull final BluetoothDevice device, @NonNull final Data data) {

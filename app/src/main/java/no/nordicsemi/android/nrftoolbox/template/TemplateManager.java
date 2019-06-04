@@ -39,10 +39,9 @@ import no.nordicsemi.android.ble.common.callback.ht.TemperatureMeasurementDataCa
 import no.nordicsemi.android.ble.data.Data;
 import no.nordicsemi.android.log.LogContract;
 import no.nordicsemi.android.nrftoolbox.battery.BatteryManager;
-import no.nordicsemi.android.nrftoolbox.hts.HTSService;
-import no.nordicsemi.android.nrftoolbox.hts.HTSManager;
-import no.nordicsemi.android.nrftoolbox.hts.htsInterface;
-import no.nordicsemi.android.nrftoolbox.newGUI.p24callbacks.P24DataCallback;
+
+import no.nordicsemi.android.nrftoolbox.newGUI.p24callbacks.bloodOxDataCallback;
+import no.nordicsemi.android.nrftoolbox.newGUI.p24callbacks.stepCountDataCallback;
 import no.nordicsemi.android.nrftoolbox.parser.TemperatureMeasurementParser;
 import no.nordicsemi.android.nrftoolbox.parser.TemplateParser;
 import no.nordicsemi.android.nrftoolbox.template.callback.TemplateDataCallback;
@@ -62,8 +61,8 @@ public class TemplateManager extends BatteryManager<TemplateManagerCallbacks>   
 	/**
 	 * HEART RATE SERVICE
 	 */
-	static final UUID SERVICE_UUID = UUID.fromString("0000180D-0000-1000-8000-00805f9b34fb"); // Heart Rate service
-	private static final UUID MEASUREMENT_CHARACTERISTIC_UUID = UUID.fromString("00002A37-0000-1000-8000-00805f9b34fb"); // Heart Rate Measurement
+	static final UUID HEARTRATE_SERVICE_UUID = UUID.fromString("0000180D-0000-1000-8000-00805f9b34fb"); // Heart Rate service
+	private static final UUID HEARTRATE_CHARACTERISTIC_UUID = UUID.fromString("00002A37-0000-1000-8000-00805f9b34fb"); // Heart Rate Measurement
 
 	/**
 	 * A UUID of a characteristic with read property.
@@ -91,14 +90,16 @@ public class TemplateManager extends BatteryManager<TemplateManagerCallbacks>   
 	 *CUSTOM SERVICE
 	*/
 	public final static UUID P24_SERVICE_UUID = UUID.fromString("34D60724-E9CE-476C-BAD6-FB0F310898E1");
-	/** Step Count Measurement characteristic UUID */
+	/** Step Count Characteristic */
 	private static final UUID STEP_COUNT_MEASUREMENT_CHARACTERISTIC_UUID = UUID.fromString("34D651e7-E9CE-476C-BAD6-FB0F310898E1");
-
 	private BluetoothGattCharacteristic stepCountCharacteristic;
 
+	/** Step Count Characteristic */
+	private static final UUID BLOOD_OXYGEN_MEASUREMENT_CHARACTERISTIC_UUID = UUID.fromString("34D60202-E9CE-476C-BAD6-FB0F310898E1"); //TODO JF3 update with actual
+	private BluetoothGattCharacteristic bloodOxCharacteristic;
 
-	// TODO Add more services and characteristics references.
-	private BluetoothGattCharacteristic mRequiredCharacteristic, mDeviceNameCharacteristic, mOptionalCharacteristic;
+
+	private BluetoothGattCharacteristic heartRateCharacteristic, mDeviceNameCharacteristic, mOptionalCharacteristic;
 
 	public TemplateManager(final Context context) {
 		super(context);
@@ -140,7 +141,7 @@ public class TemplateManager extends BatteryManager<TemplateManagerCallbacks>   
 					.enqueue();
 
 			// Set notification callback
-			setNotificationCallback(mRequiredCharacteristic)
+			setNotificationCallback(heartRateCharacteristic)
 					// This callback will be called each time the notification is received
 					.with(new TemplateDataCallback() {
 						@Override
@@ -162,7 +163,7 @@ public class TemplateManager extends BatteryManager<TemplateManagerCallbacks>   
 					});
 
 			// Enable notifications
-			enableNotifications(mRequiredCharacteristic)
+			enableNotifications(heartRateCharacteristic)
 					// Method called after the data were sent (data will contain 0x0100 in this case)
 					.with((device, data) -> log(Log.DEBUG, "Data sent: " + data))
 					// Method called when the request finished successfully. This will be called after .with(..) callback
@@ -194,20 +195,44 @@ public class TemplateManager extends BatteryManager<TemplateManagerCallbacks>   
 
 			//JF2 StepCount
 			setNotificationCallback(stepCountCharacteristic)
-					.with(new P24DataCallback() { //sets callback for when notification for characteristic is received
+					.with(new stepCountDataCallback() { //sets callback for when notification for characteristic is received
 						@Override
 						public void onDataReceived(@NonNull final BluetoothDevice device, @NonNull final Data data) {
 							log(LogContract.Log.Level.APPLICATION, "\"" + data.toString() + "\" STEPS received");
 							super.onDataReceived(device, data);
 						}
-
 						@Override
 						public void onStepCountReceived(final int stepCount) {
-
 							mCallbacks.onStepCountReceived(stepCount);
+						}
+						@Override
+						public void onBloodOxReceived(final int bloodOxValue) {
+							//do nothing
 						}
 					});
 			enableNotifications(stepCountCharacteristic)
+					.done(device -> log(Log.INFO, "P24: Step Count notifications enabled"))
+					.fail((device, status) -> log(Log.WARN, "P24: Step Count characteristic not found"))
+					.enqueue();
+
+			//JF3 BloodOx
+			setNotificationCallback(bloodOxCharacteristic)
+					.with(new bloodOxDataCallback() { //sets callback for when notification for characteristic is received
+						@Override
+						public void onDataReceived(@NonNull final BluetoothDevice device, @NonNull final Data data) {
+							log(LogContract.Log.Level.APPLICATION, "\"" + data.toString() + "\" STEPS received");
+							super.onDataReceived(device, data);
+						}
+						@Override
+						public void onBloodOxReceived(final int bloodOxValue) {
+							mCallbacks.onBloodOxReceived(bloodOxValue);
+						}
+						@Override
+						public void onStepCountReceived(final int stepCount){
+							//do nothing
+						}
+					});
+			enableNotifications(bloodOxCharacteristic)
 					.done(device -> log(Log.INFO, "P24: Step Count notifications enabled"))
 					.fail((device, status) -> log(Log.WARN, "P24: Step Count characteristic not found"))
 					.enqueue();
@@ -217,16 +242,16 @@ public class TemplateManager extends BatteryManager<TemplateManagerCallbacks>   
 		protected boolean isRequiredServiceSupported(@NonNull final BluetoothGatt gatt) {
 			// TODO Initialize required characteristics.
 			// It should return true if all has been discovered (that is that device is supported).
-			final BluetoothGattService service = gatt.getService(SERVICE_UUID);
+			final BluetoothGattService service = gatt.getService(HEARTRATE_SERVICE_UUID);
 			if (service != null) {
-				mRequiredCharacteristic = service.getCharacteristic(MEASUREMENT_CHARACTERISTIC_UUID);
+				heartRateCharacteristic = service.getCharacteristic(HEARTRATE_CHARACTERISTIC_UUID);
 			}
 			final BluetoothGattService otherService = gatt.getService(OTHER_SERVICE_UUID);
 			if (otherService != null) {
 				mDeviceNameCharacteristic = otherService.getCharacteristic(WRITABLE_CHARACTERISTIC_UUID);
 			}
 
-			return mRequiredCharacteristic != null && mDeviceNameCharacteristic != null;
+			return heartRateCharacteristic != null && mDeviceNameCharacteristic != null;
 		}
 
 		@Override
@@ -235,7 +260,7 @@ public class TemplateManager extends BatteryManager<TemplateManagerCallbacks>   
 			super.isOptionalServiceSupported(gatt);
 
 			// TODO If there are some optional characteristics, initialize them there.
-			final BluetoothGattService service = gatt.getService(SERVICE_UUID);
+			final BluetoothGattService service = gatt.getService(HEARTRATE_SERVICE_UUID);
 			if (service != null) {
 				mOptionalCharacteristic = service.getCharacteristic(READABLE_CHARACTERISTIC_UUID);
 			}
@@ -258,11 +283,17 @@ public class TemplateManager extends BatteryManager<TemplateManagerCallbacks>   
 
 				if(stepCountCharacteristic!=null)
 					log(Log.ERROR, "p24Service: stepCountCharacteristic is not null ");
+
+
+				bloodOxCharacteristic = p24Service.getCharacteristic(BLOOD_OXYGEN_MEASUREMENT_CHARACTERISTIC_UUID);
+				if(bloodOxCharacteristic!=null)
+					log(Log.ERROR, "p24Service: bloodOxCharacteristic is not null ");
 			}
 			else
 				log(Log.ERROR, "p24Service is null ");
 
-			return mOptionalCharacteristic != null && mHTCharacteristic != null && stepCountCharacteristic!=null;
+
+			return mOptionalCharacteristic != null && mHTCharacteristic != null && bloodOxCharacteristic!=null && stepCountCharacteristic!=null ;
 		}
 
 		@Override
@@ -271,11 +302,12 @@ public class TemplateManager extends BatteryManager<TemplateManagerCallbacks>   
 			super.onDeviceDisconnected();
 
 			// TODO Release references to your characteristics.
-			mRequiredCharacteristic = null;
+			heartRateCharacteristic = null;
 			mDeviceNameCharacteristic = null;
 			mOptionalCharacteristic = null;
 			mHTCharacteristic = null; //JF
 			stepCountCharacteristic = null; //JF2
+			bloodOxCharacteristic = null; //JF3
 		}
 
 		@Override

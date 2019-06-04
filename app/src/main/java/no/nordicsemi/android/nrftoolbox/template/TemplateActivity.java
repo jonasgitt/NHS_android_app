@@ -135,7 +135,7 @@ public class TemplateActivity extends BleProfileServiceReadyActivity<TemplateSer
 	protected UUID getFilterUUID() {
 		// TODO this method may return the UUID of the service that is required to be in the advertisement packet of a device in order to be listed on the Scanner dialog.
 		// If null is returned no filtering is done.
-		return TemplateManager.SERVICE_UUID;
+		return TemplateManager.HEARTRATE_SERVICE_UUID;
 	}
 
 	@Override //needed in featuresactivity

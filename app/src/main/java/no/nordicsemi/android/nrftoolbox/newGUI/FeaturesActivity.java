@@ -312,6 +312,13 @@ public class FeaturesActivity extends BleProfileServiceReadyActivity<TemplateSer
                 onStepCountReceived(Integer.toString(value));
             }
 
+            //JF3
+            else if (TemplateService.BROADCAST_BLOODOX_MEASUREMENT.equals(action)) {
+                final int value = intent.getIntExtra(TemplateService.EXTRA_BLOODOX, 0);
+                Log.w("P24", "Received blood ox integer: " + value);
+                onBloodOxReceived(Integer.toString(value));
+            }
+
             mViewModel.getCurrentValue().setValue(sensorDataList);
         }
     };
@@ -324,6 +331,8 @@ public class FeaturesActivity extends BleProfileServiceReadyActivity<TemplateSer
         intentFilter.addAction(TemplateService.BROADCAST_HTS_MEASUREMENT);
         //JF2
         intentFilter.addAction(TemplateService.BROADCAST_STEPCOUNT_MEASUREMENT);
+        //JF3
+        intentFilter.addAction(TemplateService.BROADCAST_BLOODOX_MEASUREMENT);
         return intentFilter;
     }
 
@@ -350,6 +359,10 @@ public class FeaturesActivity extends BleProfileServiceReadyActivity<TemplateSer
     private void onStepCountReceived(String newReading) {
         Log.w("P24", "Received Step count: " + newReading);
         sensorDataList.get(stepIDX).sensorReading = newReading;
+    }
+    private void onBloodOxReceived(String newReading) {
+        Log.w("P24", "Received blood ox: " + newReading);
+        sensorDataList.get(bloodOxIDX).sensorReading = newReading;
     }
 
 }

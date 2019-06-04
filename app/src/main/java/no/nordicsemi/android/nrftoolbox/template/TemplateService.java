@@ -70,6 +70,9 @@ public class TemplateService extends BleProfileService implements TemplateManage
 	public static final String BROADCAST_STEPCOUNT_MEASUREMENT = "no.nordicsemi.android.nrftoolbox.template.BROADCAST_STEPCOUNT_MEASUREMENT";
 	public static final String EXTRA_STEPCOUNT = "no.nordicsemi.android.nrftoolbox.template.EXTRA_STEPCOUNT";
 
+	//JF3
+	public static final String BROADCAST_BLOODOX_MEASUREMENT = "no.nordicsemi.android.nrftoolbox.template.BROADCAST_BLOODOX_MEASUREMENT";
+	public static final String EXTRA_BLOODOX = "no.nordicsemi.android.nrftoolbox.template.EXTRA_STEPCOUNT";
 
 	private TemplateManager mManager;
 
@@ -191,6 +194,16 @@ public class TemplateService extends BleProfileService implements TemplateManage
 		LocalBroadcastManager.getInstance(this).sendBroadcast(broadcast);
 
 		Log.w("P24", "Broadcasting Step Count: "+ stepCount);
+	}
+
+	@Override
+	public void onBloodOxReceived(final int bloodOxValue){
+		final Intent broadcast = new Intent(BROADCAST_BLOODOX_MEASUREMENT);
+		//broadcast.putExtra(EXTRA_DEVICE, getBluetoothDevice());
+		broadcast.putExtra(EXTRA_BLOODOX, bloodOxValue);
+		LocalBroadcastManager.getInstance(this).sendBroadcast(broadcast);
+
+		Log.w("P24", "Broadcasting Blood Oxygen: "+ bloodOxValue);
 	}
 
 
