@@ -80,7 +80,7 @@ class sensorData {
             case "Battery Level": units = "%"; break;
             case "Heart Rate": units = "bpm"; break;
             case "Step Count": units = "steps"; break;
-            case "Blood Oxygen": units = "SaO\u2082"; break;
+            case "Blood Oxygen": units = "SpO\u2082"; break;
             case "Blood Pressure": units = "mmHg"; break;
             default: units = "?";
         }

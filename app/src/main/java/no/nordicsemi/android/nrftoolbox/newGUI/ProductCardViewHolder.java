@@ -8,6 +8,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.jjoe64.graphview.GraphView;
+
 import no.nordicsemi.android.nrftoolbox.R;
 
 
@@ -20,6 +22,8 @@ public class ProductCardViewHolder extends RecyclerView.ViewHolder {
     public TextView sensor_units_view;
     public LinearLayout expandedArea;
 
+    public GraphView graph;
+
     public ProductCardViewHolder(@NonNull View itemView) {
         super(itemView);
         //TODO: Find and store views from itemView
@@ -29,5 +33,7 @@ public class ProductCardViewHolder extends RecyclerView.ViewHolder {
         sensor_units_view = itemView.findViewById(R.id.units_field);
 
         expandedArea = itemView.findViewById(R.id.expanded_area);
+
+        graph = itemView.findViewById(R.id.graph); //is red because the expanded section is #included
     }
 }

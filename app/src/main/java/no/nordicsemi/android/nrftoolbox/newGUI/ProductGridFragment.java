@@ -18,7 +18,12 @@ import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.jjoe64.graphview.series.DataPoint;
+import com.jjoe64.graphview.series.PointsGraphSeries;
+
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 
 import no.nordicsemi.android.nrftoolbox.R;

@@ -190,6 +190,8 @@ public class FeaturesActivity extends BleProfileServiceReadyActivity<TemplateSer
 
 		switch (item.getItemId()) {
 			case R.id.action_about:
+
+
 				final AppHelpFragment fragment = AppHelpFragment.getInstance(R.string.about_text, true);
 				fragment.show(getSupportFragmentManager(), null);
 				break;
