@@ -55,6 +55,7 @@ public class ProductCardRecyclerViewAdapter extends RecyclerView.Adapter<Product
         holder.graph.getViewport().setMinX(0);
         holder.graph.getViewport().setMaxX(20);
 
+
         series0.setThickness(15);
         series2.setThickness(15);
         series5.setThickness(15);
@@ -85,7 +86,7 @@ public class ProductCardRecyclerViewAdapter extends RecyclerView.Adapter<Product
 
             if(test_data !=null){
                 sensorData reading = test_data[position];
-                if (reading != null){
+                if (reading != null && reading.sensorReading != "-"){
                     //reading.logObject();
                     holder.sensor_Reading.setText(reading.sensorReading);
 

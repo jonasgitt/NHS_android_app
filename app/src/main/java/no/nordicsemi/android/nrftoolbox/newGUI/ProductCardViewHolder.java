@@ -51,7 +51,7 @@ public class ProductCardViewHolder extends RecyclerView.ViewHolder {
 
         status_indicator.setVisibility(View.VISIBLE);
 
-        if (context!=null && sensorValue != "-") {
+        if (context!=null) {
             int value = Integer.parseInt(sensorValue);
             switch (sensorName) {
                 case "Heart Rate":
