@@ -11,6 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 
+import com.jjoe64.graphview.GridLabelRenderer;
 import com.jjoe64.graphview.series.DataPoint;
 import com.jjoe64.graphview.series.LineGraphSeries;
 import com.jjoe64.graphview.series.PointsGraphSeries;
@@ -33,13 +34,6 @@ public class ProductCardRecyclerViewAdapter extends RecyclerView.Adapter<Product
 
     private List<sensorData> sensorList;
     private sensorData[] test_data;
-    //private List<PointsGraphSeries<DataPoint>> dataSeriesList = new ArrayList<>();
-
-    private DataPoint[] initPt = {makeDataPoint("1")};
-    private PointsGraphSeries<DataPoint> singleSeries = new PointsGraphSeries<>(initPt);
-
-    private List<PointsGraphSeries<DataPoint>> dataSeriesList = Arrays.asList(singleSeries, singleSeries, singleSeries, singleSeries, singleSeries, singleSeries);
-
 
     ProductCardRecyclerViewAdapter(List<sensorData> sensorList, sensorData[] data) {
         this.sensorList = sensorList;
@@ -51,15 +45,22 @@ public class ProductCardRecyclerViewAdapter extends RecyclerView.Adapter<Product
     public ProductCardViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View layoutView = LayoutInflater.from(parent.getContext()).inflate(R.layout.shr_product_card, parent, false);
 
-        //dataSeriesList.add(singleSeries);
+        ProductCardViewHolder holder = new ProductCardViewHolder(layoutView);
 
-        return new ProductCardViewHolder(layoutView);
+        holder.graph.getGridLabelRenderer().setHorizontalLabelsVisible(false);
+        holder.graph.getGridLabelRenderer().setGridStyle(GridLabelRenderer.GridStyle.HORIZONTAL);
+
+        holder.graph.getViewport().setXAxisBoundsManual(true);
+        holder.graph.getViewport().setMinX(0);
+        holder.graph.getViewport().setMaxX(20);
+
+        series0.setThickness(15);
+        series2.setThickness(15);
+        series5.setThickness(15);
+
+
+        return holder;
     }
-
-
-    private DataPoint[] dPtArray = generateData();
-    private List<DataPoint[]> dPtArrayList  = Arrays.asList(dPtArray,dPtArray,dPtArray,dPtArray,dPtArray,dPtArray);
-
 
 
     LineGraphSeries<DataPoint> series0 = new LineGraphSeries<>();
@@ -75,82 +76,64 @@ public class ProductCardRecyclerViewAdapter extends RecyclerView.Adapter<Product
     public void onBindViewHolder(@NonNull ProductCardViewHolder holder, int position) {
 
 
-
-        if (sensorList != null && position < sensorList.size()  ) {
+        if (sensorList != null && position < sensorList.size()) {
 
             sensorData data = sensorList.get(position);
             holder.sensor_Name.setText(data.sensorName);
             holder.sensorImage.setImageResource(data.imageId);
             holder.sensor_units_view.setText(data.units);
 
-            if(test_data !=null){
+            if (test_data != null) {
                 sensorData reading = test_data[position];
-                if (reading != null){
+                if (reading != null) {
                     reading.logObject();
                     holder.sensor_Reading.setText(reading.sensorReading);
 
                     if (position == 5) {
                         counter++;
-//                        if (counter == 10) {
-//                            counter = 0;
-//                        }
                     }
 
-                    switch (reading.sensorName){
-                        case "Heart Rate":
-                           // series0 = dataSeriesList.get(0);
+                    switch (position) {
+                        case 0:
                             series0.appendData(makeDataPoint(reading.sensorReading), true, 40, true);
                             holder.graph.removeAllSeries();
-                            //if(holder.graph.getSeries().size()==0)
                             holder.graph.addSeries(series0);
+                            holder.graph.setVisibility(View.VISIBLE);
                             break;
-                        case "Blood Pressure":
-//                            series0 = dataSeriesList.get(0);
-//                            series0.appendData(makeDataPoint(reading.sensorReading), true, 40);
-//                            if(holder.graph.getSeries().size()==0) holder.graph.addSeries(series0);
-                            break;
-                        case "Temperature":
-                           // series2 = dataSeriesList.get(2);
-                            series2.appendData(makeDataPoint(reading.sensorReading), true, 40,true);
+                        case 1:
                             holder.graph.removeAllSeries();
-                            //if(holder.graph.getSeries().size()==0)
-                                holder.graph.addSeries(series2);
+                            holder.graph.setVisibility(View.GONE);
                             break;
-                        case "Blood Oxygen":
-//                            series0 = dataSeriesList.get(0);
-//                            series0.appendData(makeDataPoint(reading.sensorReading), true, 40);
-//                            if(holder.graph.getSeries().size()==0) holder.graph.addSeries(series0);
-                            break;
-                        case "Step Count":
-//                            series0 = dataSeriesList.get(0);
-//                            series0.appendData(makeDataPoint(reading.sensorReading), true, 40);
-//                            if(holder.graph.getSeries().size()==0) holder.graph.addSeries(series0);
-                            break;
-                        case "Battery Level":
-                          //  series5 = dataSeriesList.get(5);
-                            series5.appendData(makeDataPoint(reading.sensorReading), true, 40,true);
+                        case 2:
+                            // series2 = dataSeriesList.get(2);
+                            series2.appendData(makeDataPoint(reading.sensorReading), true, 40, true);
                             holder.graph.removeAllSeries();
-                            //if(holder.graph.getSeries().size()==0)
-                                holder.graph.addSeries(series5);
+                            holder.graph.addSeries(series2);
                             break;
-                        default: break;
+                        case 3:
+                            holder.graph.removeAllSeries();
+                            break;
+                        case 4:
+                            holder.graph.removeAllSeries();
+                            break;
+                        case 5:
+                            series5.appendData(makeDataPoint(reading.sensorReading), true, 40, true);
+                            holder.graph.removeAllSeries();
+                            holder.graph.addSeries(series5);
+                            break;
+                        default:
+                            break;
                     }
 
-
-                    holder.graph.getViewport().setXAxisBoundsManual(true);
-                    holder.graph.getViewport().setMinX(0);
-                    holder.graph.getViewport().setMaxX(100);
-
-                    Log.w("graph", "position: " + position+ "  # of Series on Graph: " + holder.graph.getSeries().size() +"   newReading: " + reading.sensorName);
-                    //Log.w("jonas", "Size of Series: " + s1.getValues(0, counter));
-
+                    holder.graph.getViewport().scrollToEnd();
+                    Log.w("graph", "position: " + position + "  # of Series on Graph: " + holder.graph.getSeries().size() + "   newReading: " + reading.sensorName);
                 }
             }
         }
 
         //Handles Expansion
-        final boolean isExpanded = position==mExpandedPosition;
-        holder.expandedArea.setVisibility(isExpanded?View.VISIBLE:View.GONE);
+        final boolean isExpanded = position == mExpandedPosition;
+        holder.expandedArea.setVisibility(isExpanded ? View.VISIBLE : View.GONE);
         holder.itemView.setActivated(isExpanded);
 
         if (isExpanded)
@@ -159,10 +142,10 @@ public class ProductCardRecyclerViewAdapter extends RecyclerView.Adapter<Product
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mExpandedPosition = isExpanded ? -1:position;
-              //  notifyItemChanged(mExpandedPosition);
-                //notifyItemChanged(position);
-                notifyDataSetChanged();
+                mExpandedPosition = isExpanded ? -1 : position;
+                notifyItemChanged(mExpandedPosition);
+                notifyItemChanged(position);
+                //notifyDataSetChanged();
             }
         });
     }
@@ -174,26 +157,11 @@ public class ProductCardRecyclerViewAdapter extends RecyclerView.Adapter<Product
     }
 
     private int counter = 0;
-    private DataPoint makeDataPoint(String newReading){
+
+    private DataPoint makeDataPoint(String newReading) {
         Date curDate = new Date();
         Double val = Double.parseDouble(newReading);
-        DataPoint newDataPoint = new DataPoint(counter, val) ;
+        DataPoint newDataPoint = new DataPoint(counter, val);
         return newDataPoint;
     }
-
-
-
-    private DataPoint[] generateData() {
-        int count = 10;
-        DataPoint[] values = new DataPoint[count];
-        for (int i=0; i<count; i++) {
-            double x = i;
-            double y = 0;
-            DataPoint v = new DataPoint(x, y);
-            values[i] = v;
-        }
-        return values;
-    }
 }
-
-
