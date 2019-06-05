@@ -7,11 +7,11 @@
         android:background="@drawable/border"
         android:orientation="vertical">
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Graph here"
-            android:textSize="30dp"/>
+        <!--<TextView-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:text="Graph here"-->
+            <!--android:textSize="30dp"/>-->
 
         <com.jjoe64.graphview.GraphView
             android:id="@+id/graph"

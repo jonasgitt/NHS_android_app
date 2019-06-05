@@ -81,7 +81,8 @@
 
 
     <color name="colorExpandedCardSeparator">@color/colorPrimaryDark</color>
-
-
+    <color name="status_healthy_color">#39ff14</color>
+    <color name="status_unhealthy_color">#dc143c</color>
+    dc143c
 
 </resources>
