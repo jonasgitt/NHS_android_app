@@ -135,6 +135,8 @@ public class FeaturesActivity extends BleProfileServiceReadyActivity<TemplateSer
                 case R.id.dashboard_page:
                     fragment = new ProductGridFragment();
                     break;
+                case R.id.history_page:
+                    break;
                 case R.id.settings_page:
                     fragment = new SettingsFragment();
                     break;
@@ -142,7 +144,8 @@ public class FeaturesActivity extends BleProfileServiceReadyActivity<TemplateSer
                     break;
                 case R.id.about_page:
                     fragment = new AboutFragment();
-                break;
+                    break;
+                default: break;
         }
 
         //replacing the fragment
