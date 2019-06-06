@@ -165,17 +165,4 @@ public class ProductCardRecyclerViewAdapter extends RecyclerView.Adapter<Product
         DataPoint newDataPoint = new DataPoint(counter, val);
         return newDataPoint;
     }
-
-//    private void setIndicatorColor(ProductCardViewHolder holder, String sensorName, String sensorValue){
-//        int value = Integer.parseInt(sensorValue);
-//        switch(sensorName){
-//            case "Heart Rate":
-//                if(value > 150 || value < 50){
-//                    //holder.status_indicator.setTextColor();
-//                    break;
-//                }
-//            default: break;
-//        }
-//
-//    }
 }

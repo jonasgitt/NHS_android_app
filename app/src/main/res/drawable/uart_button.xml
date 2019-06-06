@@ -25,7 +25,7 @@
     <item android:maxLevel="1" android:drawable="@drawable/ic_uart_up" />
     <item android:maxLevel="2" android:drawable="@drawable/ic_uart_right" />
     <item android:maxLevel="3" android:drawable="@drawable/ic_uart_down" />
-    <item android:maxLevel="4" android:drawable="@drawable/ic_uart_settings" />
+    <item android:maxLevel="4" android:drawable="@drawable/ic_settings" />
     <item android:maxLevel="5" android:drawable="@drawable/ic_uart_rewind" />
     <item android:maxLevel="6" android:drawable="@drawable/ic_uart_play" />
     <item android:maxLevel="7" android:drawable="@drawable/ic_uart_pause" />

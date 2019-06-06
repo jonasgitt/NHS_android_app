@@ -132,11 +132,16 @@ public class FeaturesActivity extends BleProfileServiceReadyActivity<TemplateSer
 
             //initializing the fragment object which is selected
             switch (itemId) {
-                case R.id.sensor_page:
+                case R.id.dashboard_page:
                     fragment = new ProductGridFragment();
                     break;
-                case R.id.sms_page:
+                case R.id.settings_page:
                     fragment = new SettingsFragment();
+                    break;
+                case R.id.help_feedback_page:
+                    break;
+                case R.id.about_page:
+                    fragment = new AboutFragment();
                 break;
         }
 
