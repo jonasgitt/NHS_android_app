@@ -1,5 +1,6 @@
 package no.nordicsemi.android.nrftoolbox.newGUI;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.text.InputType;
 import android.text.TextUtils;
@@ -10,20 +11,24 @@ import android.widget.EditText;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.ActivityChooserView;
 import androidx.appcompat.widget.Toolbar;
 import androidx.preference.EditTextPreference;
 import androidx.preference.ListPreference;
 import androidx.preference.Preference;
 import androidx.preference.PreferenceFragmentCompat;
 
+import androidx.appcompat.widget.Toolbar;
+import androidx.appcompat.app.ActionBar;
+
 import no.nordicsemi.android.nrftoolbox.R;
 
 public class SettingsFragment extends PreferenceFragmentCompat {
 
+
     @Override
     public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
         setPreferencesFromResource(R.xml.preferences, rootKey);
-
 
         /**
          * Edit Text for Phone Number

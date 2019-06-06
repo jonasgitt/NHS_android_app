@@ -134,16 +134,21 @@ public class FeaturesActivity extends BleProfileServiceReadyActivity<TemplateSer
             switch (itemId) {
                 case R.id.dashboard_page:
                     fragment = new ProductGridFragment();
+                    getSupportActionBar().setTitle(getResources().getString(R.string.drawer_mainpage_title));
                     break;
                 case R.id.history_page:
+                    getSupportActionBar().setTitle(getResources().getString(R.string.drawer_history_title));
                     break;
                 case R.id.settings_page:
                     fragment = new SettingsFragment();
+                    getSupportActionBar().setTitle(getResources().getString(R.string.drawer_settings_title));
                     break;
                 case R.id.help_feedback_page:
+                    getSupportActionBar().setTitle(getResources().getString(R.string.drawer_help_title));
                     break;
                 case R.id.about_page:
                     fragment = new AboutFragment();
+                    getSupportActionBar().setTitle(getResources().getString(R.string.drawer_about_title));
                     break;
                 default: break;
         }

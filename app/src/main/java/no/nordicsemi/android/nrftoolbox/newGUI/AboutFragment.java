@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
 import mehdi.sakout.aboutpage.AboutPage;
@@ -31,6 +32,7 @@ public class AboutFragment extends Fragment {
                 .create();
 
         viewGroup.addView(aboutPage);
+
 
         return viewGroup;
     }
