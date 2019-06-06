@@ -33,11 +33,9 @@ public class ProductCardRecyclerViewAdapter extends RecyclerView.Adapter<Product
 
     private int mExpandedPosition = -1;
 
-    private List<sensorData> sensorList;
     private sensorData[] test_data;
 
-    ProductCardRecyclerViewAdapter(List<sensorData> sensorList, sensorData[] data) {
-        this.sensorList = sensorList;
+    ProductCardRecyclerViewAdapter(sensorData[] data) {
         this.test_data = data;
     }
 
@@ -152,7 +150,7 @@ public class ProductCardRecyclerViewAdapter extends RecyclerView.Adapter<Product
 
     @Override
     public int getItemCount() {
-        return sensorList.size();
+        return test_data.length;
     }
 
     private int counter = 0;

@@ -89,7 +89,7 @@ public class ProductGridFragment extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
         //set up adapter
-        mAdapter = new ProductCardRecyclerViewAdapter(sensorDataList, BLEdata);
+        mAdapter = new ProductCardRecyclerViewAdapter(BLEdata);
         recyclerView.setAdapter(mAdapter);
 
         mAdapter.notifyDataSetChanged();
