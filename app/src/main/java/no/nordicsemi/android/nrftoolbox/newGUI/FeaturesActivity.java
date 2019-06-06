@@ -100,12 +100,8 @@ public class FeaturesActivity extends BleProfileServiceReadyActivity<TemplateSer
             @Override
             public void onDrawerClosed(View DrawerView){
                 if (fragment != null) {
-                    getSupportFragmentManager().beginTransaction()
-                            .setCustomAnimations(R.anim.fade_in_fragment, R.anim.fade_out_fragment)
-                            .replace(R.id.fragment_container, fragment)
-                            .commit();
+                    navigateTo(fragment, false);
                 }
-
             }
         };
 
@@ -126,6 +122,31 @@ public class FeaturesActivity extends BleProfileServiceReadyActivity<TemplateSer
         configureToolbar();
     }
 
+    /**
+     * Navigate to the given fragment.
+     *
+     * @param fragment       Fragment to navigate to.
+     * @param addToBackstack Whether or not the current fragment should be added to the backstack.
+     */
+    @Override
+    public void navigateTo(Fragment fragment, boolean addToBackstack) {
+
+        int anim_in = slideUp ? R.anim.bottom_up_slide_fragment : R.anim.fade_in_fragment;
+
+        FragmentTransaction transaction =
+                getSupportFragmentManager()
+                        .beginTransaction()
+                        .setCustomAnimations(anim_in, R.anim.fade_out_fragment)
+                        .replace(R.id.fragment_container, fragment);
+
+        if (addToBackstack) {
+            transaction.addToBackStack(null);
+        }
+
+        transaction.commit();
+        slideUp=false;
+    }
+
     private void configureToolbar() {
         Toolbar toolbar = findViewById(R.id.app_bar);
         setSupportActionBar(toolbar);
@@ -142,6 +163,7 @@ public class FeaturesActivity extends BleProfileServiceReadyActivity<TemplateSer
      }
 
     Fragment fragment = null;
+    boolean slideUp = false;
     private void displaySelectedScreen(int itemId) {
 
             //initializing the fragment object which is selected
@@ -149,6 +171,7 @@ public class FeaturesActivity extends BleProfileServiceReadyActivity<TemplateSer
                 case R.id.dashboard_page:
                     fragment = new ProductGridFragment();
                     getSupportActionBar().setTitle(getResources().getString(R.string.drawer_mainpage_title));
+                    slideUp =true;
                     break;
                 case R.id.history_page:
                     getSupportActionBar().setTitle(getResources().getString(R.string.drawer_history_title));
@@ -249,25 +272,7 @@ public class FeaturesActivity extends BleProfileServiceReadyActivity<TemplateSer
 //	}
 
 
-	/**
-	 * Navigate to the given fragment.
-	 *
-	 * @param fragment       Fragment to navigate to.
-	 * @param addToBackstack Whether or not the current fragment should be added to the backstack.
-	 */
-	@Override
-	public void navigateTo(Fragment fragment, boolean addToBackstack) {
-		FragmentTransaction transaction =
-				getSupportFragmentManager()
-						.beginTransaction()
-						.replace(R.id.fragment_container, fragment);
 
-		if (addToBackstack) {
-			transaction.addToBackStack(null);
-		}
-
-		transaction.commit();
-	}
 
 
     /**
