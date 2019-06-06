@@ -37,6 +37,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.GridView;
 import android.widget.ImageView;
@@ -85,6 +87,9 @@ public class FeaturesActivity extends BleProfileServiceReadyActivity<TemplateSer
         final DrawerLayout drawer = mDrawerLayout = findViewById(R.id.drawer_layout);
         drawer.setDrawerShadow(R.drawable.drawer_shadow, GravityCompat.START);
 
+//        Animation t = AnimationUtils.loadAnimation(this, android.R.anim.fade_in);
+//        t.setDuration(android.R.integer.config_shortAnimTime);
+
         // Set the drawer toggle as the DrawerListener
         mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, R.string.drawer_open, R.string.drawer_close) {
             @Override
@@ -96,12 +101,14 @@ public class FeaturesActivity extends BleProfileServiceReadyActivity<TemplateSer
             public void onDrawerClosed(View DrawerView){
                 if (fragment != null) {
                     getSupportFragmentManager().beginTransaction()
-                            .setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out)
+                            .setCustomAnimations(R.anim.fade_in_fragment, R.anim.fade_out_fragment)
                             .replace(R.id.fragment_container, fragment)
                             .commit();
                 }
+
             }
         };
+
         drawer.addDrawerListener(mDrawerToggle);
 
 
@@ -135,11 +142,7 @@ public class FeaturesActivity extends BleProfileServiceReadyActivity<TemplateSer
      }
 
     Fragment fragment = null;
-    int clickedNavItem;
     private void displaySelectedScreen(int itemId) {
-
-            //creating fragment object
-//            Fragment fragment = null;
 
             //initializing the fragment object which is selected
             switch (itemId) {

@@ -208,4 +208,5 @@
 		<item name="android:textSize">@dimen/about_item_text_size</item>
 	</style>
 
+
 </resources>
