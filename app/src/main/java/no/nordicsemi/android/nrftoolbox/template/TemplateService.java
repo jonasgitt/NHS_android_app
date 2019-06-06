@@ -180,10 +180,8 @@ public class TemplateService extends BleProfileService implements TemplateManage
 		// ignore the rest
 		LocalBroadcastManager.getInstance(this).sendBroadcast(broadcast);
 
-		if (!mBound) {
-			// Here we may update the notification to display the current temperature.
-			// TODO modify the notification here
-		}
+		Log.w("P24", "Broadcasting Temperature: "+ mTemp);
+
 	}
 
 	@Override

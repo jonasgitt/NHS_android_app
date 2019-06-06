@@ -76,62 +76,60 @@ public class ProductCardRecyclerViewAdapter extends RecyclerView.Adapter<Product
     //The below code tells our RecyclerView's adapter what to do with each card, using a ViewHolder.
     @Override
     public void onBindViewHolder(@NonNull ProductCardViewHolder holder, int position) {
-        if (sensorList != null && position < sensorList.size()) {
 
-            sensorData data = sensorList.get(position);
-            holder.sensor_Name.setText(data.sensorName);
-            holder.sensorImage.setImageResource(data.imageId);
-            holder.sensor_units_view.setText(data.units);
-            //holder.sensor_Reading.setText(data.sensorReading);
+        if(test_data !=null && position < test_data.length){
+            sensorData reading = test_data[position];
+            holder.sensor_Name.setText(reading.sensorName);
+            holder.sensorImage.setImageResource(reading.imageId);
+            holder.sensor_units_view.setText(reading.units);
 
-            if(test_data !=null){
-                sensorData reading = test_data[position];
-                if (reading != null && reading.sensorReading != "-"){
-                    //reading.logObject();
-                    holder.sensor_Reading.setText(reading.sensorReading);
 
-                    holder.setIndicatorColor(reading.sensorName, reading.sensorReading);
+            if (!reading.sensorReading.equals("-")){
+                reading.logObject();
+                holder.sensor_Reading.setText(reading.sensorReading);
 
-                    if (position == 5) {
-                        counter++;
-                    }
+                holder.setIndicatorColor(reading.sensorName, reading.sensorReading);
 
-                    switch (position) {
-                        case 0:
-                            series0.appendData(makeDataPoint(reading.sensorReading), true, 40, true);
-                            holder.graph.removeAllSeries();
-                            holder.graph.addSeries(series0);
-                            holder.graph.setVisibility(View.VISIBLE);
-                            break;
-                        case 1:
-                            holder.graph.removeAllSeries();
-                            holder.graph.setVisibility(View.GONE);
-                            break;
-                        case 2:
-                            // series2 = dataSeriesList.get(2);
-                            series2.appendData(makeDataPoint(reading.sensorReading), true, 40, true);
-                            holder.graph.removeAllSeries();
-                            holder.graph.addSeries(series2);
-                            break;
-                        case 3:
-                            holder.graph.removeAllSeries();
-                            break;
-                        case 4:
-                            holder.graph.removeAllSeries();
-                            break;
-                        case 5:
-                            series5.appendData(makeDataPoint(reading.sensorReading), true, 40, true);
-                            holder.graph.removeAllSeries();
-                            holder.graph.addSeries(series5);
-                            break;
-                        default:
-                            break;
-                    }
-
-                    holder.graph.getViewport().scrollToEnd();
-                    Log.w("graph", "position: " + position + "  # of Series on Graph: " + holder.graph.getSeries().size() + "   newReading: " + reading.sensorName);
+                if (position == 5) {
+                    counter++;
                 }
+
+                switch (position) {
+                    case 0:
+                        series0.appendData(makeDataPoint(reading.sensorReading), true, 40, true);
+                        holder.graph.removeAllSeries();
+                        holder.graph.addSeries(series0);
+                        holder.graph.setVisibility(View.VISIBLE);
+                        break;
+                    case 1:
+                        holder.graph.removeAllSeries();
+                        holder.graph.setVisibility(View.GONE);
+                        break;
+                    case 2:
+                        // series2 = dataSeriesList.get(2);
+                        series2.appendData(makeDataPoint(reading.sensorReading), true, 40, true);
+                        holder.graph.removeAllSeries();
+                        holder.graph.addSeries(series2);
+                        break;
+                    case 3:
+                        holder.graph.removeAllSeries();
+                        break;
+                    case 4:
+                        holder.graph.removeAllSeries();
+                        break;
+                    case 5:
+                        series5.appendData(makeDataPoint(reading.sensorReading), true, 40, true);
+                        holder.graph.removeAllSeries();
+                        holder.graph.addSeries(series5);
+                        break;
+                    default:
+                        break;
+                }
+
+                holder.graph.getViewport().scrollToEnd();
+                Log.w("graph", "position: " + position + "  # of Series on Graph: " + holder.graph.getSeries().size() + "   newReading: " + reading.sensorName);
             }
+
         }
 
         final boolean isExpanded = position==mExpandedPosition;

@@ -29,12 +29,13 @@ import java.util.List;
 import no.nordicsemi.android.nrftoolbox.R;
 import no.nordicsemi.android.nrftoolbox.network.ProductEntry;
 
+import static no.nordicsemi.android.nrftoolbox.newGUI.sensorData.initSensorDataArray;
 import static no.nordicsemi.android.nrftoolbox.newGUI.sensorData.initSensorDataList;
 
 public class ProductGridFragment extends Fragment {
 
     public List<sensorData> sensorDataList = initSensorDataList();
-    private sensorData[] BLEdata = new sensorData[6]; //TODO make this device agnostic (by changing to arraylist?)
+    private sensorData[] BLEdata = initSensorDataArray(); //TODO make this device agnostic (by changing to arraylist?)
 
 
     private ProductCardRecyclerViewAdapter mAdapter;
@@ -57,12 +58,13 @@ public class ProductGridFragment extends Fragment {
             @Override
             public void onChanged(@Nullable final List<sensorData> newValue) {
                 sensorDataList = newValue;
-               // Log.w("jonas", "hast the value changed? ____________________________________: " + sensorDataList.get(1).sensorReading);
-                //with sensorData array
                 //TODO update using DiffUtil
+                Log.w("logObject","---------------in fragment----------------------");
                 for (int i  = 0;  i < newValue.size(); i++){
                     BLEdata[i] = newValue.get(i);
+                    newValue.get(i).logObject();
                 }
+                Log.w("logObject","---------------in adapter----------------------");
                 if (mAdapter != null)
                     mAdapter.notifyDataSetChanged();
             }

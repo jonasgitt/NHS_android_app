@@ -175,7 +175,7 @@ public class TemplateManager extends BatteryManager<TemplateManagerCallbacks>   
 
 
 			//JF Health Thermometer
-			setIndicationCallback(mHTCharacteristic)
+			setNotificationCallback(mHTCharacteristic)
 					.with(new TemperatureMeasurementDataCallback() {
 						@Override
 						public void onDataReceived(@NonNull final BluetoothDevice device, @NonNull final Data data) {
@@ -191,7 +191,7 @@ public class TemplateManager extends BatteryManager<TemplateManagerCallbacks>   
 							mCallbacks.onTemperatureMeasurementReceived(device, temperature, unit, calendar, type);
 						}
 					});
-			enableIndications(mHTCharacteristic).enqueue();
+			enableNotifications(mHTCharacteristic).enqueue();
 
 			//JF2 StepCount
 			setNotificationCallback(stepCountCharacteristic)
@@ -266,12 +266,14 @@ public class TemplateManager extends BatteryManager<TemplateManagerCallbacks>   
 			}
 
 			//JF
-			final BluetoothGattService HTservice = gatt.getService(HT_SERVICE_UUID);
-			if (HTservice != null) {
-				mHTCharacteristic = HTservice.getCharacteristic(HT_MEASUREMENT_CHARACTERISTIC_UUID);
+			final BluetoothGattService HTService = gatt.getService(HT_SERVICE_UUID);
+			if (HTService != null) {
+				mHTCharacteristic = HTService.getCharacteristic(HT_MEASUREMENT_CHARACTERISTIC_UUID);
 
 				if(mHTCharacteristic==null)
 					log(Log.ERROR, "mHTCharacteristic is null ");
+				else
+					log(Log.ERROR, "Temperature Characteristic is not null ");
 			}
 			else
 				log(Log.ERROR, "HTService is null ");

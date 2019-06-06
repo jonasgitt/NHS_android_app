@@ -407,6 +407,7 @@ public class FeaturesActivity extends BleProfileServiceReadyActivity<TemplateSer
         sensorDataList.get(batteryIDX).sensorReading = newReading;
     }
     private void onTemperatureReceived(String newReading) {
+        Log.w("P24", "Received Temperauture: " + newReading);
         sensorDataList.get(temperatureIDX).sensorReading = newReading;
     }
     private void onStepCountReceived(String newReading) {

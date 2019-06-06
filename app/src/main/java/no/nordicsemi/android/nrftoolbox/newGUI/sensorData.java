@@ -23,13 +23,16 @@ class sensorData {
     }
 
     public static sensorData[]  initSensorDataArray(){
-        sensorData[] BLEdata = new sensorData[3];
+        sensorData[] BLEdata = new sensorData[6];
         sensorData data0 = new sensorData("Heart Rate", "00");
         sensorData data1= new sensorData("Battery Level", "00");//TODO fix this
         sensorData data2 = new sensorData("Temperature", "00");
         BLEdata[0] = data0;
         BLEdata[1] = data1;
         BLEdata[2] = data2;
+        BLEdata[3] = new sensorData("Blood Oxygen", "00");
+        BLEdata[4] = new sensorData("Step Count", "00");
+        BLEdata[5] = new sensorData("Battery Level", "00");
 
         return BLEdata;
     }
@@ -88,6 +91,6 @@ class sensorData {
     }
 
     public void logObject(){
-        Log.w("jonas", "sensorName: " + sensorName + "     sensorReading: " + sensorReading + "     imageId: " + imageId);
+        Log.w("logObject", "sensorName: " + sensorName + "          sensorReading: " + sensorReading + "           imageId: " + imageId);
     }
 }
