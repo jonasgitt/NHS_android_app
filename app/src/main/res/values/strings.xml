@@ -109,12 +109,14 @@
     <string name="attachment_summary_off">Only download attachments when manually requested</string>
 
     <!--Navigation Drawer-->
-    <string name="drawer_mainpage_title">Dashboard</string>
+    <string name="drawer_mainpage_title">Live Dashboard</string>
     <string name="drawer_history_title">Historical Analysis</string>
     <string name="drawer_settings_title">Settings</string>
     <string name="drawer_help_title">Help &amp; Feedback</string>
     <string name="drawer_about_title">About</string>
 
 
-
+    <!--About Page-->
+    <string name="about_page_descriptionP24">Patient24 is dedicated to enabling patient independence and relieving an overburdened healthcare system.</string>
+    <string name="about_page_play_store">no.nordicsemi.android.nrftoolbox</string>
 </resources>

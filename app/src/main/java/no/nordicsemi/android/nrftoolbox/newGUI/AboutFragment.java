@@ -20,11 +20,14 @@ public class AboutFragment extends Fragment {
         // Inflate the layout for this fragment
         View aboutPage = new AboutPage(getActivity())
                 .isRTL(false)
+                .setImage(R.drawable.p24logo_transparent)
+                .setDescription(getActivity().getResources().getString(R.string.about_page_descriptionP24))
 //                .addItem(versionElement)
 //                .addItem(adsElement)
                 .addGroup("Connect with us")
                 .addEmail("jf1116@imperial.ac.uk")
                 .addGitHub("ledangaravi/remote-patient-monitoring")
+                .addPlayStore(getActivity().getResources().getString(R.string.about_page_play_store))
                 .create();
 
         viewGroup.addView(aboutPage);
