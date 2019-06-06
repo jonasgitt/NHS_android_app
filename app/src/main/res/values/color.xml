@@ -73,10 +73,10 @@
     <!--SHRINE STUFF-->
     <color name="colorPrimary">#80D8FF</color>
     <color name="colorPrimaryDark">#00B0FF</color>
-    <color name="colorAccent">#29B6F6</color>
+    <color name="colorAccent">#ffa680</color>
     <color name="textColorPrimary">#000000</color>
     <color name="toolbarIconColor">@color/textColorPrimary</color>
-    <color name="loginPageBackgroundColor">#FFFFFF</color>
+    <color name="whiteColor">#FFFFFF</color>
     <color name="productGridBackgroundColor">#E1F5FE</color>
 
 

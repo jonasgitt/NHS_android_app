@@ -69,8 +69,8 @@
     <string name="shr_filter_title">Filter</string>
     <string name="shr_search_title">Search</string>
 
-    <string name="no_name_available">Sensor</string>
-    <string name="no_value_available">-</string>
+    <string name="no_name_available">Temperature</string>
+    <string name="no_value_available">200</string>
     <string name="no_units_available">N/A</string>
 
 
