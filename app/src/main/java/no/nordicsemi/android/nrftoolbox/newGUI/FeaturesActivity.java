@@ -92,6 +92,15 @@ public class FeaturesActivity extends BleProfileServiceReadyActivity<TemplateSer
                 // Disable the Hamburger icon animation
                 super.onDrawerSlide(drawerView, 0);
             }
+            @Override
+            public void onDrawerClosed(View DrawerView){
+                if (fragment != null) {
+                    getSupportFragmentManager().beginTransaction()
+                            .setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out)
+                            .replace(R.id.fragment_container, fragment)
+                            .commit();
+                }
+            }
         };
         drawer.addDrawerListener(mDrawerToggle);
 
@@ -120,15 +129,17 @@ public class FeaturesActivity extends BleProfileServiceReadyActivity<TemplateSer
 
 
     @Override
-    public boolean onNavigationItemSelected(MenuItem item) {
-            displaySelectedScreen(item.getItemId());
-            return true;
-    }
+     public boolean onNavigationItemSelected(MenuItem item) {
+         displaySelectedScreen(item.getItemId());
+         return true;
+     }
 
+    Fragment fragment = null;
+    int clickedNavItem;
     private void displaySelectedScreen(int itemId) {
 
             //creating fragment object
-            Fragment fragment = null;
+//            Fragment fragment = null;
 
             //initializing the fragment object which is selected
             switch (itemId) {
@@ -152,15 +163,26 @@ public class FeaturesActivity extends BleProfileServiceReadyActivity<TemplateSer
                     break;
                 default: break;
         }
-
-        //replacing the fragment
-        if (fragment != null) {
-            navigateTo(fragment,false);
-        }
-
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
     }
+
+//    public void onDrawerClosed(View drawerView) {
+//        /**
+//         * Change fragment for all items excluding nav_five
+//         * as it opens up an Activity
+//         */
+//
+//        if (fragment != null) {
+//            getSupportFragmentManager().beginTransaction()
+//                    .setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out)
+//                    .replace(R.id.fragment_container, fragment)
+//                    .commit();
+//        }
+//
+//    }
+
+
 
 
     /** Mandatory implementations
