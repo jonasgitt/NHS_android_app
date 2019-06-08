@@ -60,7 +60,7 @@
         <item name="android:textAllCaps">false</item>
         <item name="android:textSize">75sp</item>
         <item name="android:letterSpacing">-0.00833333333</item>
-        <item name="android:textColor">@color/cardTextColor</item>
+        <item name="android:textColor">@color/sensorValueColor</item>
     </style>
 
     <style name="TextAppearance.MyTheme.Headline4" parent="TextAppearance.MaterialComponents.Headline4">

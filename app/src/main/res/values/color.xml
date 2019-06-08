@@ -89,7 +89,11 @@
 
     <color name="cardBackgroundColor">@color/whiteColor</color>
     <color name="cardTextColor">@color/colorPrimary</color>
-    <color name="cardBorderColor">@color/imperialOrange</color>
+    <!--<color name="sensorNameColor">@color/imperialOrange</color>-->
+    <color name="sensorIconColor">@color/colorPrimary</color>
+    <color name="sensorValueColor">@color/colorPrimary</color>
+
+    <color name="cardBorderColor">@color/colorPrimary</color>
 
     <color name="colorExpandedCardSeparator">#9D9D9D</color>
     <color name="graphColor">@color/imperialOrange</color>
