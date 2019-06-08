@@ -48,12 +48,13 @@ public class ProductCardRecyclerViewAdapter extends RecyclerView.Adapter<Product
 
         holder.graph.getGridLabelRenderer().setHorizontalLabelsVisible(false);
         holder.graph.getGridLabelRenderer().setGridStyle(GridLabelRenderer.GridStyle.HORIZONTAL);
+        holder.graph.getGridLabelRenderer().setPadding(40);
 
         holder.graph.getViewport().setXAxisBoundsManual(true);
         holder.graph.getViewport().setMinX(0);
         holder.graph.getViewport().setMaxX(20);
 
-
+        series0.setColor(ContextCompat.getColor(parent.getContext(),R.color.graphColor));
         series0.setThickness(15);
         series2.setThickness(15);
         series5.setThickness(15);

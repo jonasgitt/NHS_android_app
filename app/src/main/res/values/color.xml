@@ -75,7 +75,11 @@
     <!--SHRINE STUFF-->
     <color name="colorPrimary">#003E74</color>
     <color name="colorPrimaryDark">#003E74</color>
-    <color name="colorAccent">#D24000</color>
+    <color name="colorAccent">@color/imperialOrange</color>
+
+    <color name="imperialOrange">#D24000</color>
+    <color name="imperialGreen">#02893B</color>
+
     <color name="textColorPrimary">#003E74</color>
     <color name="toolbarIconColor">@color/textColorPrimary</color>
     <color name="whiteColor">#FFFFFF</color>
@@ -87,7 +91,9 @@
     <color name="cardTextColor">@color/colorPrimary</color>
     <color name="cardBorderColor">@color/colorPrimary</color>
 
-    <color name="colorExpandedCardSeparator">@color/colorPrimaryDark</color>
+    <color name="colorExpandedCardSeparator">#9D9D9D</color>
+    <color name="graphColor">@color/imperialOrange</color>
+
     <color name="status_healthy_color">#39ff14</color>
     <color name="status_unhealthy_color">#dc143c</color>
     dc143c
