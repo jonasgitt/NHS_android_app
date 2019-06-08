@@ -24,10 +24,12 @@
     <color name="featureColor">@color/nordicBlue</color>
     <color name="featurePressedColor">@color/nordicBlueDark</color>
     <color name="featureTitleColor">#939597</color>
-    <color name="actionBarColor">@color/nordicBlue</color>
-    <color name="actionBarColorDark">@color/nordicBlueDark</color>
+    <color name="actionBarColor">@color/toolbarTextColor</color>
+
+    <color name="actionBarColorDark">@color/colorPrimary</color>
+
     <color name="nordicBackground">@color/lightGray</color>
-    <color name="backgroundColor">@color/nordicLightGray</color>
+    <color name="backgroundColor">@color/colorPrimary</color>
     <color name="orange">@color/nordicFall</color>
     <color name="dark_orange">#FFC96B1A</color>
     <color name="light_orange">#EFB5A0</color>
@@ -71,14 +73,19 @@
 
 
     <!--SHRINE STUFF-->
-    <color name="colorPrimary">#80D8FF</color>
-    <color name="colorPrimaryDark">#00B0FF</color>
-    <color name="colorAccent">#ffa680</color>
-    <color name="textColorPrimary">#000000</color>
+    <color name="colorPrimary">#003E74</color>
+    <color name="colorPrimaryDark">#003E74</color>
+    <color name="colorAccent">#D24000</color>
+    <color name="textColorPrimary">#003E74</color>
     <color name="toolbarIconColor">@color/textColorPrimary</color>
     <color name="whiteColor">#FFFFFF</color>
-    <color name="productGridBackgroundColor">#E1F5FE</color>
+    <color name="productGridBackgroundColor">@color/whiteColor</color>
 
+    <color name="toolbarTextColor">@color/whiteColor</color>
+
+    <color name="cardBackgroundColor">@color/whiteColor</color>
+    <color name="cardTextColor">@color/colorPrimary</color>
+    <color name="cardBorderColor">@color/colorPrimary</color>
 
     <color name="colorExpandedCardSeparator">@color/colorPrimaryDark</color>
     <color name="status_healthy_color">#39ff14</color>

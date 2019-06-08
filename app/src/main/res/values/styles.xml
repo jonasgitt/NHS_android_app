@@ -35,6 +35,7 @@
 	<style name="ActionBarThemeOverlay" parent="@style/ThemeOverlay.MaterialComponents.ActionBar">
 		<item name="android:textColorPrimary">#FFF</item>
 		<item name="android:textColorSecondary">#8fff</item>
+		<item name="android:textColor">@color/toolbarTextColor</item>
 		<item name="colorControlNormal">#fff</item>
 		<item name="colorControlHighlight">#3fff</item>
 	</style>
@@ -46,12 +47,12 @@
 
 	<!-- Style used by the Toolbar -->
 	<style name="ActionBar.TitleText" parent="TextAppearance.MaterialComponents.Caption">
-		<item name="android:textColor">#fff</item>
+		<item name="android:textColor">@color/toolbarTextColor</item>
 		<item name="android:textSize">18sp</item>
 	</style>
 
 	<style name="ActionBar.SpinnerTitle" parent="@style/Widget.AppCompat.TextView.SpinnerItem">
-		<item name="android:textColor">#fff</item>
+		<item name="android:textColor">@color/toolbarTextColor</item>
 	</style>
 
 	<style name="DrawerItem">
@@ -165,8 +166,10 @@
 
 	<style name="Widget.Shrine.Toolbar" parent="Widget.AppCompat.Toolbar">
 		<item name="android:background">?attr/colorAccent</item>
+		<item name="android:textColor">@color/toolbarTextColor</item>
+		<item name="android:textColorPrimary">@color/toolbarTextColor</item>
 		<item name="android:theme">?theme</item>
-		<item name="popupTheme">@style/ThemeOverlay.AppCompat.Light</item>
+		<!--<item name="popupTheme">@style/ThemeOverlay.AppCompat.Light</item>-->
 	</style>
 
 	<style name="Widget.Shrine.Button" parent="Widget.MaterialComponents.Button">
@@ -207,6 +210,5 @@
 		<item name="android:textColor">@color/textColorPrimary</item>
 		<item name="android:textSize">@dimen/about_item_text_size</item>
 	</style>
-
 
 </resources>
