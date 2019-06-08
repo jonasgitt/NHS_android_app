@@ -89,10 +89,10 @@
 
     <color name="cardBackgroundColor">@color/whiteColor</color>
     <color name="cardTextColor">@color/colorPrimary</color>
-    <color name="cardBorderColor">@color/colorPrimary</color>
+    <color name="cardBorderColor">@color/imperialOrange</color>
 
     <color name="colorExpandedCardSeparator">#9D9D9D</color>
-    <color name="graphColor">@color/imperialGreen</color>
+    <color name="graphColor">@color/imperialOrange</color>
 
     <color name="status_healthy_color">#39ff14</color>
     <color name="status_unhealthy_color">#dc143c</color>
