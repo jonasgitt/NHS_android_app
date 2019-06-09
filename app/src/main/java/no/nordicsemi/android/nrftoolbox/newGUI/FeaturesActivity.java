@@ -65,7 +65,7 @@ import no.nordicsemi.android.nrftoolbox.template.TemplateService;
 
 import static no.nordicsemi.android.nrftoolbox.newGUI.sensorData.initSensorDataList;
 
-public class FeaturesActivity extends BleProfileServiceReadyActivity<TemplateService.LocalBinder> implements NavigationHost, NavigationView.OnNavigationItemSelectedListener  {
+public class FeaturesActivity extends BleProfileServiceReadyActivity<TemplateService.LocalBinder> implements NavigationHost, NavigationView.OnNavigationItemSelectedListener, patientViewFragment.OnFragmentInteractionListener  {
 
 	// Extras that can be passed from NFC (see SplashscreenActivity)
 	public static final String EXTRA_APP = "application/vnd.no.nordicsemi.type.app";
@@ -174,6 +174,10 @@ public class FeaturesActivity extends BleProfileServiceReadyActivity<TemplateSer
                     getSupportActionBar().setTitle(getResources().getString(R.string.drawer_mainpage_title));
                     slideUp =true;
                     break;
+                case R.id.patientView_page:
+                    fragment = new patientViewFragment();
+                    getSupportActionBar().setTitle(getResources().getString(R.string.drawer_patientview_title));
+                    break;
                 case R.id.history_page:
                     getSupportActionBar().setTitle(getResources().getString(R.string.drawer_history_title));
                     break;
@@ -193,23 +197,6 @@ public class FeaturesActivity extends BleProfileServiceReadyActivity<TemplateSer
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
     }
-
-//    public void onDrawerClosed(View drawerView) {
-//        /**
-//         * Change fragment for all items excluding nav_five
-//         * as it opens up an Activity
-//         */
-//
-//        if (fragment != null) {
-//            getSupportFragmentManager().beginTransaction()
-//                    .setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out)
-//                    .replace(R.id.fragment_container, fragment)
-//                    .commit();
-//        }
-//
-//    }
-
-
 
 
     /** Mandatory implementations
@@ -251,19 +238,6 @@ public class FeaturesActivity extends BleProfileServiceReadyActivity<TemplateSer
 		}
 		return true;
 	}
-
-// used to be called in onCreate which i had to remove. similar feature already exists in BleProfileServiceReadyActivity
-//	private boolean ensureBLEExists() {
-//		if (!getPackageManager().hasSystemFeature(PackageManager.FEATURE_BLUETOOTH_LE)) {
-//			Toast.makeText(this, R.string.no_ble, Toast.LENGTH_LONG).show();
-//			return false;
-//		}
-//		return true;
-//	}
-
-
-
-
 
     /**
      * Service - Activity - Fragment Communication
@@ -409,4 +383,10 @@ public class FeaturesActivity extends BleProfileServiceReadyActivity<TemplateSer
         sensorDataList.get(bloodOxIDX).sensorReading = newReading;
     }
 
+
+    /**patientViewFragment Implementation*/
+    @Override
+    public void onFragmentInteraction(Uri uri){
+        //you can leave it empty
+    }
 }

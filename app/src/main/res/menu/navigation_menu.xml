@@ -4,6 +4,9 @@
     <item android:id="@+id/dashboard_page"
         android:icon="@drawable/icon_dashboard"
         android:title="@string/drawer_mainpage_title"/>
+    <item android:id="@+id/patientView_page"
+        android:icon="@drawable/icon_dashboard"
+        android:title="@string/drawer_patientview_title"/>
     <item android:id="@+id/history_page"
         android:icon="@drawable/icon_history"
         android:title="@string/drawer_history_title"/>

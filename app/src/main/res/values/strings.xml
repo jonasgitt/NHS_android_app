@@ -110,6 +110,7 @@
 
     <!--Navigation Drawer-->
     <string name="drawer_mainpage_title">Live Dashboard</string>
+    <string name="drawer_patientview_title">Quiet Mode</string>
     <string name="drawer_history_title">Historical Analysis</string>
     <string name="drawer_settings_title">Settings</string>
     <string name="drawer_help_title">Help &amp; Feedback</string>
@@ -119,4 +120,7 @@
     <!--About Page-->
     <string name="about_page_descriptionP24">Patient24 is dedicated to enabling patient independence and relieving an overburdened healthcare system.</string>
     <string name="about_page_play_store">no.nordicsemi.android.nrftoolbox</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
