@@ -32,8 +32,15 @@ import no.nordicsemi.android.nrftoolbox.R;
 public class ProductCardRecyclerViewAdapter extends RecyclerView.Adapter<ProductCardViewHolder> {
 
     private int mExpandedPosition = -1;
+    private int counter = 0;
 
     private sensorData[] test_data;
+    LineGraphSeries<DataPoint> series0 = new LineGraphSeries<>();
+    LineGraphSeries<DataPoint> series1 = new LineGraphSeries<>();
+    LineGraphSeries<DataPoint> series2 = new LineGraphSeries<>();
+    LineGraphSeries<DataPoint> series3 = new LineGraphSeries<>();
+    LineGraphSeries<DataPoint> series4 = new LineGraphSeries<>();
+    LineGraphSeries<DataPoint> series5 = new LineGraphSeries<>();
 
     ProductCardRecyclerViewAdapter(sensorData[] data) {
         this.test_data = data;
@@ -52,9 +59,13 @@ public class ProductCardRecyclerViewAdapter extends RecyclerView.Adapter<Product
 
         holder.graph.getViewport().setXAxisBoundsManual(true);
         holder.graph.getViewport().setMinX(0);
-        holder.graph.getViewport().setMaxX(20);
+        holder.graph.getViewport().setMaxX(40);
 
         int lineColor = ContextCompat.getColor(parent.getContext(),R.color.graphColor);
+
+        if (counter ==0)
+            initializeSensorData();
+
         series0.setColor(lineColor);
         series2.setColor(lineColor);
         series5.setColor(lineColor);
@@ -62,22 +73,19 @@ public class ProductCardRecyclerViewAdapter extends RecyclerView.Adapter<Product
         series2.setThickness(12);
         series5.setThickness(12);
 
+        holder.graph.addSeries(series0);
 
         return holder;
     }
 
 
-    LineGraphSeries<DataPoint> series0 = new LineGraphSeries<>();
-    LineGraphSeries<DataPoint> series1 = new LineGraphSeries<>();
-    LineGraphSeries<DataPoint> series2 = new LineGraphSeries<>();
-    LineGraphSeries<DataPoint> series3 = new LineGraphSeries<>();
-    LineGraphSeries<DataPoint> series4 = new LineGraphSeries<>();
-    LineGraphSeries<DataPoint> series5 = new LineGraphSeries<>();
+
 
 
     //The below code tells our RecyclerView's adapter what to do with each card, using a ViewHolder.
     @Override
     public void onBindViewHolder(@NonNull ProductCardViewHolder holder, int position) {
+
 
         if(test_data !=null && position < test_data.length){
             sensorData reading = test_data[position];
@@ -157,11 +165,40 @@ public class ProductCardRecyclerViewAdapter extends RecyclerView.Adapter<Product
         return test_data.length;
     }
 
-    private int counter = 0;
 
     private DataPoint makeDataPoint(String newReading) {
         Date curDate = new Date();
         Double val = Double.parseDouble(newReading);
+        DataPoint newDataPoint = new DataPoint(counter, val);
+        return newDataPoint;
+    }
+
+    Random rand = new Random();
+    double start = 50;
+    private void initializeSensorData(){
+        for (int i = 0; i < 10;i++){
+            start = start +  0.8*rand.nextInt(10);
+            Log.w("init","start: " + start);
+            series0.appendData(intDataPoint(start),true, 40, false);
+        }
+        for (int i = 0; i < 10;i++){
+            start = start - 0.5*rand.nextInt(10);
+            series0.appendData(intDataPoint(start),true, 40, false);
+        }
+        for (int i = 0; i < 10;i++){
+            start = start + 1*rand.nextInt(10);
+            series0.appendData(intDataPoint(start),true, 40, false);
+        }
+        for (int i = 0; i < 10;i++){
+            start = start -  0.4*rand.nextInt(10);
+            series0.appendData(intDataPoint(start),true, 40, false);
+        }
+
+    }
+
+    private DataPoint intDataPoint(double newReading) {
+        Double val = (double) newReading;
+        counter++;
         DataPoint newDataPoint = new DataPoint(counter, val);
         return newDataPoint;
     }

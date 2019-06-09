@@ -24,14 +24,12 @@ class sensorData {
 
     public static sensorData[]  initSensorDataArray(){
         sensorData[] BLEdata = new sensorData[6];
-        sensorData data0 = new sensorData("Heart Rate", "00");
-        sensorData data1= new sensorData("Blood Pressure", "00");//TODO fix this
-        sensorData data2 = new sensorData("Skin \nTemp", "00");
-        BLEdata[0] = data0;
-        BLEdata[1] = data1;
-        BLEdata[2] = data2;
-        BLEdata[3] = new sensorData("Blood Oxygen", "00");
-        BLEdata[4] = new sensorData("Step Count", "00");
+
+        BLEdata[0] = new sensorData("Heart Rate", "96");
+        BLEdata[1] = new sensorData("Skin \nTemp", "35");
+        BLEdata[2] = new sensorData("Blood Oxygen", "98");
+        BLEdata[3] = new sensorData("Step Count", "33");
+        BLEdata[4] = new sensorData("Blood Pressure", "00");
         BLEdata[5] = new sensorData("Battery Level", "00");
 
         return BLEdata;
@@ -47,8 +45,10 @@ class sensorData {
         sensorData data6 = new sensorData("Battery Level", "00");
 
         sensorDataList.add(data1);
-        sensorDataList.add(data2);
+
         sensorDataList.add(data3);
+        sensorDataList.add(data2);
+
         sensorDataList.add(data4);
         sensorDataList.add(data5);
         sensorDataList.add(data6);

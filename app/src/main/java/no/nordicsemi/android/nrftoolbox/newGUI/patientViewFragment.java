@@ -90,8 +90,6 @@ public class patientViewFragment extends Fragment {
         CustomAnalogClock customAnalogClock = view.findViewById(R.id.analog_clock);
         customAnalogClock.setAutoUpdate(true);
 
-        view.setSystemUiVisibility(View.SYSTEM_UI_FLAG_HIDE_NAVIGATION | View.SYSTEM_UI_FLAG_FULLSCREEN);
-
 
         LinearLayout rlayout = (LinearLayout) view.findViewById(R.id.patientViewID);
         rlayout.setOnClickListener(new View.OnClickListener() {

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">patient24</string>
+    <string name="app_name">Patient24</string>
     <string name="font_path">fonts/trebucbd.ttf</string>
     <string name="normal_font_path">fonts/trebuc.ttf</string>
 

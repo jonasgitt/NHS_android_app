@@ -61,10 +61,10 @@ public class ProductCardViewHolder extends RecyclerView.ViewHolder {
                         status_indicator.setTextColor(ContextCompat.getColor(context, R.color.status_healthy_color));
                     break;
                 case "Temperature":
-                    if (value > 36 || value < 20)
+                    if (value > 34 || value < 20)
                         status_indicator.setTextColor(ContextCompat.getColor(context, R.color.status_unhealthy_color));
                     else
-                        status_indicator.setTextColor(ContextCompat.getColor(context, R.color.status_healthy_color));
+                        status_indicator.setTextColor(ContextCompat.getColor(context, R.color.status_unhealthy_color));
                     break;
                 case "Blood Oxygen":
                     if (value > 100 || value < 80)

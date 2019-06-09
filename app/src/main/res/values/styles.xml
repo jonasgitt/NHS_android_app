@@ -133,6 +133,7 @@
 	<style name="AppTheme" parent="@style/AppThemeBase">
 		<item name="android:selectableItemBackground">@drawable/abc_item_background_holo_light</item>
 		<item name="drawerArrowStyle">@style/DrawerIcon</item>
+		<item name="colorPrimaryDark">@color/colorPrimaryDark</item>
 	</style>
 
 
