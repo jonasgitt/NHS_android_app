@@ -345,10 +345,6 @@ public abstract class BleMulticonnectProfileServiceReadyActivity<E extends BleMu
 			case android.R.id.home:
 				onBackPressed();
 				break;
-			case R.id.action_about:
-				final AppHelpFragment fragment = AppHelpFragment.getInstance(getAboutTextId());
-				fragment.show(getSupportFragmentManager(), "help_fragment");
-				break;
 			default:
 				return onOptionsItemSelected(id);
 		}

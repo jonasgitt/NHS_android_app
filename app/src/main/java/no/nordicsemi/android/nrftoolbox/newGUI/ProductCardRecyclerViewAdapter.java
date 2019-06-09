@@ -42,7 +42,7 @@ public class ProductCardRecyclerViewAdapter extends RecyclerView.Adapter<Product
     @NonNull
     @Override
     public ProductCardViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View layoutView = LayoutInflater.from(parent.getContext()).inflate(R.layout.sensorcard_for_grid, parent, false);
+        View layoutView = LayoutInflater.from(parent.getContext()).inflate(R.layout.shr_product_card, parent, false);
 
         ProductCardViewHolder holder = new ProductCardViewHolder(layoutView);
 
@@ -54,10 +54,13 @@ public class ProductCardRecyclerViewAdapter extends RecyclerView.Adapter<Product
         holder.graph.getViewport().setMinX(0);
         holder.graph.getViewport().setMaxX(20);
 
-        series0.setColor(ContextCompat.getColor(parent.getContext(),R.color.graphColor));
-        series0.setThickness(15);
-        series2.setThickness(15);
-        series5.setThickness(15);
+        int lineColor = ContextCompat.getColor(parent.getContext(),R.color.graphColor);
+        series0.setColor(lineColor);
+        series2.setColor(lineColor);
+        series5.setColor(lineColor);
+        series0.setThickness(12);
+        series2.setThickness(12);
+        series5.setThickness(12);
 
 
         return holder;

@@ -104,6 +104,7 @@ public class FeaturesActivity extends BleProfileServiceReadyActivity<TemplateSer
                 }
             }
         };
+        mDrawerToggle.getDrawerArrowDrawable().setColor(getResources().getColor(R.color.white));
 
         drawer.addDrawerListener(mDrawerToggle);
 
@@ -222,11 +223,6 @@ public class FeaturesActivity extends BleProfileServiceReadyActivity<TemplateSer
         return R.string.template_about_text;
     }
 
-//	@Override
-//	public boolean onCreateOptionsMenu(final Menu menu) {
-//		getMenuInflater().inflate(R.menu.help, menu);
-//		return true;
-//	}
 
 	@Override
 	protected void onPostCreate(final Bundle savedInstanceState) {
@@ -250,12 +246,6 @@ public class FeaturesActivity extends BleProfileServiceReadyActivity<TemplateSer
 		}
 
 		switch (item.getItemId()) {
-			case R.id.action_about:
-
-
-				final AppHelpFragment fragment = AppHelpFragment.getInstance(R.string.about_text, true);
-				fragment.show(getSupportFragmentManager(), null);
-				break;
             case R.id.bluetooth_connect:
                 onConnectClicked();
 		}

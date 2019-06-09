@@ -409,10 +409,6 @@ public class DfuActivity extends AppCompatActivity implements LoaderCallbacks<Cu
 			case android.R.id.home:
 				onBackPressed();
 				break;
-			case R.id.action_about:
-				final AppHelpFragment fragment = AppHelpFragment.getInstance(R.string.dfu_about_text);
-				fragment.show(getSupportFragmentManager(), "help_fragment");
-				break;
 			case R.id.action_settings:
 				final Intent intent = new Intent(this, SettingsActivity.class);
 				startActivity(intent);
