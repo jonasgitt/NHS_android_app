@@ -7,7 +7,7 @@
     android:background="@color/colorPrimaryDark"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".newGUI.patientViewFragment"
-    android:weightSum="3"
+    android:weightSum="7"
     android:id="@+id/patientViewID"
     >
 
@@ -15,30 +15,40 @@
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"
-        android:background="@drawable/p24logo_transparent" />
+        android:layout_weight="2"
+        android:src="@drawable/p24logo_transparent"
+        android:scaleType="centerInside"/>
 
     <com.tomerrosenfeld.customanalogclockview.CustomAnalogClock
         android:id="@+id/analog_clock"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_gravity="center_horizontal"
-        android:layout_weight="1"
+        android:layout_weight="4"
         app:default_watchface="true" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
+        android:orientation="vertical"
+        android:layout_marginBottom="20dp"
         >
 
         <com.google.android.material.button.MaterialButton
             style="@style/Widget.AppCompat.Button.Colored"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:gravity="right"
-            android:text="SOS" />
+            android:layout_gravity="bottom|center_horizontal"
+            android:layout_marginTop="25dp"
+            android:gravity="center"
+            android:text="SOS"
+            android:textAppearance="@style/TextAppearance.AppCompat.Button"
+            android:textColor="@color/whiteColor"
+            android:textSize="25sp"
+            android:backgroundTint="@color/imperialOrange"
+            />
+
 
     </LinearLayout>
 

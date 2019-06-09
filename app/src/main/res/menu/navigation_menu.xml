@@ -5,7 +5,7 @@
         android:icon="@drawable/icon_dashboard"
         android:title="@string/drawer_mainpage_title"/>
     <item android:id="@+id/patientView_page"
-        android:icon="@drawable/icon_dashboard"
+        android:icon="@drawable/icon_yoga"
         android:title="@string/drawer_patientview_title"/>
     <item android:id="@+id/history_page"
         android:icon="@drawable/icon_history"
